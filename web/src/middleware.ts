@@ -14,11 +14,6 @@ import {
 import { updateSupabaseSession } from "./lib/supabase/middleware";
 
 export async function middleware(request: NextRequest) {
-  // デバッグ用に一時的に環境変数確認APIだけ middleware を完全に素通しする
-  if (request.nextUrl.pathname.startsWith("/api/debug-env")) {
-    return NextResponse.next();
-  }
-
   // /dev routes: 本番では404、開発ではauthスキップ
   if (request.nextUrl.pathname.startsWith("/dev")) {
     if (process.env.NODE_ENV !== "development") {
