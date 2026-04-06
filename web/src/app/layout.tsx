@@ -18,10 +18,10 @@ const lexendGiga = Lexend_Giga({
 });
 
 const isDev = process.env.NODE_ENV === "development";
-const siteTitle = "みらい議会｜チームみらい";
+const siteTitle = "みらい議会｜石垣市議会版";
 const siteDescription =
-  "国会で今どんな法案が検討されているか、わかりやすく伝えるプラットフォーム";
-const siteName = "みらい議会";
+  "石垣市議会で今どんな議案が検討されているか、わかりやすく伝えるプラットフォーム";
+const siteName = "みらい議会｜石垣市議会版";
 const ogImage = {
   url: "/ogp.jpg",
   width: 1200,

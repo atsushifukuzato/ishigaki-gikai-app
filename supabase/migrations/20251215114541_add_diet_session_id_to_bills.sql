@@ -6,5 +6,5 @@ ADD COLUMN diet_session_id uuid REFERENCES diet_sessions(id) ON DELETE SET NULL;
 CREATE INDEX idx_bills_diet_session_id ON bills(diet_session_id);
 
 -- Add comment for documentation
-COMMENT ON COLUMN bills.diet_session_id IS '紐付けられた国会会期ID';
+COMMENT ON COLUMN bills.diet_session_id IS '紐付けられた議会会期ID';
 

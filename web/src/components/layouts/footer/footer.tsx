@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import type { Route } from "next";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -30,14 +29,12 @@ export function Footer() {
 function FooterLogoSection() {
   return (
     <div className="flex flex-col items-center text-center mb-9">
-      <Link href={routes.home()} aria-label="みらい議会 トップページ">
-        <Image
-          src="/img/logo.svg"
-          alt="みらい議会"
-          width={150}
-          height={128}
-          className="h-auto"
-        />
+      <Link
+        href={routes.home()}
+        aria-label="みらい議会 トップページ"
+        className="text-xl font-bold"
+      >
+        みらい議会 石垣市議会版
       </Link>
     </div>
   );
@@ -94,7 +91,7 @@ function FooterPolicies() {
 function FooterCopyright() {
   return (
     <div className="text-center text-sm font-medium text-slate-800">
-      © 2025 Team Mirai All rights Reserved
+      © 2025 AFTTT All rights Reserved
     </div>
   );
 }

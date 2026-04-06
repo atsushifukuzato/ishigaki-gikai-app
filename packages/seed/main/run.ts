@@ -369,7 +369,7 @@ async function seedDatabase() {
       console.log("⚠️ Skipped interview config (no bills found)");
     }
 
-    // === 船荷証券法案のインタビューデータ（トピック解析テスト用）===
+    // === 船荷証券議案のインタビューデータ（トピック解析テスト用）===
     console.log("🚢 Inserting shipping bill interview data...");
     const shippingConfig = createShippingBillInterviewConfig(insertedBills);
     let shippingSessionsCount = 0;

@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { DifficultySelector } from "@/features/bill-difficulty/client/components/difficulty-selector";
@@ -27,16 +26,10 @@ export function HeaderClient({ difficultyLevel }: HeaderClientProps) {
           <div className="flex items-center">
             <Link
               href={routes.home()}
-              className="flex items-center space-x-2"
+              className="flex items-center"
               aria-label="ホーム"
             >
-              <Image
-                src="/img/logo.svg"
-                alt="みらい議会"
-                width={42}
-                height={36}
-              />
-              <div className="text-xl font-bold">みらい議会</div>
+              <div className="text-xl font-bold">みらい議会 石垣市議会版</div>
             </Link>
           </div>
 
@@ -45,6 +38,12 @@ export function HeaderClient({ difficultyLevel }: HeaderClientProps) {
             className="flex items-center space-x-2"
             aria-label="補助ナビゲーション"
           >
+            <Link
+              href={routes.members()}
+              className="hidden text-sm font-bold text-slate-700 transition-colors hover:text-black md:inline-flex"
+            >
+              議員名簿
+            </Link>
             {showDifficultySelector && (
               <DifficultySelector currentLevel={difficultyLevel} />
             )}

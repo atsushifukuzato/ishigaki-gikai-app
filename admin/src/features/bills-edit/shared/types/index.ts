@@ -23,6 +23,7 @@ const billBaseSchema = z.object({
     "enacted",
     "rejected",
   ]),
+  document_type: z.enum(["bill", "speech", "report", "consent", "approval"]),
   originating_house: z.enum(["HR", "HC"]),
   status_note: z
     .string()

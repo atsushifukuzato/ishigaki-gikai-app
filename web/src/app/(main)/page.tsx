@@ -1,4 +1,5 @@
 import { Container } from "@/components/layouts/container";
+import { AFTTT } from "@/components/top/afttt";
 import { About } from "@/components/top/about";
 import { ComingSoonSection } from "@/components/top/coming-soon-section";
 import { Hero } from "@/components/top/hero";
@@ -38,14 +39,14 @@ export default async function Home() {
     <>
       <Hero />
 
-      {/* 本日の国会セクション */}
+      {/* 本日の議会セクション */}
       <CurrentDietSession session={currentSession} />
 
       {/* 議案一覧セクション */}
       <Container className="">
         <div className="py-10">
           <main className="flex flex-col gap-16">
-            {/* 注目の法案セクション */}
+            {/* 注目の議案セクション */}
             <FeaturedBillSection bills={featuredBills} />
 
             {/* タグ別議案一覧セクション */}
@@ -57,7 +58,7 @@ export default async function Home() {
         </div>
       </Container>
 
-      {/* 前回の国会セクション（Archive） */}
+      {/* 前回の議会セクション（Archive） */}
       {previousSessionData && (
         <div className="bg-mirai-surface-muted py-10">
           <Container>
@@ -76,6 +77,9 @@ export default async function Home() {
 
         {/* チームみらいについて セクション */}
         <TeamMirai />
+
+        {/* AFTTTについて セクション */}
+        <AFTTT />
 
         {/* 免責事項 */}
         <BillDisclaimer />

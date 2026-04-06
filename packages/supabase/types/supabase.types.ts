@@ -79,6 +79,7 @@ export type Database = {
         Row: {
           created_at: string
           diet_session_id: string | null
+          document_type: Database["public"]["Enums"]["document_type_enum"]
           id: string
           is_featured: boolean
           name: string
@@ -97,6 +98,7 @@ export type Database = {
         Insert: {
           created_at?: string
           diet_session_id?: string | null
+          document_type?: Database["public"]["Enums"]["document_type_enum"]
           id?: string
           is_featured?: boolean
           name: string
@@ -115,6 +117,7 @@ export type Database = {
         Update: {
           created_at?: string
           diet_session_id?: string | null
+          document_type?: Database["public"]["Enums"]["document_type_enum"]
           id?: string
           is_featured?: boolean
           name?: string
@@ -1052,6 +1055,7 @@ export type Database = {
         | "preparing"
       chat_role_enum: "user" | "system" | "assistant"
       difficulty_level_enum: "normal" | "hard"
+      document_type_enum: "bill" | "speech" | "report" | "consent" | "approval"
       house_enum: "HR" | "HC"
       interview_config_status_enum: "public" | "closed"
       interview_feedback_tag_enum:
@@ -1217,6 +1221,7 @@ export const Constants = {
       ],
       chat_role_enum: ["user", "system", "assistant"],
       difficulty_level_enum: ["normal", "hard"],
+      document_type_enum: ["bill", "speech", "report", "consent", "approval"],
       house_enum: ["HR", "HC"],
       interview_config_status_enum: ["public", "closed"],
       interview_feedback_tag_enum: [

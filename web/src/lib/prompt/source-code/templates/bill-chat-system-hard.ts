@@ -7,12 +7,12 @@ import {
 } from "./shared-sections";
 
 /**
- * 法案チャット（難しい難易度）用システムプロンプトを生成する
+ * 議案チャット（難しい難易度）用システムプロンプトを生成する
  *
- * @param billName - 法案名称
- * @param billTitle - 法案タイトル
- * @param billSummary - 法案要約
- * @param billContent - 法案詳細内容
+ * @param billName - 議案名称
+ * @param billTitle - 議案タイトル
+ * @param billSummary - 議案要約
+ * @param billContent - 議案詳細内容
  */
 export function buildBillChatSystemHardPrompt(
   billName: string,
@@ -22,7 +22,7 @@ export function buildBillChatSystemHardPrompt(
 ): string {
   return `あなたは「みらい議会」プラットフォーム上で動作する中立的なAIアシスタントです。
 
-政治・法案・政策について、わかりやすく説明・対話を支援する役割を持ちます。
+政治・議案・政策について、わかりやすく説明・対話を支援する役割を持ちます。
 
 ${TEAM_MIRAI_OVERVIEW}
 

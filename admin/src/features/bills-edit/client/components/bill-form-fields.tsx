@@ -1,6 +1,7 @@
 "use client";
 
-import type { Control } from "react-hook-form";
+import { useEffect } from "react";
+import { useFormContext, useWatch, type Control } from "react-hook-form";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   FormControl,
@@ -20,9 +21,9 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import {
+  DOCUMENT_TYPE_LABELS,
   type BillStatus,
-  HOUSE_LABELS,
-  type OriginatingHouse,
+  type DocumentType,
 } from "@/features/bills/shared/types";
 import type { DietSession } from "@/features/diet-sessions/shared/types";
 import type { BillCreateInput } from "../../shared/types";
@@ -31,18 +32,48 @@ import { ThumbnailUpload } from "./thumbnail-upload";
 const BILL_STATUS_OPTIONS: Array<{ value: BillStatus; label: string }> = [
   { value: "preparing", label: "準備中" },
   { value: "introduced", label: "提出済み" },
-  { value: "in_originating_house", label: "審議中（提出院）" },
+  { value: "in_originating_house", label: "審議中（提出議会）" },
   { value: "in_receiving_house", label: "審議中（送付院）" },
   { value: "enacted", label: "成立" },
   { value: "rejected", label: "否決" },
 ];
 
-const ORIGINATING_HOUSE_OPTIONS = Object.entries(HOUSE_LABELS).map(
-  ([value, label]) => ({
-    value: value as OriginatingHouse,
-    label,
-  })
-);
+const DOCUMENT_TYPE_OPTIONS: Array<{
+  value: DocumentType;
+  label: string;
+}> = Object.entries(DOCUMENT_TYPE_LABELS).map(([value, label]) => ({
+  value: value as DocumentType,
+  label,
+}));
+
+const DOCUMENT_STATUS_OPTIONS: Record<
+  DocumentType,
+  Array<{ value: BillStatus; label: string }>
+> = {
+  bill: BILL_STATUS_OPTIONS,
+  speech: [
+    { value: "preparing", label: "準備中" },
+    { value: "introduced", label: "公開済み" },
+  ],
+  report: [
+    { value: "preparing", label: "準備中" },
+    { value: "introduced", label: "公開済み" },
+  ],
+  consent: [
+    { value: "preparing", label: "準備中" },
+    { value: "introduced", label: "提出済み" },
+    { value: "in_originating_house", label: "審査中" },
+    { value: "enacted", label: "同意済み" },
+    { value: "rejected", label: "不同意" },
+  ],
+  approval: [
+    { value: "preparing", label: "準備中" },
+    { value: "introduced", label: "提出済み" },
+    { value: "in_originating_house", label: "審査中" },
+    { value: "enacted", label: "承認済み" },
+    { value: "rejected", label: "不承認" },
+  ],
+};
 
 interface BillFormFieldsProps {
   control: Control<BillCreateInput>;
@@ -55,6 +86,38 @@ export function BillFormFields({
   billId,
   dietSessions,
 }: BillFormFieldsProps) {
+  const form = useFormContext<BillCreateInput>();
+  const documentType = useWatch({
+    control,
+    name: "document_type",
+    defaultValue: "bill",
+  });
+  const status = useWatch({
+    control,
+    name: "status",
+  });
+  const currentStatusOptions = DOCUMENT_STATUS_OPTIONS[documentType ?? "bill"];
+
+  useEffect(() => {
+    form.setValue("originating_house", "HR", {
+      shouldDirty: false,
+      shouldValidate: false,
+    });
+  }, [form]);
+
+  useEffect(() => {
+    const allowedStatuses = currentStatusOptions.map((option) => option.value);
+
+    if (status && allowedStatuses.includes(status)) {
+      return;
+    }
+
+    form.setValue("status", currentStatusOptions[0].value, {
+      shouldDirty: true,
+      shouldValidate: true,
+    });
+  }, [currentStatusOptions, form, status]);
+
   return (
     <>
       <FormField
@@ -77,18 +140,22 @@ export function BillFormFields({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <FormField
           control={control}
-          name="status"
+          name="document_type"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>ステータス *</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <FormLabel>種別 *</FormLabel>
+              <Select
+                onValueChange={field.onChange}
+                value={field.value ?? "bill"}
+                defaultValue="bill"
+              >
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="ステータスを選択" />
+                    <SelectValue placeholder="種別を選択" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {BILL_STATUS_OPTIONS.map((option) => (
+                  {DOCUMENT_TYPE_OPTIONS.map((option) => (
                     <SelectItem key={option.value} value={option.value}>
                       {option.label}
                     </SelectItem>
@@ -96,7 +163,39 @@ export function BillFormFields({
                 </SelectContent>
               </Select>
               <FormDescription>
-                現在の審議状況を選択してください
+                作成するコンテンツの種別を選択してください
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={control}
+          name="status"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>ステータス *</FormLabel>
+              <Select
+                onValueChange={field.onChange}
+                value={field.value}
+                defaultValue={field.value}
+              >
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="ステータスを選択" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {currentStatusOptions.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <FormDescription>
+                種別に応じた進行状況を選択してください
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -108,23 +207,13 @@ export function BillFormFields({
           name="originating_house"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>提出院 *</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="提出院を選択" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {ORIGINATING_HOUSE_OPTIONS.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {option.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <FormLabel>提出議会 *</FormLabel>
+              <FormControl>
+                <Input value="石垣市議会" readOnly />
+              </FormControl>
+              <input type="hidden" {...field} value="HR" />
               <FormDescription>
-                議案を提出した議院を選択してください
+                議案を提出した機関を選択してください
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -218,7 +307,7 @@ export function BillFormFields({
         name="shugiin_url"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>衆議院URL</FormLabel>
+            <FormLabel>石垣市議会URL</FormLabel>
             <FormControl>
               <Input
                 {...field}
@@ -227,7 +316,7 @@ export function BillFormFields({
               />
             </FormControl>
             <FormDescription>
-              衆議院の議案ページURLを入力してください（「これから掲載される法案」表示時に外部リンクとして使用）
+              石垣市議会の議案ページURLを入力してください（「これから掲載される議案」表示時に外部リンクとして使用）
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -239,14 +328,14 @@ export function BillFormFields({
         name="diet_session_id"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>国会会期</FormLabel>
+            <FormLabel>議会会期</FormLabel>
             <Select
               onValueChange={field.onChange}
               value={field.value ?? undefined}
             >
               <FormControl>
                 <SelectTrigger>
-                  <SelectValue placeholder="国会会期を選択" />
+                  <SelectValue placeholder="議会会期を選択" />
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
@@ -258,7 +347,7 @@ export function BillFormFields({
               </SelectContent>
             </Select>
             <FormDescription>
-              議案が提出された国会会期を選択してください
+              議案が提出された議会会期を選択してください
             </FormDescription>
             <FormMessage />
           </FormItem>

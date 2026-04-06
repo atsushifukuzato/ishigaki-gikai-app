@@ -31,7 +31,7 @@ export const interviewReportSchema = z
       .enum(["for", "against", "neutral"])
       .nullable()
       .describe(
-        "法案に対するユーザーのスタンス。for=賛成、against=反対、neutral=期待と懸念の両方がある"
+        "議案に対するユーザーのスタンス。for=賛成、against=反対、neutral=期待と懸念の両方がある"
       ),
     role: z
       .enum([

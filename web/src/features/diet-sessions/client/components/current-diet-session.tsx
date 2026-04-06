@@ -15,7 +15,7 @@ export function CurrentDietSession({ session }: CurrentDietSessionProps) {
   //         </h2>
   //         <div className="inline-flex items-center justify-center px-5 py-1.5 rounded-[50px] bg-gray-200 shrink-0">
   //           <span className="text-base font-bold leading-[1.48] text-gray-600">
-  //             国会閉会中
+  //             議会閉会中
   //           </span>
   //         </div>
   //       </div>
@@ -28,7 +28,7 @@ export function CurrentDietSession({ session }: CurrentDietSessionProps) {
       <div className="flex items-center gap-5">
         <div className="flex items-center gap-4 flex-1">
           <h2 className="text-xl font-bold text-gray-800 leading-[0.9]">
-            本日は
+            現在
           </h2>
           <div
             className={`
@@ -37,7 +37,7 @@ export function CurrentDietSession({ session }: CurrentDietSessionProps) {
             `}
           >
             <span className="text-base font-bold leading-[1.48]">
-              {session == null ? "国会閉会中" : "国会会期中"}
+              {session == null ? "石垣市議会 開催なし" : "石垣市議会 開催中"}
             </span>
           </div>
         </div>

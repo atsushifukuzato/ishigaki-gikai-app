@@ -6,5 +6,5 @@ ALTER TABLE bills
 ADD COLUMN shugiin_url TEXT;
 
 -- Add comment for documentation
-COMMENT ON COLUMN bills.shugiin_url IS 'URL to the House of Representatives (衆議院) page for this bill';
+COMMENT ON COLUMN bills.shugiin_url IS 'URL to the House of Representatives (石垣市議会) page for this bill';
 

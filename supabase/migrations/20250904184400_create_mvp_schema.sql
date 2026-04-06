@@ -94,7 +94,7 @@ ALTER TABLE chats ENABLE ROW LEVEL SECURITY;
 
 -- Add comments to tables and columns for documentation
 COMMENT ON TABLE bills IS '議案の基本情報を管理するテーブル';
-COMMENT ON COLUMN bills.originating_house IS '発議院（HR:衆議院, HC:参議院）';
+COMMENT ON COLUMN bills.originating_house IS '発議院（HR:石垣市議会, HC:参議院）';
 COMMENT ON COLUMN bills.status IS '議案のステータス';
 COMMENT ON COLUMN bills.published_at IS 'サービスでの議案公開日時';
 

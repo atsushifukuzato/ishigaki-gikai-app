@@ -1,4 +1,8 @@
-import type { BillStatusEnum, HouseEnum } from "../../../shared/types";
+import type {
+  BillStatusEnum,
+  DocumentType,
+  HouseEnum,
+} from "../../../shared/types";
 import {
   calculateProgressWidth,
   getCurrentStep,
@@ -8,6 +12,7 @@ import {
 } from "../../../shared/utils/bill-progress";
 
 interface BillStatusProgressProps {
+  documentType: DocumentType;
   status: BillStatusEnum;
   originatingHouse: HouseEnum;
   statusNote?: string | null;
@@ -27,10 +32,10 @@ interface ProgressStepProps {
 
 // 基本ステップ定義
 const BASE_STEPS = [
-  { label: "法案\n提出" },
-  { label: "衆議院\n審議" },
+  { label: "議案\n提出" },
+  { label: "石垣市議会\n審議" },
   { label: "参議院\n審議" },
-  { label: "法案\n成立" },
+  { label: "議案\n成立" },
 ] as const;
 
 // ステータスバッジコンポーネント
@@ -94,10 +99,15 @@ function ProgressStep({
 }
 
 export function BillStatusProgress({
+  documentType,
   status,
   originatingHouse,
   statusNote,
 }: BillStatusProgressProps) {
+  if (documentType !== "bill") {
+    return null;
+  }
+
   const isPreparing = status === "preparing";
   const currentStep = getCurrentStep(status);
 

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { routes } from "@/lib/routes";
 
@@ -9,19 +8,8 @@ export function DesktopMenuLogo() {
   return (
     <Link
       href={routes.home()}
-      className="fixed top-6 left-6 z-50 flex items-center gap-6 hover:opacity-90 transition-opacity"
+      className="fixed top-6 left-6 z-50 flex items-center hover:opacity-90 transition-opacity"
     >
-      {/* ロゴ */}
-      <div className="relative w-[116px] h-[98.38px]">
-        <Image
-          src="/img/logo.svg"
-          alt="みらい議会ロゴ"
-          fill
-          className="object-contain"
-          priority
-        />
-      </div>
-
       {/* テキスト */}
       <div className="flex flex-col gap-1.5">
         <h1
@@ -41,7 +29,7 @@ export function DesktopMenuLogo() {
             lineHeight: "2em",
           }}
         >
-          国会の議論をわかりやすく
+          議会の議論をわかりやすく
         </p>
       </div>
     </Link>

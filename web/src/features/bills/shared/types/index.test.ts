@@ -20,9 +20,9 @@ describe("getBillStatusLabel", () => {
   });
 
   describe("in_originating_house", () => {
-    it("returns '衆議院審議中' when originatingHouse is HR", () => {
+    it("returns '石垣市議会審議中' when originatingHouse is HR", () => {
       expect(getBillStatusLabel("in_originating_house", "HR")).toBe(
-        "衆議院審議中"
+        "石垣市議会審議中"
       );
     });
 
@@ -48,9 +48,9 @@ describe("getBillStatusLabel", () => {
       );
     });
 
-    it("returns '衆議院審議中' when originatingHouse is HC", () => {
+    it("returns '石垣市議会審議中' when originatingHouse is HC", () => {
       expect(getBillStatusLabel("in_receiving_house", "HC")).toBe(
-        "衆議院審議中"
+        "石垣市議会審議中"
       );
     });
 

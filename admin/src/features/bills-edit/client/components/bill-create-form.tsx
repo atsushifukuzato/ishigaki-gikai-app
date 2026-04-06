@@ -29,6 +29,7 @@ export function BillCreateForm({ dietSessions }: BillCreateFormProps) {
     defaultValues: {
       name: "",
       status: "preparing",
+      document_type: "bill",
       originating_house: "HR",
       status_note: null,
       published_at: new Date().toISOString().slice(0, 16),

@@ -23,15 +23,20 @@ import type {
   BillStatus,
   BillWithDietSession,
 } from "../../../shared/types";
-import { getBillStatusLabel } from "../../../shared/types";
+import {
+  DOCUMENT_TYPE_LABELS,
+  getBillStatusLabel,
+} from "../../../shared/types";
 import { getBills } from "../../loaders/get-bills";
 
 function StatusBadge({
   status,
   originatingHouse,
+  documentType,
 }: {
   status: BillStatus;
   originatingHouse: BillWithDietSession["originating_house"];
+  documentType: BillWithDietSession["document_type"];
 }) {
   const config = BILL_STATUS_CONFIG[status];
   const Icon = config.icon;
@@ -39,7 +44,7 @@ function StatusBadge({
   return (
     <div className="inline-flex items-center gap-1.5 py-1 rounded-full text-sm font-bold">
       <Icon className="h-4 w-4" />
-      <span>{getBillStatusLabel(status, originatingHouse)}</span>
+      <span>{getBillStatusLabel(status, originatingHouse, documentType)}</span>
     </div>
   );
 }
@@ -64,7 +69,8 @@ export async function BillList({ sortConfig }: { sortConfig: BillSortConfig }) {
           <TableHeader>
             <TableRow>
               <TableHead>議案名</TableHead>
-              <TableHead>国会会期</TableHead>
+              <TableHead>種別</TableHead>
+              <TableHead>議会会期</TableHead>
               <SortableTableHead
                 field="publish_status_order"
                 currentField={sortConfig.field}
@@ -112,6 +118,9 @@ function BillRow({ bill }: { bill: BillWithDietSession }) {
         </Link>
       </TableCell>
       <TableCell className="text-gray-600">
+        {DOCUMENT_TYPE_LABELS[bill.document_type]}
+      </TableCell>
+      <TableCell className="text-gray-600">
         {bill.diet_sessions?.name ?? "-"}
       </TableCell>
       <TableCell>
@@ -133,6 +142,7 @@ function BillRow({ bill }: { bill: BillWithDietSession }) {
         <StatusBadge
           status={bill.status}
           originatingHouse={bill.originating_house}
+          documentType={bill.document_type}
         />
       </TableCell>
       <TableCell className="text-gray-600">
