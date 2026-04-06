@@ -1,3 +1,13 @@
+export async function updateSupabaseSession(request: NextRequest) {
+  // 追加：URLが /api/debug-env だったら、何もしないで次に通す
+  if (request.nextUrl.pathname.startsWith('/api/debug-env')) {
+    return NextResponse.next();
+  }
+
+  // ...ここから下に既存の Supabase 初期化コードがあるはず...
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  // ...
+}
 import { type NextRequest, NextResponse } from "next/server";
 import {
   DIFFICULTY_COOKIE_NAME,
