@@ -38,8 +38,3 @@ jobs:
           supabase config push
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
-
-      - name: Trigger Vercel Deploy Hook
-        run: |
-          curl -X POST "${{ secrets.WEB_VERCEL_DEPLOY_HOOK_URL }}"
-          curl -X POST "${{ secrets.ADMIN_VERCEL_DEPLOY_HOOK_URL }}"
