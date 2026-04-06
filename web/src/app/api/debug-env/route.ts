@@ -9,6 +9,10 @@ export async function GET() {
     supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
       ? "✅ loaded"
       : "❌ undefined",
+    serverSupabaseUrl: process.env.SUPABASE_URL ? "✅ loaded" : "❌ undefined",
+    serviceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY
+      ? "✅ loaded"
+      : "❌ undefined",
     nodeEnv: process.env.NODE_ENV,
     timestamp: new Date().toISOString(),
   });
