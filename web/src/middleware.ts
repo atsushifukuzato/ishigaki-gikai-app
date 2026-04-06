@@ -1,13 +1,3 @@
-export async function updateSupabaseSession(request: NextRequest) {
-  // 追加：URLが /api/debug-env だったら、何もしないで次に通す
-  if (request.nextUrl.pathname.startsWith('/api/debug-env')) {
-    return NextResponse.next();
-  }
-
-  // ...ここから下に既存の Supabase 初期化コードがあるはず...
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  // ...
-}
 import { type NextRequest, NextResponse } from "next/server";
 import {
   DIFFICULTY_COOKIE_NAME,
@@ -24,6 +14,11 @@ import {
 import { updateSupabaseSession } from "./lib/supabase/middleware";
 
 export async function middleware(request: NextRequest) {
+  // デバッグ用に一時的に環境変数確認APIだけ middleware を完全に素通しする
+  if (request.nextUrl.pathname.startsWith("/api/debug-env")) {
+    return NextResponse.next();
+  }
+
   // /dev routes: 本番では404、開発ではauthスキップ
   if (request.nextUrl.pathname.startsWith("/dev")) {
     if (process.env.NODE_ENV !== "development") {
