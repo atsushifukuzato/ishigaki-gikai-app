@@ -12,6 +12,7 @@ const baseBill: Bill = {
   created_at: "2025-01-01T00:00:00Z",
   updated_at: "2025-01-02T00:00:00Z",
   diet_session_id: "session-001",
+  document_type: "bill",
   is_featured: true,
   originating_house: "HR",
   publish_status: "published",
