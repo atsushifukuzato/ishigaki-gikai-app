@@ -28,13 +28,13 @@ jobs:
 
       - name: Show migration status
         run: |
-          supabase migration list
+          supabase migration list --linked
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
 
       - name: Apply pending migrations
         run: |
-          supabase migration up --include-all
+          supabase migration up --linked --include-all
           supabase config push
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
