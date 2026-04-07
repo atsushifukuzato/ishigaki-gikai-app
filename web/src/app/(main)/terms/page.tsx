@@ -9,14 +9,14 @@ import { Container } from "@/components/layouts/container";
 
 export const metadata: Metadata = {
   title: "利用規約 | みらい議会 石垣市議会版",
-  description: "石垣市議会版みらい議会の利用規約",
+  description: "みらい議会 石垣市議会版の利用規約",
 };
 
 export default function TermsPage() {
   return (
     <LegalPageLayout
       title="利用規約"
-      description="石垣市議会版みらい議会をご利用いただく際の基本的なルールを定めています。"
+      description="みらい議会 石垣市議会版をご利用いただく際の基本的なルールを定めています。"
       className="pt-24 md:pt-12"
     >
       <Container className="space-y-8">
@@ -25,7 +25,8 @@ export default function TermsPage() {
         </LegalParagraph>
 
         <LegalParagraph>
-          石垣市議会版みらい議会（以下「本サービス」といいます。）は、石垣市議会に関する公開情報を市民のみなさんが見やすい形で確認できるように整理・提供するサービスです。本サービスを利用する場合、本規約に同意したものとみなします。
+          みらい議会
+          石垣市議会版（以下「本サービス」といいます。）は、石垣市議会に関する公開情報を市民のみなさんが見やすい形で確認できるように整理・提供するサービスです。本サービスを利用する場合、本規約に同意したものとみなします。
         </LegalParagraph>
 
         <section className="space-y-4">

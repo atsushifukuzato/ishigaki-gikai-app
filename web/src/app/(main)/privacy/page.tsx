@@ -9,7 +9,7 @@ import {
 
 export const metadata: Metadata = {
   title: "プライバシーポリシー | みらい議会 石垣市議会版",
-  description: "石垣市議会版みらい議会のプライバシーポリシー",
+  description: "みらい議会 石垣市議会版のプライバシーポリシー",
 };
 
 export default function PrivacyPage() {
@@ -17,7 +17,7 @@ export default function PrivacyPage() {
     <LegalPageLayout
       className="bg-transparent pt-24 md:pt-12"
       title="プライバシーポリシー"
-      description="石垣市議会版みらい議会における情報の取り扱いについてご説明します。"
+      description="みらい議会 石垣市議会版における情報の取り扱いについてご説明します。"
     >
       <Container className="space-y-8">
         <LegalParagraph className="text-right">
