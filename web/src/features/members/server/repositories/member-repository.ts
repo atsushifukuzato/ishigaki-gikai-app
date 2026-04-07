@@ -60,6 +60,15 @@ export async function getMembers(): Promise<Member[]> {
       ...targetInfo,
       error: error.message,
     });
+
+    const isMissingMembersTable =
+      error.message.includes("Could not find the table 'public.members'") ||
+      error.message.includes('relation "public.members" does not exist');
+
+    if (isMissingMembersTable) {
+      return [];
+    }
+
     throw new Error(
       `Failed to fetch members: ${error.message} (target=${targetInfo.target}, url=${targetInfo.url})`
     );

@@ -7,6 +7,7 @@ import { getInterviewLPLink } from "@/features/interview-config/shared/utils/int
 import { routes } from "@/lib/routes";
 import { formatDateWithDots } from "@/lib/utils/date";
 import { BillDetailShareButton } from "../../../client/components/bill-detail/bill-detail-share-button";
+import { BillDetailThumbnail } from "../../../client/components/bill-detail/bill-detail-thumbnail";
 import { BillStatusBadge } from "../../../client/components/bill-list/bill-status-badge";
 import { BillTag } from "../../../client/components/bill-list/bill-tag";
 import { getBillShareData } from "../../../client/utils/share";
@@ -25,24 +26,18 @@ export async function BillDetailHeader({
 }: BillDetailHeaderProps) {
   const displayTitle = bill.bill_content?.title;
   const displaySummary = bill.bill_content?.summary;
+  const displayThumbnailUrl =
+    typeof bill.thumbnail_url === "string" ? bill.thumbnail_url.trim() : "";
+  const hasThumbnail = displayThumbnailUrl.length > 0;
 
   const { shareUrl, shareMessage, thumbnailUrl } = await getBillShareData(bill);
 
   return (
     <div className="mb-8 bg-white rounded-b-4xl">
-      {bill.thumbnail_url ? (
-        <div className="relative w-full h-72 md:h-80">
-          <Image
-            src={bill.thumbnail_url}
-            alt={bill.name}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            priority
-          />
-        </div>
+      {hasThumbnail ? (
+        <BillDetailThumbnail src={displayThumbnailUrl} alt={bill.name} />
       ) : (
-        <div className="w-full h-20 bg-white-100" />
+        <div className="w-full h-20 bg-white" />
       )}
 
       <div className="px-4 pt-8 mb-3">
