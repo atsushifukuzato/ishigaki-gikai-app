@@ -13,11 +13,31 @@ const supportOptions = [
     title: "単発で応援する",
     description:
       "まずは少額から応援したい方向けの寄付枠です。公開情報の整理、要約、運用改善などの継続に活用します。",
+    items: [
+      {
+        label: "1,000円",
+        href: "https://buy.stripe.com/cNibJ1cQP9rh2rJ59uao800",
+      },
+      {
+        label: "3,000円",
+        href: "https://buy.stripe.com/9B6bJ1eYX8ndaYf31mao804",
+      },
+    ],
   },
   {
     title: "毎月応援する",
     description:
       "継続的に支えたい方向けの寄付枠です。安定した更新、議案整理、改善作業の土台になります。",
+    items: [
+      {
+        label: "500円 / 月",
+        href: "https://buy.stripe.com/cNieVd1876f53vN59uao801",
+      },
+      {
+        label: "1,000円 / 月",
+        href: "https://buy.stripe.com/bJe8wPdUT46XaYf6dyao803",
+      },
+    ],
   },
 ] as const;
 
@@ -35,9 +55,8 @@ export default function DonatePage() {
             </h1>
             <p className="max-w-3xl text-[15px] leading-8 text-slate-700">
               石垣市議会版みらい議会は、AFTTT
-              が公開情報を整理し、市民のみなさんが議会を見やすくするために運営しています。今後は
-              Stripe
-              を利用した寄付導線の整備を予定しており、現在このページを準備中です。
+              が公開情報を整理し、市民のみなさんが議会を見やすくするために運営しています。ご支援は
+              Stripe の安全な決済ページを通じて受け付けています。
             </p>
           </div>
         </header>
@@ -56,8 +75,18 @@ export default function DonatePage() {
                   {option.description}
                 </p>
               </div>
-              <div className="inline-flex w-fit rounded-full border border-slate-300 bg-slate-50 px-4 py-2 text-sm font-bold text-slate-700">
-                Stripe 連携準備中
+              <div className="flex flex-wrap gap-3">
+                {option.items.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center rounded-full bg-primary-accent px-5 py-3 text-sm font-bold text-slate-900 transition-opacity hover:opacity-90"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
               </div>
             </article>
           ))}
@@ -75,11 +104,12 @@ export default function DonatePage() {
         <section className="rounded-3xl border border-dashed border-slate-300 bg-white px-6 py-7">
           <div className="space-y-3">
             <h2 className="text-xl font-bold text-slate-900">
-              現在のご案内について
+              ご利用にあたって
             </h2>
             <p className="text-sm leading-7 text-slate-600">
-              決済ページの準備が整い次第、このページに Stripe
-              の寄付リンクを掲載します。税控除の有無や領収書の扱いなど、寄付に関する条件もその際に明記します。
+              寄付ページは Stripe
+              に移動します。税控除の有無や領収書の扱いについては、 AFTTT
+              の運用体制に応じて今後ご案内を整備します。
             </p>
           </div>
         </section>
