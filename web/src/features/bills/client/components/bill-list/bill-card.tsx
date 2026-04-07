@@ -13,8 +13,9 @@ interface BillCardProps {
 export function BillCard({ bill }: BillCardProps) {
   const displayTitle = bill.bill_content?.title;
   const summary = bill.bill_content?.summary;
-  const thumbnailUrl = bill.thumbnail_url;
-  const hasThumbnail = thumbnailUrl != null;
+  const thumbnailUrl =
+    typeof bill.thumbnail_url === "string" ? bill.thumbnail_url.trim() : "";
+  const hasThumbnail = thumbnailUrl.length > 0;
 
   return (
     <Card className="border border-black hover:bg-muted/50 transition-colors relative overflow-hidden max-w-[634px]">
