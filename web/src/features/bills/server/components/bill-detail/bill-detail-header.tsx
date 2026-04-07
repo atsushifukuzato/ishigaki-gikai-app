@@ -36,11 +36,9 @@ export async function BillDetailHeader({
     <div className="mb-8 bg-white rounded-b-4xl">
       {hasThumbnail ? (
         <BillDetailThumbnail src={displayThumbnailUrl} alt={bill.name} />
-      ) : (
-        <div className="w-full h-20 bg-white" />
-      )}
+      ) : null}
 
-      <div className="px-4 pt-8 mb-3">
+      <div className={`px-4 ${hasThumbnail ? "pt-8" : "pt-4"} mb-3`}>
         {displayTitle && (
           <h1 className="text-2xl font-bold mb-3">{displayTitle}</h1>
         )}

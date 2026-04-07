@@ -10,8 +10,7 @@ import {
 const BASE_STEPS = [
   { label: "議案\n提出" },
   { label: "石垣市議会\n審議" },
-  { label: "参議院\n審議" },
-  { label: "議案\n成立" },
+  { label: "結果" },
 ] as const;
 
 describe("getStatusMessage", () => {
@@ -42,18 +41,18 @@ describe("getStepState", () => {
   test("isPreparing が true の場合は常に inactive", () => {
     expect(getStepState(1, 0, true)).toBe("inactive");
     expect(getStepState(2, 2, true)).toBe("inactive");
-    expect(getStepState(4, 4, true)).toBe("inactive");
+    expect(getStepState(3, 3, true)).toBe("inactive");
   });
 
   test("stepNumber が currentStep 以下の場合は active", () => {
     expect(getStepState(1, 2, false)).toBe("active");
     expect(getStepState(2, 2, false)).toBe("active");
-    expect(getStepState(1, 4, false)).toBe("active");
+    expect(getStepState(1, 3, false)).toBe("active");
   });
 
   test("stepNumber が currentStep より大きい場合は inactive", () => {
     expect(getStepState(3, 2, false)).toBe("inactive");
-    expect(getStepState(4, 1, false)).toBe("inactive");
+    expect(getStepState(3, 1, false)).toBe("inactive");
   });
 });
 
@@ -62,16 +61,14 @@ describe("getOrderedSteps", () => {
     const result = getOrderedSteps("HR", BASE_STEPS);
     expect(result[0].label).toBe("議案\n提出");
     expect(result[1].label).toBe("石垣市議会\n審議");
-    expect(result[2].label).toBe("参議院\n審議");
-    expect(result[3].label).toBe("議案\n成立");
+    expect(result[2].label).toBe("結果");
   });
 
-  test("HC(参議院)の場合はステップ2と3が入れ替わる", () => {
+  test("HC(参議院)の場合も石垣市議会向け表示の順序は変えない", () => {
     const result = getOrderedSteps("HC", BASE_STEPS);
     expect(result[0].label).toBe("議案\n提出");
-    expect(result[1].label).toBe("参議院\n審議");
-    expect(result[2].label).toBe("石垣市議会\n審議");
-    expect(result[3].label).toBe("議案\n成立");
+    expect(result[1].label).toBe("石垣市議会\n審議");
+    expect(result[2].label).toBe("結果");
   });
 
   test("元の配列を変更しない", () => {
@@ -87,24 +84,20 @@ describe("calculateProgressWidth", () => {
     expect(calculateProgressWidth(0)).toBe(0);
   });
 
-  test("ステップ1は12.5%", () => {
-    expect(calculateProgressWidth(1)).toBe(12.5);
+  test("ステップ1は約16.7%", () => {
+    expect(calculateProgressWidth(1)).toBeCloseTo(16.6666666667);
   });
 
-  test("ステップ2は37.5%", () => {
-    expect(calculateProgressWidth(2)).toBe(37.5);
+  test("ステップ2は50%", () => {
+    expect(calculateProgressWidth(2)).toBe(50);
   });
 
-  test("ステップ3は62.5%", () => {
-    expect(calculateProgressWidth(3)).toBe(62.5);
-  });
-
-  test("ステップ4は100%", () => {
-    expect(calculateProgressWidth(4)).toBe(100);
+  test("ステップ3は100%", () => {
+    expect(calculateProgressWidth(3)).toBe(100);
   });
 
   test("範囲外のステップは0%", () => {
-    expect(calculateProgressWidth(5)).toBe(0);
+    expect(calculateProgressWidth(4)).toBe(0);
     expect(calculateProgressWidth(-1)).toBe(0);
   });
 });
@@ -122,15 +115,15 @@ describe("getCurrentStep", () => {
     expect(getCurrentStep("in_originating_house")).toBe(2);
   });
 
-  test("in_receiving_house は 3", () => {
-    expect(getCurrentStep("in_receiving_house")).toBe(3);
+  test("in_receiving_house は 2", () => {
+    expect(getCurrentStep("in_receiving_house")).toBe(2);
   });
 
-  test("enacted は 4", () => {
-    expect(getCurrentStep("enacted")).toBe(4);
+  test("enacted は 3", () => {
+    expect(getCurrentStep("enacted")).toBe(3);
   });
 
-  test("rejected は 4", () => {
-    expect(getCurrentStep("rejected")).toBe(4);
+  test("rejected は 3", () => {
+    expect(getCurrentStep("rejected")).toBe(3);
   });
 });

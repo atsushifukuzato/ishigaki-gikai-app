@@ -34,9 +34,19 @@ interface ProgressStepProps {
 const BASE_STEPS = [
   { label: "議案\n提出" },
   { label: "石垣市議会\n審議" },
-  { label: "参議院\n審議" },
-  { label: "議案\n成立" },
+  { label: "結果" },
 ] as const;
+
+function getFinalStepLabel(status: BillStatusEnum) {
+  switch (status) {
+    case "enacted":
+      return "成立";
+    case "rejected":
+      return "否決";
+    default:
+      return "結果";
+  }
+}
 
 // ステータスバッジコンポーネント
 function StatusBadge({ message }: StatusBadgeProps) {
@@ -111,7 +121,10 @@ export function BillStatusProgress({
   const isPreparing = status === "preparing";
   const currentStep = getCurrentStep(status);
 
-  const orderedSteps = getOrderedSteps(originatingHouse, BASE_STEPS);
+  const orderedSteps = getOrderedSteps(originatingHouse, BASE_STEPS).map(
+    (step, index, steps) =>
+      index === steps.length - 1 ? { label: getFinalStepLabel(status) } : step
+  );
   const progressWidth = calculateProgressWidth(currentStep);
 
   const statusMessage = getStatusMessage(status, statusNote);
