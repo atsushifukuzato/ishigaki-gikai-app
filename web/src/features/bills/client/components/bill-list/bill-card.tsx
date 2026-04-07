@@ -13,15 +13,15 @@ interface BillCardProps {
 export function BillCard({ bill }: BillCardProps) {
   const displayTitle = bill.bill_content?.title;
   const summary = bill.bill_content?.summary;
+  const thumbnailUrl = bill.thumbnail_url;
+  const hasThumbnail = thumbnailUrl != null;
 
   return (
     <Card className="border border-black hover:bg-muted/50 transition-colors relative overflow-hidden max-w-[634px]">
       <div className="flex flex-col">
         {/* 注目バッジエリア */}
-        {bill.is_featured && (
-          <div
-            className={`${bill.thumbnail_url != null ? "absolute" : "relative"} top-3 left-3 z-1`}
-          >
+        {bill.is_featured && hasThumbnail && (
+          <div className="absolute top-3 left-3 z-1">
             <span className="inline-flex items-center justify-center px-3 py-0.5 text-xs font-medium text-mirai-text bg-mirai-highlight rounded-[20px]">
               注目🔥
             </span>
@@ -29,10 +29,10 @@ export function BillCard({ bill }: BillCardProps) {
         )}
 
         {/* サムネイル画像 */}
-        {bill.thumbnail_url && (
+        {hasThumbnail && (
           <div className="relative w-full h-52 md:h-65">
             <Image
-              src={bill.thumbnail_url}
+              src={thumbnailUrl}
               alt={bill.name}
               fill
               className="object-cover"
@@ -45,6 +45,13 @@ export function BillCard({ bill }: BillCardProps) {
         <div className="flex-1">
           <CardHeader>
             <div className="flex flex-col gap-3">
+              {bill.is_featured && !hasThumbnail && (
+                <div>
+                  <span className="inline-flex items-center justify-center px-3 py-0.5 text-xs font-medium text-mirai-text bg-mirai-highlight rounded-[20px]">
+                    注目🔥
+                  </span>
+                </div>
+              )}
               <CardTitle className="text-2xl/8 tracking-normal">
                 {displayTitle}
               </CardTitle>
