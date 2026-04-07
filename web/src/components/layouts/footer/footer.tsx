@@ -41,27 +41,41 @@ function FooterLogoSection() {
 }
 
 function FooterPrimaryLinks() {
+  const firstRow = primaryLinks.slice(0, 3);
+  const secondRow = primaryLinks.slice(3);
+
   return (
     <nav aria-label="主要リンク" className="w-full mb-5">
-      <ul
-        className="
-      flex flex-col items-center gap-3 text-[14px] font-semibold text-slate-800
-      md:flex-row md:justify-center md:gap-5
-      "
-      >
-        {primaryLinks.map((link) => (
-          <li key={link.label}>
-            <Link
-              href={link.href as Route}
-              target={link.external ? "_blank" : undefined}
-              rel={link.external ? "noreferrer" : undefined}
-              className="transition-colors hover:text-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900"
-            >
-              {link.label}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <div className="flex flex-col items-center gap-3 text-[14px] font-semibold text-slate-800">
+        <ul className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+          {firstRow.map((link) => (
+            <li key={link.label}>
+              <Link
+                href={link.href as Route}
+                target={link.external ? "_blank" : undefined}
+                rel={link.external ? "noreferrer" : undefined}
+                className="transition-colors hover:text-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900"
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <ul className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+          {secondRow.map((link) => (
+            <li key={link.label}>
+              <Link
+                href={link.href as Route}
+                target={link.external ? "_blank" : undefined}
+                rel={link.external ? "noreferrer" : undefined}
+                className="transition-colors hover:text-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900"
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </nav>
   );
 }
