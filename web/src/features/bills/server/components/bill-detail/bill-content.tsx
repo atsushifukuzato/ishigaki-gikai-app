@@ -12,11 +12,12 @@ export async function BillContent({ bill }: BillContentProps) {
     return null;
   }
 
-  const content = await parseMarkdown(markdownContent);
+  try {
+    const content = await parseMarkdown(markdownContent);
 
-  return (
-    <div
-      className="
+    return (
+      <div
+        className="
             markdown-content max-w-none text-base
             [&_h1]:text-2xl [&_h1]:font-bold [&_h1]:mb-4
             [&_h2]:text-[22px] [&_h2]:font-bold [&_h2]:mb-4
@@ -38,8 +39,17 @@ export async function BillContent({ bill }: BillContentProps) {
             [&_iframe.youtube-embed]:w-full [&_iframe.youtube-embed]:aspect-video [&_iframe.youtube-embed]:mb-4
             [&_iframe.youtube-embed]:rounded-lg [&_iframe.youtube-embed]:shadow-md
           "
-    >
-      {content}
-    </div>
-  );
+      >
+        {content}
+      </div>
+    );
+  } catch (error) {
+    console.error("Failed to parse bill markdown:", error);
+
+    return (
+      <div className="max-w-none rounded-md bg-white px-4 py-8 text-base leading-relaxed whitespace-pre-wrap">
+        {markdownContent}
+      </div>
+    );
+  }
 }

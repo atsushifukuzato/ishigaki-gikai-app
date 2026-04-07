@@ -33,10 +33,35 @@ export async function BillDetailLayout({
     bill.originating_house,
     bill.document_type
   );
-  const [interviewConfig, publicReportsResult] = await Promise.all([
-    getInterviewConfig(bill.id),
-    getPublicReportsByBillId(bill.id),
-  ]);
+  const [interviewConfigResult, publicReportsResultSettled] =
+    await Promise.allSettled([
+      getInterviewConfig(bill.id),
+      getPublicReportsByBillId(bill.id),
+    ]);
+
+  const interviewConfig =
+    interviewConfigResult.status === "fulfilled"
+      ? interviewConfigResult.value
+      : null;
+
+  const publicReportsResult =
+    publicReportsResultSettled.status === "fulfilled"
+      ? publicReportsResultSettled.value
+      : { reports: [], totalCount: 0 };
+
+  if (interviewConfigResult.status === "rejected") {
+    console.error(
+      "Failed to load interview config on bill detail:",
+      interviewConfigResult.reason
+    );
+  }
+
+  if (publicReportsResultSettled.status === "rejected") {
+    console.error(
+      "Failed to load public reports on bill detail:",
+      publicReportsResultSettled.reason
+    );
+  }
 
   return (
     <div className="container mx-auto pb-8 max-w-4xl">
