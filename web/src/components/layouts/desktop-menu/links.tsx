@@ -27,8 +27,8 @@ const links: FooterLinkItem[] = [
   },
   {
     label: "よくあるご質問",
-    href: EXTERNAL_LINKS.FAQ,
-    external: true,
+    href: routes.faq(),
+    external: false,
   },
 ];
 
