@@ -1,5 +1,6 @@
 import { LinkButton } from "@/components/top/link-button";
 import { EXTERNAL_LINKS } from "@/config/external-links";
+import { routes } from "@/lib/routes";
 
 /**
  * デスクトップメニュー: アクションボタン（サイドバー内）
@@ -20,13 +21,15 @@ export function DesktopMenuActionButtons() {
       </LinkButton>
 
       <LinkButton
-        href={EXTERNAL_LINKS.DONATION}
+        href={routes.donate()}
         icon={{
           src: "/icons/heart-icon.svg",
           alt: "寄附",
           width: 20,
           height: 20,
         }}
+        target="_self"
+        rel={undefined}
       >
         寄附で応援する
       </LinkButton>

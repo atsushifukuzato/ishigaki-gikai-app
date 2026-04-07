@@ -30,8 +30,7 @@ export const primaryLinks: FooterLink[] = [
   },
   {
     label: "寄附で応援する",
-    href: EXTERNAL_LINKS.DONATION,
-    external: true,
+    href: routes.donate(),
   },
 ];
 
