@@ -40,7 +40,7 @@ export function HeaderClient({ difficultyLevel }: HeaderClientProps) {
           >
             <Link
               href={routes.members()}
-              className="hidden text-sm font-bold text-slate-700 transition-colors hover:text-black md:inline-flex"
+              className="hidden text-sm font-bold text-black transition-colors hover:text-black md:inline-flex"
             >
               議員名簿
             </Link>

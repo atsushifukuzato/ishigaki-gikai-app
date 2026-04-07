@@ -24,6 +24,11 @@ export const primaryLinks: FooterLink[] = [
     external: true,
   },
   {
+    label: "AFTTTとは",
+    href: EXTERNAL_LINKS.AFTTT,
+    external: true,
+  },
+  {
     label: "チームみらいについて",
     href: EXTERNAL_LINKS.TEAM_MIRAI_ABOUT,
     external: true,
