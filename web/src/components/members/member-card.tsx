@@ -1,12 +1,24 @@
-import {
-  ExternalLink,
-  Facebook,
-  Instagram,
-  MapPin,
-  Shield,
-  Users,
-} from "lucide-react";
+import Image from "next/image";
+import { MapPin, Shield, Users } from "lucide-react";
 import type { Member } from "@/features/members/shared/types";
+
+const SOCIAL_ICON_MAP = {
+  facebook: {
+    name: "Facebook",
+    iconPath: "/icons/sns/icon_facebook.png",
+    hasBorder: false,
+  },
+  instagram: {
+    name: "Instagram",
+    iconPath: "/icons/sns/icon_instagram.png",
+    hasBorder: true,
+  },
+  threads: {
+    name: "Threads",
+    iconPath: "/icons/sns/icon_threads.png",
+    hasBorder: true,
+  },
+} as const;
 
 function formatBirthDate(value: string | null) {
   if (!value) return null;
@@ -90,17 +102,26 @@ export function MemberCard({ member }: { member: Member }) {
         </div>
 
         {facebookUrl || instagramUrl || threadsUrl ? (
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap items-center gap-3">
             {facebookUrl ? (
               <a
                 href={facebookUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex w-fit items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:border-slate-300 hover:text-slate-900"
+                aria-label={SOCIAL_ICON_MAP.facebook.name}
+                className="transition-opacity hover:opacity-70"
               >
-                <Facebook className="h-4 w-4 text-primary" />
-                Facebook
-                <ExternalLink className="h-3.5 w-3.5 text-slate-400" />
+                <Image
+                  src={SOCIAL_ICON_MAP.facebook.iconPath}
+                  alt={SOCIAL_ICON_MAP.facebook.name}
+                  width={36}
+                  height={36}
+                  className={
+                    SOCIAL_ICON_MAP.facebook.hasBorder
+                      ? "rounded-full border border-mirai-border-light"
+                      : ""
+                  }
+                />
               </a>
             ) : null}
 
@@ -109,11 +130,20 @@ export function MemberCard({ member }: { member: Member }) {
                 href={instagramUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex w-fit items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:border-slate-300 hover:text-slate-900"
+                aria-label={SOCIAL_ICON_MAP.instagram.name}
+                className="transition-opacity hover:opacity-70"
               >
-                <Instagram className="h-4 w-4 text-primary" />
-                Instagram
-                <ExternalLink className="h-3.5 w-3.5 text-slate-400" />
+                <Image
+                  src={SOCIAL_ICON_MAP.instagram.iconPath}
+                  alt={SOCIAL_ICON_MAP.instagram.name}
+                  width={36}
+                  height={36}
+                  className={
+                    SOCIAL_ICON_MAP.instagram.hasBorder
+                      ? "rounded-full border border-mirai-border-light"
+                      : ""
+                  }
+                />
               </a>
             ) : null}
 
@@ -122,13 +152,20 @@ export function MemberCard({ member }: { member: Member }) {
                 href={threadsUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex w-fit items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:border-slate-300 hover:text-slate-900"
+                aria-label={SOCIAL_ICON_MAP.threads.name}
+                className="transition-opacity hover:opacity-70"
               >
-                <span className="text-xs font-bold uppercase tracking-[0.08em] text-primary">
-                  @
-                </span>
-                Threads
-                <ExternalLink className="h-3.5 w-3.5 text-slate-400" />
+                <Image
+                  src={SOCIAL_ICON_MAP.threads.iconPath}
+                  alt={SOCIAL_ICON_MAP.threads.name}
+                  width={36}
+                  height={36}
+                  className={
+                    SOCIAL_ICON_MAP.threads.hasBorder
+                      ? "rounded-full border border-mirai-border-light"
+                      : ""
+                  }
+                />
               </a>
             ) : null}
           </div>
