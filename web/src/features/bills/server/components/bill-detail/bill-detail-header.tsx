@@ -50,6 +50,11 @@ export async function BillDetailHeader({
             )}
           </div>
         </div>
+        {bill.proposer_member && (
+          <p className="mt-3 text-sm font-medium text-muted-foreground">
+            提出者: {bill.proposer_member.name} 議員
+          </p>
+        )}
       </div>
 
       <div className="px-4 pb-8">

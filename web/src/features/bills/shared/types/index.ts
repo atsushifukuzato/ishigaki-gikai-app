@@ -51,6 +51,13 @@ export type BillVoteMember = {
   seat_number: number;
 };
 
+export type BillProposerMember = {
+  id: string;
+  name: string;
+  party: string | null;
+  party_group: string | null;
+};
+
 export type BillMemberVote = {
   vote_type: BillVoteType;
   member: BillVoteMember;
@@ -71,6 +78,7 @@ export type BillWithContent = Bill & {
   featured_tag?: FeaturedTag;
   hasPublicInterview?: boolean;
   bill_member_votes?: BillMemberVote[];
+  proposer_member?: BillProposerMember;
 };
 
 // タグごとにグループ化された議案

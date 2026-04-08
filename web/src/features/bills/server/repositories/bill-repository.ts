@@ -1,12 +1,17 @@
 import "server-only";
 import { createClient } from "@supabase/supabase-js";
-import { createAdminClient } from "@mirai-gikai/supabase";
+import { createAdminClient, type Database } from "@mirai-gikai/supabase";
 import type { DifficultyLevelEnum } from "@/features/bill-difficulty/shared/types";
-import type { BillMemberVote } from "../../shared/types";
+import type { BillMemberVote, BillProposerMember } from "../../shared/types";
 
 // ============================================================
 // Bills
 // ============================================================
+
+type BillRow = Database["public"]["Tables"]["bills"]["Row"];
+type BillWithOptionalProposer = BillRow & {
+  proposer_member?: BillProposerMember | BillProposerMember[] | null;
+};
 
 /**
  * 公開済み議案を難易度コンテンツ付きで取得
@@ -48,12 +53,55 @@ export async function findPublishedBillsWithContents(
  */
 export async function findPublishedBillById(id: string) {
   const supabase = createAdminClient();
-  const { data, error } = await supabase
-    .from("bills")
-    .select("*")
-    .eq("id", id)
-    .eq("publish_status", "published")
-    .single();
+  const query = () =>
+    supabase
+      .from("bills")
+      .select(
+        `
+        *,
+        proposer_member:members!bills_proposer_member_id_fkey (
+          id,
+          name,
+          party,
+          party_group
+        )
+      `
+      )
+      .eq("id", id)
+      .eq("publish_status", "published")
+      .single();
+
+  const fallbackQuery = () =>
+    supabase
+      .from("bills")
+      .select("*")
+      .eq("id", id)
+      .eq("publish_status", "published")
+      .single();
+
+  let {
+    data,
+    error,
+  }: {
+    data: BillWithOptionalProposer | null;
+    error: { message: string } | null;
+  } = (await query()) as unknown as {
+    data: BillWithOptionalProposer | null;
+    error: { message: string } | null;
+  };
+
+  const isMissingProposerRelation =
+    error &&
+    (error.message.includes("bills_proposer_member_id_fkey") ||
+      error.message.includes("proposer_member_id") ||
+      error.message.includes("members"));
+
+  if (isMissingProposerRelation) {
+    ({ data, error } = (await fallbackQuery()) as unknown as {
+      data: BillWithOptionalProposer | null;
+      error: { message: string } | null;
+    });
+  }
 
   if (error) {
     return null;
@@ -67,17 +115,65 @@ export async function findPublishedBillById(id: string) {
  */
 export async function findBillById(id: string) {
   const supabase = createAdminClient();
-  const { data, error } = await supabase
-    .from("bills")
-    .select("*")
-    .eq("id", id)
-    .single();
+  const query = () =>
+    supabase
+      .from("bills")
+      .select(
+        `
+        *,
+        proposer_member:members!bills_proposer_member_id_fkey (
+          id,
+          name,
+          party,
+          party_group
+        )
+      `
+      )
+      .eq("id", id)
+      .single();
+
+  const fallbackQuery = () =>
+    supabase.from("bills").select("*").eq("id", id).single();
+
+  let {
+    data,
+    error,
+  }: {
+    data: BillWithOptionalProposer | null;
+    error: { message: string } | null;
+  } = (await query()) as unknown as {
+    data: BillWithOptionalProposer | null;
+    error: { message: string } | null;
+  };
+
+  const isMissingProposerRelation =
+    error &&
+    (error.message.includes("bills_proposer_member_id_fkey") ||
+      error.message.includes("proposer_member_id") ||
+      error.message.includes("members"));
+
+  if (isMissingProposerRelation) {
+    ({ data, error } = (await fallbackQuery()) as unknown as {
+      data: BillWithOptionalProposer | null;
+      error: { message: string } | null;
+    });
+  }
 
   if (error) {
     return null;
   }
 
   return data;
+}
+
+export function normalizeProposerMember(
+  proposerMember: BillProposerMember | BillProposerMember[] | null | undefined
+): BillProposerMember | undefined {
+  if (Array.isArray(proposerMember)) {
+    return proposerMember[0];
+  }
+
+  return proposerMember ?? undefined;
 }
 
 /**
