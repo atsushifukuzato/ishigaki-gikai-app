@@ -19,20 +19,6 @@ export function DesktopMenuActionButtons() {
       >
         みらい議会とは
       </LinkButton>
-
-      <LinkButton
-        href={routes.donate()}
-        icon={{
-          src: "/icons/heart-icon.svg",
-          alt: "寄附",
-          width: 20,
-          height: 20,
-        }}
-        target="_self"
-        rel={undefined}
-      >
-        寄附で応援する
-      </LinkButton>
     </div>
   );
 }

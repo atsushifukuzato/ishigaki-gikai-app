@@ -28,10 +28,6 @@ export const primaryLinks: FooterLink[] = [
     href: EXTERNAL_LINKS.AFTTT,
     external: true,
   },
-  {
-    label: "寄附で応援する",
-    href: routes.donate(),
-  },
 ];
 
 export const policyLinks: FooterPolicyLink[] = [

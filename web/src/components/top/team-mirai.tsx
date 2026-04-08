@@ -1,4 +1,3 @@
-import { routes } from "@/lib/routes";
 import Image from "next/image";
 import { ManualRuby } from "@/lib/rubyful/manual-ruby";
 import { SOCIAL_LINKS } from "@/lib/social-links";
@@ -55,20 +54,6 @@ export function TeamMirai() {
               }}
             >
               チームみらいについて詳しく
-            </LinkButton>
-
-            <LinkButton
-              href={routes.donate()}
-              icon={{
-                src: "/icons/heart-icon.svg",
-                alt: "",
-                width: 18,
-                height: 17,
-              }}
-              target="_self"
-              rel={undefined}
-            >
-              寄附で応援する
             </LinkButton>
           </div>
 
