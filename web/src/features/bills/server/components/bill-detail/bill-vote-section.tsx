@@ -14,11 +14,11 @@ const DISPLAY_ORDER: BillVoteType[] = [
 ];
 
 const SECTION_STYLES: Record<BillVoteType, string> = {
-  for: "border-emerald-200 bg-emerald-50/70",
-  not_for: "border-amber-200 bg-amber-50/80",
-  left: "border-slate-200 bg-slate-50",
-  absent: "border-slate-200 bg-slate-50",
-  chair: "border-slate-200 bg-slate-50",
+  for: "border-emerald-300 bg-white",
+  not_for: "border-amber-300 bg-white",
+  left: "border-slate-300 bg-white",
+  absent: "border-slate-300 bg-white",
+  chair: "border-slate-300 bg-white",
 };
 
 function groupVotesByType(votes: BillMemberVote[]) {
@@ -44,7 +44,7 @@ export function BillVoteSection({ bill }: { bill: BillWithContent }) {
         <h2 className="mb-3 text-[22px] font-bold">採決での各議員の状況</h2>
         <p className="text-sm leading-7 text-gray-700">
           石垣市議会の公開資料に基づき、この議案の採決で各議員がどう扱われたかを掲載しています。
-          PDF では
+          公開資料では
           <span className="font-medium">「△ = 賛成ではない」</span>
           とされており、反対や棄権などの内訳はこの資料だけでは区別していません。
         </p>
@@ -82,7 +82,7 @@ export function BillVoteSection({ bill }: { bill: BillWithContent }) {
               {group.votes.map((vote) => (
                 <li
                   key={`${group.voteType}-${vote.member.id}`}
-                  className="rounded-xl bg-white/80 px-4 py-3"
+                  className="rounded-xl border border-slate-200 bg-white px-4 py-3"
                 >
                   <div className="flex items-center justify-between gap-3">
                     <div>
@@ -96,7 +96,7 @@ export function BillVoteSection({ bill }: { bill: BillWithContent }) {
                       </div>
                     </div>
                     <div className="text-xs font-medium text-slate-500">
-                      議席 {vote.member.seat_number}
+                      議席番号{vote.member.seat_number}
                     </div>
                   </div>
                 </li>
