@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <LegalPageLayout
-      className="bg-transparent pt-24 md:pt-12"
+      className="bg-transparent pt-6 md:pt-12"
       title="プライバシーポリシー"
       description="みらい議会 石垣市議会版における情報の取り扱いについてご説明します。"
     >

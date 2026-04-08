@@ -17,7 +17,7 @@ export default function FaqPage() {
     <LegalPageLayout
       title="よくあるご質問"
       description="石垣市議会版みらい議会の見方や、掲載情報・AI機能についての基本的なご案内です。"
-      className="pt-24 md:pt-12"
+      className="pt-6 md:pt-12"
     >
       <Container className="space-y-8">
         <LegalParagraph className="text-right">

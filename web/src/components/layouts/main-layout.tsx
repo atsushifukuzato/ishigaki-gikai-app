@@ -13,11 +13,13 @@ export function MainLayout({ children }: MainLayoutProps) {
   const pathname = usePathname();
   const useSidebarLayout = isMainPage(pathname);
   const isInterview = isInterviewSection(pathname);
+  const isHome = pathname === "/";
 
   return (
     <div
       className={cn(
-        "relative max-w-[700px] mx-auto md:mt-24",
+        "relative max-w-[700px] mx-auto",
+        !isHome && "mt-24 md:mt-24",
         // インタビューページ以外ではshadowを表示
         !isInterview && "sm:shadow-lg",
         // TOPページと議案詳細ページのみ、チャットサイドバー用のオフセット
