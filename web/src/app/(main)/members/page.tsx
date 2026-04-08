@@ -33,7 +33,7 @@ export default async function MembersPage() {
           </div>
 
           {members.length > 0 ? (
-            <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+            <div className="grid gap-5 sm:grid-cols-2">
               {members.map((member, index) => (
                 <MemberCard
                   key={`${member.name}-${member.birth_date ?? index}`}
