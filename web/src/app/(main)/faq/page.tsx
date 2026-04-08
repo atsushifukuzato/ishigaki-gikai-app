@@ -86,7 +86,7 @@ export default function FaqPage() {
         <section className="space-y-4">
           <LegalSectionTitle>公式サイトですか？</LegalSectionTitle>
           <LegalParagraph>
-            石垣市役所、石垣市議会、およびチームみらいの公式サイトではありません。ご意見や不具合のご連絡は、各公式窓口ではなく運営者へお願いします。
+            このサイトは石垣市役所、石垣市議会、およびチームみらいの公式サイトではありません。ご意見や不具合のご連絡は、運営者へお願いします。
           </LegalParagraph>
         </section>
 

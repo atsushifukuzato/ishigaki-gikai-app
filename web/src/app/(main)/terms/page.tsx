@@ -30,7 +30,7 @@ export default function TermsPage() {
         </LegalParagraph>
         <LegalParagraph>
           本サービスは、「チームみらい」が開発する「みらい議会」をもとに AFTTT
-          が運営する非公式サイトです。石垣市役所、石垣市議会、およびチームみらいの公式サイトではありません。
+          が運営する非公式サイトです。このサイトは石垣市役所、石垣市議会、およびチームみらいの公式サイトではありません。ご意見や不具合のご連絡は、運営者へお願いします。
         </LegalParagraph>
 
         <section className="space-y-4">
