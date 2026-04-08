@@ -1,6 +1,8 @@
 import "server-only";
+import { createClient } from "@supabase/supabase-js";
 import { createAdminClient } from "@mirai-gikai/supabase";
 import type { DifficultyLevelEnum } from "@/features/bill-difficulty/shared/types";
+import type { BillMemberVote } from "../../shared/types";
 
 // ============================================================
 // Bills
@@ -138,6 +140,124 @@ export async function findBillContentByDifficulty(
   }
 
   return data;
+}
+
+type VoteDatabase = {
+  public: {
+    Tables: {
+      bill_member_votes: {
+        Row: {
+          bill_id: string;
+          member_id: string;
+          seat_number: number;
+          vote_type: "for" | "not_for" | "absent" | "left" | "chair";
+          source_label: string | null;
+          source_url: string | null;
+        };
+      };
+      members: {
+        Row: {
+          id: string;
+          name: string;
+          party: string | null;
+          party_group: string | null;
+        };
+      };
+    };
+  };
+};
+
+/**
+ * 議案ごとの議員賛否を取得
+ */
+export async function findBillMemberVotesByBillId(
+  billId: string
+): Promise<BillMemberVote[]> {
+  const supabase = createClient<VoteDatabase>(
+    process.env.SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+
+  const { data, error } = await supabase
+    .from("bill_member_votes")
+    .select(
+      `
+      member_id,
+      seat_number,
+      vote_type,
+      source_label,
+      source_url,
+      members!inner (
+        id,
+        name,
+        party,
+        party_group
+      )
+    `
+    )
+    .eq("bill_id", billId)
+    .order("seat_number", { ascending: true });
+
+  if (error) {
+    const isMissingVotesTable =
+      error.message.includes(
+        "Could not find the table 'public.bill_member_votes'"
+      ) ||
+      error.message.includes(
+        'relation "public.bill_member_votes" does not exist'
+      );
+
+    if (isMissingVotesTable) {
+      return [];
+    }
+
+    console.error(`Failed to fetch bill member votes: ${error.message}`);
+    return [];
+  }
+
+  const voteRows = (data ?? []) as Array<{
+    seat_number: number;
+    vote_type: BillMemberVote["vote_type"];
+    source_label: string | null;
+    source_url: string | null;
+    members:
+      | {
+          id: string;
+          name: string;
+          party: string | null;
+          party_group: string | null;
+        }
+      | Array<{
+          id: string;
+          name: string;
+          party: string | null;
+          party_group: string | null;
+        }>
+      | null;
+  }>;
+
+  return voteRows.flatMap((row) => {
+    const member = Array.isArray(row.members) ? row.members[0] : row.members;
+
+    if (!member) {
+      return [];
+    }
+
+    return [
+      {
+        vote_type: row.vote_type,
+        source_label: row.source_label,
+        source_url: row.source_url,
+        member: {
+          id: member.id,
+          name: member.name,
+          party: member.party,
+          party_group: member.party_group,
+          seat_number: row.seat_number,
+        },
+      },
+    ];
+  });
 }
 
 // ============================================================

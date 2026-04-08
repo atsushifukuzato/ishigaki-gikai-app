@@ -41,6 +41,23 @@ export type BillTag = {
   label: string;
 };
 
+export type BillVoteType = "for" | "not_for" | "absent" | "left" | "chair";
+
+export type BillVoteMember = {
+  id: string;
+  name: string;
+  party: string | null;
+  party_group: string | null;
+  seat_number: number;
+};
+
+export type BillMemberVote = {
+  vote_type: BillVoteType;
+  member: BillVoteMember;
+  source_label: string | null;
+  source_url: string | null;
+};
+
 export type FeaturedTag = {
   id: string;
   label: string;
@@ -53,6 +70,7 @@ export type BillWithContent = Bill & {
   tags: BillTag[];
   featured_tag?: FeaturedTag;
   hasPublicInterview?: boolean;
+  bill_member_votes?: BillMemberVote[];
 };
 
 // タグごとにグループ化された議案
@@ -178,4 +196,12 @@ export const STANCE_LABELS: Record<StanceTypeEnum, string> = {
   conditional_against: "条件付き反対",
   considering: "検討中",
   continued_deliberation: "継続審査中",
+};
+
+export const BILL_VOTE_TYPE_LABELS: Record<BillVoteType, string> = {
+  for: "賛成",
+  not_for: "賛成ではない",
+  absent: "欠席",
+  left: "退席",
+  chair: "議長",
 };

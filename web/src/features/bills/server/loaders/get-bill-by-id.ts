@@ -4,6 +4,7 @@ import type { DifficultyLevelEnum } from "@/features/bill-difficulty/shared/type
 import { CACHE_TAGS } from "@/lib/cache-tags";
 import type { BillWithContent } from "../../shared/types";
 import {
+  findBillMemberVotesByBillId,
   findPublishedBillById,
   findMiraiStanceByBillId,
   findTagsByBillId,
@@ -23,12 +24,14 @@ const _getCachedBillById = unstable_cache(
   ): Promise<BillWithContent | null> => {
     // 基本的なbill情報、見解、コンテンツ、タグを並列取得
     // 公開ステータスの議案のみを取得
-    const [bill, miraiStance, billContent, billTags] = await Promise.all([
-      findPublishedBillById(id),
-      findMiraiStanceByBillId(id),
-      getBillContentWithDifficulty(id, difficultyLevel),
-      findTagsByBillId(id),
-    ]);
+    const [bill, miraiStance, billContent, billTags, billMemberVotes] =
+      await Promise.all([
+        findPublishedBillById(id),
+        findMiraiStanceByBillId(id),
+        getBillContentWithDifficulty(id, difficultyLevel),
+        findTagsByBillId(id),
+        findBillMemberVotesByBillId(id),
+      ]);
 
     if (!bill) {
       console.error("Failed to fetch bill");
@@ -47,6 +50,7 @@ const _getCachedBillById = unstable_cache(
       mirai_stance: miraiStance || undefined,
       bill_content: billContent || undefined,
       tags,
+      bill_member_votes: billMemberVotes,
     };
   },
   ["bill-by-id"],

@@ -14,6 +14,7 @@ import {
   type BillWithContent,
 } from "../../../shared/types";
 import { BillShareButtons } from "../share/bill-share-buttons";
+import { BillVoteSection } from "./bill-vote-section";
 import { BillContent } from "./bill-content";
 import { BillDetailHeader } from "./bill-detail-header";
 
@@ -114,6 +115,7 @@ export async function BillDetailLayout({
           </div>
 
           <BillContent bill={bill} />
+          <BillVoteSection bill={bill} />
         </Container>
       </BillDetailClient>
 
