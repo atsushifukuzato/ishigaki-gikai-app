@@ -20,7 +20,6 @@ export function Footer() {
         <FooterLogoSection />
         <FooterPrimaryLinks />
         <FooterPolicies />
-        <FooterNotice />
         <FooterCopyright />
       </div>
     </footer>
@@ -80,15 +79,6 @@ function FooterPolicies() {
           </li>
         ))}
       </ul>
-    </div>
-  );
-}
-
-function FooterNotice() {
-  return (
-    <div className="mb-5 max-w-[440px] text-center text-[12px] leading-6 text-slate-700">
-      本サイトは AFTTT が運営する民間の情報提供サイトです。石垣市役所および
-      石垣市議会の公式サイトではなく、それらを代表・代行するものでもありません。
     </div>
   );
 }

@@ -33,6 +33,10 @@ export default function FaqPage() {
             が公開情報をもとに構成し、一部で AI
             を活用して背景や論点をわかりやすくまとめています。
           </LegalParagraph>
+          <LegalParagraph>
+            このサイトは、「チームみらい」が開発する「みらい議会」をもとに AFTTT
+            が運営する非公式サイトです。
+          </LegalParagraph>
         </section>
 
         <section className="space-y-4">
@@ -76,6 +80,13 @@ export default function FaqPage() {
           </LegalSectionTitle>
           <LegalParagraph>
             現時点では専用の報告フォームを準備中です。公開情報と見比べて気になる点がある場合は、まず一次資料をご確認ください。運用窓口が整い次第、このページでも案内します。
+          </LegalParagraph>
+        </section>
+
+        <section className="space-y-4">
+          <LegalSectionTitle>公式サイトですか？</LegalSectionTitle>
+          <LegalParagraph>
+            石垣市役所、石垣市議会、およびチームみらいの公式サイトではありません。ご意見や不具合のご連絡は、各公式窓口ではなく運営者へお願いします。
           </LegalParagraph>
         </section>
 

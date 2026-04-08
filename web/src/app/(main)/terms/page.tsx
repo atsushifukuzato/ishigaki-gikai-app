@@ -28,6 +28,10 @@ export default function TermsPage() {
           みらい議会
           石垣市議会版（以下「本サービス」といいます。）は、石垣市議会に関する公開情報を市民のみなさんが見やすい形で確認できるように整理・提供するサービスです。本サービスを利用する場合、本規約に同意したものとみなします。
         </LegalParagraph>
+        <LegalParagraph>
+          本サービスは、「チームみらい」が開発する「みらい議会」をもとに AFTTT
+          が運営する非公式サイトです。石垣市役所、石垣市議会、およびチームみらいの公式サイトではありません。
+        </LegalParagraph>
 
         <section className="space-y-4">
           <LegalSectionTitle>1. 本サービスについて</LegalSectionTitle>
