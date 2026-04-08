@@ -30,6 +30,7 @@ import type {
   InterviewSession,
 } from "@/features/interview-session/shared/types";
 import { DEFAULT_INTERVIEW_CHAT_MODEL } from "@/lib/ai/models";
+import { resolveWebAiModel } from "@/lib/ai/resolve-web-ai-model";
 import { env } from "@/lib/env";
 import { logger } from "@/lib/logger";
 import { mergeMessagesWithIds } from "../../shared/utils/merge-messages-with-ids";
@@ -240,12 +241,16 @@ async function generateStreamingResponse({
   };
 }) {
   // summaryフェーズもchatフェーズと同じモデルを使用（インタビューAIとモデルを揃える）
-  const model = isSummaryPhase
+  const selectedModel = isSummaryPhase
     ? (summaryModel ?? configChatModel ?? DEFAULT_INTERVIEW_CHAT_MODEL)
     : (chatModel ?? configChatModel ?? DEFAULT_INTERVIEW_CHAT_MODEL);
-
+  const model = resolveWebAiModel(selectedModel);
   const modelName =
-    typeof model === "string" ? model : (model.modelId ?? "unknown");
+    typeof selectedModel === "string"
+      ? selectedModel
+      : "modelId" in selectedModel
+        ? selectedModel.modelId
+        : "unknown";
 
   const handleError = (error: unknown) => {
     console.error("LLM generation error:", error);

@@ -2,6 +2,7 @@ import "server-only";
 
 import { generateObject, type LanguageModel } from "ai";
 import { DEFAULT_INTERVIEW_CHAT_MODEL } from "@/lib/ai/models";
+import { resolveWebAiModel } from "@/lib/ai/resolve-web-ai-model";
 import { moderationResultSchema } from "@mirai-gikai/shared/moderation/schemas";
 import { buildModerationPrompt } from "@mirai-gikai/shared/moderation/build-prompt";
 import {
@@ -35,7 +36,8 @@ export async function evaluateModerationScore(
   deps?: ModerationDeps
 ): Promise<ModerationOutput> {
   const prompt = buildModerationPrompt(input);
-  const model = deps?.model ?? DEFAULT_INTERVIEW_CHAT_MODEL;
+  const selectedModel = deps?.model ?? DEFAULT_INTERVIEW_CHAT_MODEL;
+  const model = resolveWebAiModel(selectedModel);
 
   const { object } = await generateObject({
     model,

@@ -23,6 +23,7 @@ import {
   type PromptProvider,
 } from "@/lib/prompt";
 import { AI_MODELS } from "@/lib/ai/models";
+import { resolveWebAiModel } from "@/lib/ai/resolve-web-ai-model";
 import { isWithinDailyCostLimit, recordChatUsage } from "./cost-tracker";
 import {
   checkSystemDailyCostLimit,
@@ -95,9 +96,14 @@ export async function handleChatRequest({
     promptProvider
   );
   // Model configuration
-  const model = deps?.model ?? AI_MODELS.gpt4o;
+  const selectedModel = deps?.model ?? AI_MODELS.gpt4o;
+  const model = resolveWebAiModel(selectedModel);
   const modelName =
-    typeof model === "string" ? model : (model.modelId ?? "unknown");
+    typeof selectedModel === "string"
+      ? selectedModel
+      : "modelId" in selectedModel
+        ? selectedModel.modelId
+        : "unknown";
 
   // Determine if interview suggestion should be enabled
   const shouldSuggestInterview = await determineShouldSuggestInterview(

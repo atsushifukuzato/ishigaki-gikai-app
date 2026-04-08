@@ -9,6 +9,7 @@ import {
 import { getInterviewConfigAdmin } from "@/features/interview-config/server/loaders/get-interview-config-admin";
 import { getInterviewQuestions } from "@/features/interview-config/server/loaders/get-interview-questions";
 import { DEFAULT_INTERVIEW_CHAT_MODEL } from "@/lib/ai/models";
+import { resolveWebAiModel } from "@/lib/ai/resolve-web-ai-model";
 import { env } from "@/lib/env";
 import { interviewChatTextSchema } from "../../shared/schemas";
 import type { InterviewMessage } from "../../shared/types";
@@ -83,8 +84,9 @@ export async function generateInitialQuestion({
 
     // メッセージ履歴なしで最初の質問を生成（構造化出力）
     const occurredAt = new Date().toISOString();
-    const model =
+    const selectedModel =
       deps?.model ?? interviewConfig.chat_model ?? DEFAULT_INTERVIEW_CHAT_MODEL;
+    const model = resolveWebAiModel(selectedModel);
     const result = await generateText({
       model,
       prompt: enhancedSystemPrompt,
@@ -101,7 +103,11 @@ export async function generateInitialQuestion({
 
     // LLM利用コストを記録
     const modelName =
-      typeof model === "string" ? model : (model.modelId ?? "unknown");
+      typeof selectedModel === "string"
+        ? selectedModel
+        : "modelId" in selectedModel
+          ? selectedModel.modelId
+          : "unknown";
     try {
       await recordChatUsage({
         userId,
