@@ -40,6 +40,61 @@ interface BillContentsEditFormProps {
   billContents: BillContent[];
 }
 
+const RECOMMENDED_SECTIONS = [
+  "この議案のポイント",
+  "この議案が必要な理由",
+  "主な論点",
+  "影響を受ける人",
+  "関連リンク",
+] as const;
+
+const CONTENT_TEMPLATES: Record<DifficultyLevel, string> = {
+  normal: `## この議案のポイント
+
+- 
+- 
+
+## この議案が必要な理由
+
+
+## 主な論点
+
+- 
+- 
+
+## 影響を受ける人
+
+- 
+- 
+
+## 関連リンク
+
+- [リンク名](https://example.com)
+`,
+  hard: `## この議案のポイント
+
+- 
+- 
+
+## この議案が必要な理由
+
+
+## 主な論点
+
+- 
+- 
+
+## 影響を受ける人
+
+- 
+- 
+
+## 関連リンク
+
+- [リンク名](https://example.com)
+`,
+};
+
 export function BillContentsEditForm({
   bill,
   billContents,
@@ -167,6 +222,33 @@ export function BillContentsEditForm({
                           {level.label}
                           レベル向けの内容をMarkdown形式で入力してください（任意・最大50000文字）
                         </FormDescription>
+                        <div className="rounded-md border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
+                          <div className="mb-2 font-semibold text-slate-900">
+                            推奨構成
+                          </div>
+                          <ul className="mb-3 list-disc space-y-1 pl-5">
+                            {RECOMMENDED_SECTIONS.map((section) => (
+                              <li key={section}>{section}</li>
+                            ))}
+                          </ul>
+                          <Button
+                            type="button"
+                            variant="outline"
+                            size="sm"
+                            onClick={() =>
+                              form.setValue(
+                                `${level.value}.content`,
+                                CONTENT_TEMPLATES[level.value],
+                                {
+                                  shouldDirty: true,
+                                  shouldTouch: true,
+                                }
+                              )
+                            }
+                          >
+                            テンプレートを挿入
+                          </Button>
+                        </div>
                         <FormMessage />
                       </FormItem>
                     )}
