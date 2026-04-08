@@ -8,4 +8,5 @@ export interface Member {
   address: string | null;
   image_url: string | null;
   instagram_url?: string | null;
+  threads_url?: string | null;
 }

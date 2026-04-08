@@ -24,6 +24,7 @@ type MemberRow = {
   address: string | null;
   image_url: string | null;
   instagram_url?: string | null;
+  threads_url?: string | null;
 };
 
 function getSupabaseTargetLabel(url: string) {
@@ -59,11 +60,11 @@ export async function getMembers(): Promise<Member[]> {
     env.supabaseAnonKey
   );
 
-  const queryWithInstagram = () =>
+  const queryWithSocialLinks = () =>
     supabase
       .from("members")
       .select(
-        "name, name_kana, party, party_group, election_count, birth_date, address, image_url, instagram_url"
+        "name, name_kana, party, party_group, election_count, birth_date, address, image_url, instagram_url, threads_url"
       )
       .order("name_kana", { ascending: true, nullsFirst: false })
       .order("name", { ascending: true });
@@ -77,14 +78,16 @@ export async function getMembers(): Promise<Member[]> {
       .order("name_kana", { ascending: true, nullsFirst: false })
       .order("name", { ascending: true });
 
-  let { data, error } = await queryWithInstagram();
+  let { data, error } = await queryWithSocialLinks();
 
-  const isMissingInstagramColumn =
+  const isMissingSocialLinkColumn =
     error &&
     (error.message.includes("instagram_url") ||
-      error.message.includes("column members.instagram_url does not exist"));
+      error.message.includes("threads_url") ||
+      error.message.includes("column members.instagram_url does not exist") ||
+      error.message.includes("column members.threads_url does not exist"));
 
-  if (isMissingInstagramColumn) {
+  if (isMissingSocialLinkColumn) {
     ({ data, error } = await fallbackQuery());
   }
 
@@ -118,5 +121,7 @@ export async function getMembers(): Promise<Member[]> {
     image_url: member.image_url,
     instagram_url:
       typeof member.instagram_url === "string" ? member.instagram_url : null,
+    threads_url:
+      typeof member.threads_url === "string" ? member.threads_url : null,
   }));
 }

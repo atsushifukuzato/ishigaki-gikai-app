@@ -21,6 +21,8 @@ export function MemberCard({ member }: { member: Member }) {
   const birthDate = formatBirthDate(member.birth_date);
   const instagramUrl =
     typeof member.instagram_url === "string" ? member.instagram_url.trim() : "";
+  const threadsUrl =
+    typeof member.threads_url === "string" ? member.threads_url.trim() : "";
 
   return (
     <article className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-md">
@@ -78,17 +80,36 @@ export function MemberCard({ member }: { member: Member }) {
           {birthDate || "生年月日未登録"}
         </div>
 
-        {instagramUrl ? (
-          <a
-            href={instagramUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex w-fit items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:border-slate-300 hover:text-slate-900"
-          >
-            <Instagram className="h-4 w-4 text-primary" />
-            Instagram
-            <ExternalLink className="h-3.5 w-3.5 text-slate-400" />
-          </a>
+        {instagramUrl || threadsUrl ? (
+          <div className="flex flex-wrap gap-2">
+            {instagramUrl ? (
+              <a
+                href={instagramUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex w-fit items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:border-slate-300 hover:text-slate-900"
+              >
+                <Instagram className="h-4 w-4 text-primary" />
+                Instagram
+                <ExternalLink className="h-3.5 w-3.5 text-slate-400" />
+              </a>
+            ) : null}
+
+            {threadsUrl ? (
+              <a
+                href={threadsUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex w-fit items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:border-slate-300 hover:text-slate-900"
+              >
+                <span className="text-xs font-bold uppercase tracking-[0.08em] text-primary">
+                  @
+                </span>
+                Threads
+                <ExternalLink className="h-3.5 w-3.5 text-slate-400" />
+              </a>
+            ) : null}
+          </div>
         ) : null}
       </div>
     </article>
