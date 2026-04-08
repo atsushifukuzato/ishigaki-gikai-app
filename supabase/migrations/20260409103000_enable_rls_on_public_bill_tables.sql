@@ -3,7 +3,19 @@ alter table public.bills enable row level security;
 alter table public.bill_contents enable row level security;
 alter table public.tags enable row level security;
 alter table public.bills_tags enable row level security;
-alter table public.bill_member_votes enable row level security;
+
+do $$
+begin
+  if exists (
+    select 1
+    from information_schema.tables
+    where table_schema = 'public'
+      and table_name = 'bill_member_votes'
+  ) then
+    alter table public.bill_member_votes enable row level security;
+  end if;
+end
+$$;
 
 do $$
 begin
@@ -111,7 +123,12 @@ $$;
 
 do $$
 begin
-  if not exists (
+  if exists (
+    select 1
+    from information_schema.tables
+    where table_schema = 'public'
+      and table_name = 'bill_member_votes'
+  ) and not exists (
     select 1
     from pg_policies
     where schemaname = 'public'
