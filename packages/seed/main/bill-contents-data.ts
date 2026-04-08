@@ -68,7 +68,7 @@ export const billContentsWithBillName: BillContentWithBillName[] = [
 
 ### 賛成派
 - 立憲民主党、日本維新の会など
-- 「国民生活を守る緊急措置」として支持
+- 「市民生活を守る緊急措置」として支持
 
 ### 慎重派
 - 与党の一部

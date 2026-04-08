@@ -353,7 +353,7 @@ export function createInterviewMessages(
       { role: "assistant" as const, content: "この議案に賛成ですか？反対ですか？" },
       { role: "user" as const, content: "賛成です" },
       { role: "assistant" as const, content: "その理由を教えてください。" },
-      { role: "user" as const, content: "なぜなら賛成だからです。国民のためになると思います。" },
+      { role: "user" as const, content: "なぜなら賛成だからです。市民のためになると思います。" },
       { role: "assistant" as const, content: "ありがとうございました。ご意見を承りました。" },
     ],
     // パターン2: 反対（完了 + レポートあり）
@@ -413,11 +413,11 @@ export function createInterviewReports(
     {
       stance: "for" as const,
       summary:
-        "この議案は国民生活の安定に寄与する重要な施策であり、賛成の立場をとる。特に物価高騰に苦しむ家庭への経済的支援効果が大きく、社会保障の充実と合わせて早期の成立を望む。",
+        "この議案は市民生活の安定に寄与する重要な施策であり、賛成の立場をとる。特に物価高騰に苦しむ家庭への経済的支援効果が大きく、社会保障の充実と合わせて早期の成立を望む。",
       role: "general_citizen" as const,
       role_title: "一般市民",
       role_description: "議案の内容に賛同する市民",
-      opinions: [{ title: "賛成理由", content: "国民のためになる" }],
+      opinions: [{ title: "賛成理由", content: "市民のためになる" }],
     },
     {
       stance: "against" as const,
