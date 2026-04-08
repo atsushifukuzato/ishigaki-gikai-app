@@ -1,4 +1,4 @@
-import { MapPin, Shield, Users } from "lucide-react";
+import { ExternalLink, Instagram, MapPin, Shield, Users } from "lucide-react";
 import type { Member } from "@/features/members/shared/types";
 
 function formatBirthDate(value: string | null) {
@@ -19,6 +19,8 @@ function formatElectionCount(value: number | null) {
 
 export function MemberCard({ member }: { member: Member }) {
   const birthDate = formatBirthDate(member.birth_date);
+  const instagramUrl =
+    typeof member.instagram_url === "string" ? member.instagram_url.trim() : "";
 
   return (
     <article className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-md">
@@ -75,6 +77,19 @@ export function MemberCard({ member }: { member: Member }) {
         <div className="rounded-2xl bg-slate-50 px-4 py-3 text-sm text-slate-700">
           {birthDate || "生年月日未登録"}
         </div>
+
+        {instagramUrl ? (
+          <a
+            href={instagramUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex w-fit items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:border-slate-300 hover:text-slate-900"
+          >
+            <Instagram className="h-4 w-4 text-primary" />
+            Instagram
+            <ExternalLink className="h-3.5 w-3.5 text-slate-400" />
+          </a>
+        ) : null}
       </div>
     </article>
   );

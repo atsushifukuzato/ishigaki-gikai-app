@@ -14,6 +14,18 @@ type MembersDatabase = {
   };
 };
 
+type MemberRow = {
+  name: string;
+  name_kana: string | null;
+  party: string | null;
+  party_group: string | null;
+  election_count: number | null;
+  birth_date: string | null;
+  address: string | null;
+  image_url: string | null;
+  instagram_url?: string | null;
+};
+
 function getSupabaseTargetLabel(url: string) {
   try {
     const hostname = new URL(url).hostname;
@@ -47,13 +59,34 @@ export async function getMembers(): Promise<Member[]> {
     env.supabaseAnonKey
   );
 
-  const { data, error } = await supabase
-    .from("members")
-    .select(
-      "name, name_kana, party, party_group, election_count, birth_date, address, image_url"
-    )
-    .order("name_kana", { ascending: true, nullsFirst: false })
-    .order("name", { ascending: true });
+  const queryWithInstagram = () =>
+    supabase
+      .from("members")
+      .select(
+        "name, name_kana, party, party_group, election_count, birth_date, address, image_url, instagram_url"
+      )
+      .order("name_kana", { ascending: true, nullsFirst: false })
+      .order("name", { ascending: true });
+
+  const fallbackQuery = () =>
+    supabase
+      .from("members")
+      .select(
+        "name, name_kana, party, party_group, election_count, birth_date, address, image_url"
+      )
+      .order("name_kana", { ascending: true, nullsFirst: false })
+      .order("name", { ascending: true });
+
+  let { data, error } = await queryWithInstagram();
+
+  const isMissingInstagramColumn =
+    error &&
+    (error.message.includes("instagram_url") ||
+      error.message.includes("column members.instagram_url does not exist"));
+
+  if (isMissingInstagramColumn) {
+    ({ data, error } = await fallbackQuery());
+  }
 
   if (error) {
     console.error("[members] Failed to fetch members:", {
@@ -74,5 +107,16 @@ export async function getMembers(): Promise<Member[]> {
     );
   }
 
-  return data ?? [];
+  return ((data ?? []) as MemberRow[]).map((member) => ({
+    name: member.name,
+    name_kana: member.name_kana,
+    party: member.party,
+    party_group: member.party_group,
+    election_count: member.election_count,
+    birth_date: member.birth_date,
+    address: member.address,
+    image_url: member.image_url,
+    instagram_url:
+      typeof member.instagram_url === "string" ? member.instagram_url : null,
+  }));
 }
