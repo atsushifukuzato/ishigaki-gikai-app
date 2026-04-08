@@ -1,4 +1,11 @@
-import { ExternalLink, Instagram, MapPin, Shield, Users } from "lucide-react";
+import {
+  ExternalLink,
+  Facebook,
+  Instagram,
+  MapPin,
+  Shield,
+  Users,
+} from "lucide-react";
 import type { Member } from "@/features/members/shared/types";
 
 function formatBirthDate(value: string | null) {
@@ -19,6 +26,8 @@ function formatElectionCount(value: number | null) {
 
 export function MemberCard({ member }: { member: Member }) {
   const birthDate = formatBirthDate(member.birth_date);
+  const facebookUrl =
+    typeof member.facebook_url === "string" ? member.facebook_url.trim() : "";
   const instagramUrl =
     typeof member.instagram_url === "string" ? member.instagram_url.trim() : "";
   const threadsUrl =
@@ -80,8 +89,21 @@ export function MemberCard({ member }: { member: Member }) {
           {birthDate || "生年月日未登録"}
         </div>
 
-        {instagramUrl || threadsUrl ? (
+        {facebookUrl || instagramUrl || threadsUrl ? (
           <div className="flex flex-wrap gap-2">
+            {facebookUrl ? (
+              <a
+                href={facebookUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex w-fit items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:border-slate-300 hover:text-slate-900"
+              >
+                <Facebook className="h-4 w-4 text-primary" />
+                Facebook
+                <ExternalLink className="h-3.5 w-3.5 text-slate-400" />
+              </a>
+            ) : null}
+
             {instagramUrl ? (
               <a
                 href={instagramUrl}
