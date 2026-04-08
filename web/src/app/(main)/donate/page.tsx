@@ -54,7 +54,7 @@ export default function DonatePage() {
               寄付で応援する
             </h1>
             <p className="max-w-3xl text-[15px] leading-8 text-slate-700">
-              石垣市議会版みらい議会は、AFTTT
+              みらい議会 石垣市議会版は、AFTTT
               が公開情報を整理し、市民のみなさんが議会を見やすくするために運営しています。ご支援は
               Stripe の安全な決済ページを通じて受け付けています。
             </p>
@@ -108,9 +108,35 @@ export default function DonatePage() {
             </h2>
             <p className="text-sm leading-7 text-slate-600">
               寄付ページは Stripe
-              に移動します。税控除の有無や領収書の扱いについては、 AFTTT
-              の運用体制に応じて今後ご案内を整備します。
+              に移動します。寄付・支援は税控除の対象とならない可能性があります。領収書や運営情報については、
+              AFTTT のご案内ページをご確認ください。
             </p>
+            <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm font-medium text-slate-700">
+              <Link
+                href="https://afttt.jp/privacy"
+                target="_blank"
+                rel="noreferrer"
+                className="underline underline-offset-4 hover:opacity-70"
+              >
+                プライバシーポリシー
+              </Link>
+              <Link
+                href="https://afttt.jp/terms"
+                target="_blank"
+                rel="noreferrer"
+                className="underline underline-offset-4 hover:opacity-70"
+              >
+                利用規約
+              </Link>
+              <Link
+                href="https://afttt.jp/deal"
+                target="_blank"
+                rel="noreferrer"
+                className="underline underline-offset-4 hover:opacity-70"
+              >
+                特定商取引法に基づく表記
+              </Link>
+            </div>
           </div>
         </section>
 
