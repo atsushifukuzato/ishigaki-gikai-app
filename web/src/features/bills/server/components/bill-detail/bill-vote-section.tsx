@@ -82,7 +82,7 @@ export function BillVoteSection({ bill }: { bill: BillWithContent }) {
               {group.votes.map((vote) => (
                 <li
                   key={`${group.voteType}-${vote.member.id}`}
-                  className="rounded-xl border border-slate-200 bg-white px-4 py-3"
+                  className="rounded-xl bg-white px-4 py-3"
                 >
                   <div className="flex items-center justify-between gap-3">
                     <div>
@@ -90,13 +90,11 @@ export function BillVoteSection({ bill }: { bill: BillWithContent }) {
                         {vote.member.name}
                       </div>
                       <div className="text-sm text-slate-600">
-                        {vote.member.party_group ||
-                          vote.member.party ||
-                          "会派未登録"}
+                        {vote.member.party || "政党未登録"}
                       </div>
                     </div>
                     <div className="text-xs font-medium text-slate-500">
-                      議席番号{vote.member.seat_number}
+                      {vote.member.party_group || "会派未登録"}
                     </div>
                   </div>
                 </li>
