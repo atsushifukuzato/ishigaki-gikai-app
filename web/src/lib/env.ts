@@ -62,6 +62,7 @@ export const env = {
   revalidateSecret: process.env.REVALIDATE_SECRET,
   analytics: {
     gaTrackingId: process.env.NEXT_PUBLIC_GA_TRACKING_ID,
+    googleSiteVerification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
   },
   langfuse: {
     publicKey: process.env.LANGFUSE_PUBLIC_KEY,
