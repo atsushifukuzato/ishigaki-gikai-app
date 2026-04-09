@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Container } from "@/components/layouts/container";
+import { EXTERNAL_LINKS } from "@/config/external-links";
 import {
   LegalList,
   LegalPageLayout,
@@ -86,7 +88,16 @@ export default function FaqPage() {
         <section className="space-y-4">
           <LegalSectionTitle>公式サイトですか？</LegalSectionTitle>
           <LegalParagraph>
-            このサイトは石垣市役所、石垣市議会、およびチームみらいの公式サイトではありません。ご意見や不具合のご連絡は、運営者へお願いします。
+            このサイトは石垣市役所、石垣市議会、およびチームみらいの公式サイトではありません。ご意見や不具合のご連絡は、運営者の
+            <Link
+              href={EXTERNAL_LINKS.OPERATOR_X}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2"
+            >
+              福里淳
+            </Link>
+            へお願いします。
           </LegalParagraph>
         </section>
 

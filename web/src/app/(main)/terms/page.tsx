@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import {
   LegalList,
   LegalPageLayout,
@@ -6,6 +7,7 @@ import {
   LegalSectionTitle,
 } from "@/components/layouts/legal-page-layout";
 import { Container } from "@/components/layouts/container";
+import { EXTERNAL_LINKS } from "@/config/external-links";
 
 export const metadata: Metadata = {
   title: "利用規約 | みらい議会 石垣市議会版",
@@ -30,7 +32,16 @@ export default function TermsPage() {
         </LegalParagraph>
         <LegalParagraph>
           本サービスは、「チームみらい」が開発する「みらい議会」をもとに AFTTT
-          が運営する非公式サイトです。このサイトは石垣市役所、石垣市議会、およびチームみらいの公式サイトではありません。ご意見や不具合のご連絡は、運営者へお願いします。
+          が運営する非公式サイトです。このサイトは石垣市役所、石垣市議会、およびチームみらいの公式サイトではありません。ご意見や不具合のご連絡は、運営者の
+          <Link
+            href={EXTERNAL_LINKS.OPERATOR_X}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-2"
+          >
+            福里淳
+          </Link>
+          へお願いします。
         </LegalParagraph>
 
         <section className="space-y-4">

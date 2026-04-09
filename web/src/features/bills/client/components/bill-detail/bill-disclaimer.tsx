@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { LinkButton } from "@/components/top/link-button";
+import { EXTERNAL_LINKS } from "@/config/external-links";
 import { routes } from "@/lib/routes";
 import { ManualRuby } from "@/lib/rubyful/manual-ruby";
 
@@ -21,7 +23,16 @@ export function BillDisclaimer() {
       <div className="space-y-3">
         <h3 className="text-sm font-bold text-black">免責事項</h3>
         <p className="text-xs leading-relaxed text-mirai-text-note">
-          このサイトは石垣市役所、石垣市議会、およびチームみらいの公式サイトではありません。ご意見や不具合のご連絡は、運営者へお願いします。本サイトで公開する情報は、可能な限り正確かつ最新の情報を反映するよう努めていますが、その正確性・完全性・即時性について保証するものではありません。また、AIチャットは不正確または誤解を招く回答を生成する可能性があります。正確な情報は、公式文書や一次資料をご確認ください。
+          このサイトは石垣市役所、石垣市議会、およびチームみらいの公式サイトではありません。ご意見や不具合のご連絡は、運営者の
+          <Link
+            href={EXTERNAL_LINKS.OPERATOR_X}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-2"
+          >
+            福里淳
+          </Link>
+          へお願いします。本サイトで公開する情報は、可能な限り正確かつ最新の情報を反映するよう努めていますが、その正確性・完全性・即時性について保証するものではありません。また、AIチャットは不正確または誤解を招く回答を生成する可能性があります。正確な情報は、公式文書や一次資料をご確認ください。
         </p>
       </div>
 

@@ -1,10 +1,11 @@
 import Image from "next/image";
+import { EXTERNAL_LINKS } from "@/config/external-links";
 import { LinkButton } from "./link-button";
 
 const AFTTT_SOCIAL_LINKS = [
   {
     name: "Instagram",
-    url: "https://www.instagram.com/afttt.jp",
+    url: EXTERNAL_LINKS.AFTTT_INSTAGRAM,
     iconPath: "/icons/sns/icon_instagram.png",
     hasBorder: true,
   },
