@@ -86,7 +86,7 @@ function FooterPolicies() {
 function FooterCopyright() {
   return (
     <div className="text-center text-sm font-medium text-slate-800">
-      © 2025 AFTTT All rights Reserved
+      © 2025 Team Mirai. Built by AFTTT
     </div>
   );
 }
