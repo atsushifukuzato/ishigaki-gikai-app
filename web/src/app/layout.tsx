@@ -23,10 +23,10 @@ const siteDescription =
   "石垣市議会で今どんな議案が検討されているか、わかりやすく伝えるプラットフォーム";
 const siteName = "みらい議会｜石垣市議会版";
 const ogImage = {
-  url: "/ogp.jpg",
-  width: 1200,
-  height: 630,
-  alt: "みらい議会のOGPイメージ",
+  url: "/ogp-ishigaki.png",
+  width: 1536,
+  height: 1024,
+  alt: "みらい議会 石垣市議会版のOGPイメージ",
 };
 
 export const metadata: Metadata = {
