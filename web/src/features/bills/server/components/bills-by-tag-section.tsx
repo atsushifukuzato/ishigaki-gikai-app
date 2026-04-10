@@ -2,6 +2,7 @@ import type { Route } from "next";
 import Link from "next/link";
 import { routes } from "@/lib/routes";
 import type { BillsByTag } from "../../shared/types";
+import { shuffleArray } from "../../shared/utils/shuffle-array";
 import { BillCard } from "../../client/components/bill-list/bill-card";
 
 interface BillsByTagSectionProps {
@@ -13,9 +14,11 @@ export function BillsByTagSection({ billsByTag }: BillsByTagSectionProps) {
     return null;
   }
 
+  const shuffledBillsByTag = shuffleArray(billsByTag);
+
   return (
     <div className="flex flex-col gap-12">
-      {billsByTag.map(({ tag, bills }) => (
+      {shuffledBillsByTag.map(({ tag, bills }) => (
         <section key={tag.id} className="flex flex-col gap-6">
           {/* タグヘッダー */}
           <div className="flex flex-col gap-1.5">

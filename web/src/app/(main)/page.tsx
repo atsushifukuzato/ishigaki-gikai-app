@@ -16,6 +16,8 @@ import { CurrentDietSession } from "@/features/diet-sessions/client/components/c
 import { getCurrentDietSession } from "@/features/diet-sessions/server/loaders/get-current-diet-session";
 import { getJapanTime } from "@/lib/utils/date";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const { billsByTag, featuredBills, comingSoonBills, previousSessionData } =
     await loadHomeData();
