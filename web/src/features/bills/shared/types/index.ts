@@ -41,6 +41,11 @@ export type BillTag = {
   label: string;
 };
 
+export type BillDietSession = {
+  name: string;
+  slug: string | null;
+};
+
 export type BillVoteType = "for" | "not_for" | "absent" | "left" | "chair";
 
 export type BillVoteMember = {
@@ -75,6 +80,7 @@ export type BillWithContent = Bill & {
   bill_content?: BillContent;
   mirai_stance?: MiraiStance;
   tags: BillTag[];
+  diet_session?: BillDietSession;
   featured_tag?: FeaturedTag;
   hasPublicInterview?: boolean;
   bill_member_votes?: BillMemberVote[];

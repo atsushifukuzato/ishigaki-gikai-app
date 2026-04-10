@@ -7,6 +7,7 @@ import {
   findPublishedBillsWithContents,
   findTagsByBillIds,
   findBillIdsWithPublicInterview,
+  normalizeDietSession,
 } from "../repositories/bill-repository";
 
 export async function getBills(): Promise<BillWithContent[]> {
@@ -34,6 +35,7 @@ const _getCachedBills = unstable_cache(
           ? bill_contents[0]
           : undefined,
         tags: tagsByBillId.get(item.id) ?? [],
+        diet_session: normalizeDietSession(item.diet_session),
         hasPublicInterview: interviewBillIds.has(item.id),
       };
     });

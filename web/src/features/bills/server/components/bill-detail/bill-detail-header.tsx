@@ -12,6 +12,7 @@ import { BillStatusBadge } from "../../../client/components/bill-list/bill-statu
 import { BillTag } from "../../../client/components/bill-list/bill-tag";
 import { getBillShareData } from "../../../client/utils/share";
 import type { BillWithContent } from "../../../shared/types";
+import { formatBillDietSessionLabel } from "../../../shared/utils/diet-session-label";
 
 interface BillDetailHeaderProps {
   bill: BillWithContent;
@@ -29,6 +30,7 @@ export async function BillDetailHeader({
   const displayThumbnailUrl =
     typeof bill.thumbnail_url === "string" ? bill.thumbnail_url.trim() : "";
   const hasThumbnail = displayThumbnailUrl.length > 0;
+  const dietSessionLabel = formatBillDietSessionLabel(bill.diet_session);
 
   const { shareUrl, shareMessage, thumbnailUrl } = await getBillShareData(bill);
 
@@ -41,6 +43,11 @@ export async function BillDetailHeader({
       <div className={`px-4 ${hasThumbnail ? "pt-8" : "pt-4"} mb-3`}>
         {displayTitle && (
           <h1 className="text-2xl font-bold mb-3">{displayTitle}</h1>
+        )}
+        {dietSessionLabel && (
+          <p className="mb-3 text-sm font-medium text-primary-accent">
+            {dietSessionLabel}
+          </p>
         )}
         <div className="flex flex-row gap-4">
           <BillStatusBadge status={bill.status} className="w-fit" />

@@ -4,6 +4,7 @@ import {
   findBillById,
   findMiraiStanceByBillId,
   findTagsByBillId,
+  normalizeDietSession,
   normalizeProposerMember,
 } from "../repositories/bill-repository";
 import { getBillContentWithDifficulty } from "./helpers/get-bill-content";
@@ -43,6 +44,22 @@ export async function getBillByIdAdmin(
     mirai_stance: miraiStance || undefined,
     bill_content: billContent || undefined,
     tags,
+    diet_session: normalizeDietSession(
+      (
+        bill as typeof bill & {
+          diet_session?:
+            | {
+                name: string;
+                slug: string | null;
+              }
+            | Array<{
+                name: string;
+                slug: string | null;
+              }>
+            | null;
+        }
+      ).diet_session
+    ),
     proposer_member: normalizeProposerMember(
       (
         bill as typeof bill & {

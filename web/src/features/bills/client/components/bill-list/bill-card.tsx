@@ -3,6 +3,7 @@ import { RubySafeLineClamp } from "@/components/ruby-safe-line-clamp";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatDateWithDots } from "@/lib/utils/date";
 import type { BillWithContent } from "../../../shared/types";
+import { formatBillDietSessionLabel } from "../../../shared/utils/diet-session-label";
 import { BillStatusBadge } from "./bill-status-badge";
 import { BillTag } from "./bill-tag";
 
@@ -16,6 +17,7 @@ export function BillCard({ bill }: BillCardProps) {
   const thumbnailUrl =
     typeof bill.thumbnail_url === "string" ? bill.thumbnail_url.trim() : "";
   const hasThumbnail = thumbnailUrl.length > 0;
+  const dietSessionLabel = formatBillDietSessionLabel(bill.diet_session);
 
   return (
     <Card className="border border-black hover:bg-muted/50 transition-colors relative overflow-hidden max-w-[634px]">
@@ -56,6 +58,11 @@ export function BillCard({ bill }: BillCardProps) {
               <CardTitle className="text-2xl/8 tracking-normal">
                 {displayTitle}
               </CardTitle>
+              {dietSessionLabel && (
+                <p className="text-xs font-medium text-primary-accent">
+                  {dietSessionLabel}
+                </p>
+              )}
               <div className="flex flex-row gap-4">
                 <BillStatusBadge status={bill.status} className="w-fit" />
                 <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground">

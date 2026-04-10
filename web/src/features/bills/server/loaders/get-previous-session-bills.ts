@@ -10,6 +10,7 @@ import {
   findTagsByBillIds,
   findBillIdsWithPublicInterview,
   countPublishedBillsByDietSession,
+  normalizeDietSession,
 } from "../repositories/bill-repository";
 
 const MAX_PREVIEW_BILLS = 5;
@@ -73,6 +74,7 @@ const _getCachedPreviousSessionBills = unstable_cache(
           ? bill_contents[0]
           : undefined,
         tags: tagsByBillId.get(item.id) ?? [],
+        diet_session: normalizeDietSession(item.diet_session),
         hasPublicInterview: interviewBillIds.has(item.id),
       };
     });

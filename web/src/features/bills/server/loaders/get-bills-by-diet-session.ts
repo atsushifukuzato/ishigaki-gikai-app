@@ -7,6 +7,7 @@ import {
   findPublishedBillsByDietSession,
   findTagsByBillIds,
   findBillIdsWithPublicInterview,
+  normalizeDietSession,
 } from "../repositories/bill-repository";
 
 /**
@@ -48,6 +49,7 @@ const _getCachedBillsByDietSession = unstable_cache(
           ? bill_contents[0]
           : undefined,
         tags: tagsByBillId.get(item.id) ?? [],
+        diet_session: normalizeDietSession(item.diet_session),
         hasPublicInterview: interviewBillIds.has(item.id),
       };
     });

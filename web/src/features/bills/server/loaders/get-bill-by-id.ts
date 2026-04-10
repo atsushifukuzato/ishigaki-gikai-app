@@ -8,6 +8,7 @@ import {
   findPublishedBillById,
   findMiraiStanceByBillId,
   findTagsByBillId,
+  normalizeDietSession,
   normalizeProposerMember,
 } from "../repositories/bill-repository";
 import { getBillContentWithDifficulty } from "./helpers/get-bill-content";
@@ -51,6 +52,22 @@ const _getCachedBillById = unstable_cache(
       mirai_stance: miraiStance || undefined,
       bill_content: billContent || undefined,
       tags,
+      diet_session: normalizeDietSession(
+        (
+          bill as typeof bill & {
+            diet_session?:
+              | {
+                  name: string;
+                  slug: string | null;
+                }
+              | Array<{
+                  name: string;
+                  slug: string | null;
+                }>
+              | null;
+          }
+        ).diet_session
+      ),
       bill_member_votes: billMemberVotes,
       proposer_member: normalizeProposerMember(
         (

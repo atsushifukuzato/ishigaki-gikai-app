@@ -9,7 +9,12 @@ import type { BillMemberVote, BillProposerMember } from "../../shared/types";
 // ============================================================
 
 type BillRow = Database["public"]["Tables"]["bills"]["Row"];
+type BillDietSession = {
+  name: string;
+  slug: string | null;
+};
 type BillWithOptionalProposer = BillRow & {
+  diet_session?: BillDietSession | BillDietSession[] | null;
   proposer_member?: BillProposerMember | BillProposerMember[] | null;
 };
 
@@ -25,6 +30,10 @@ export async function findPublishedBillsWithContents(
     .select(
       `
       *,
+      diet_session:diet_sessions (
+        name,
+        slug
+      ),
       bill_contents!inner (
         id,
         bill_id,
@@ -59,6 +68,10 @@ export async function findPublishedBillById(id: string) {
       .select(
         `
         *,
+        diet_session:diet_sessions (
+          name,
+          slug
+        ),
         proposer_member:members!bills_proposer_member_id_fkey (
           id,
           name,
@@ -121,6 +134,10 @@ export async function findBillById(id: string) {
       .select(
         `
         *,
+        diet_session:diet_sessions (
+          name,
+          slug
+        ),
         proposer_member:members!bills_proposer_member_id_fkey (
           id,
           name,
@@ -174,6 +191,16 @@ export function normalizeProposerMember(
   }
 
   return proposerMember ?? undefined;
+}
+
+export function normalizeDietSession(
+  dietSession: BillDietSession | BillDietSession[] | null | undefined
+): BillDietSession | undefined {
+  if (Array.isArray(dietSession)) {
+    return dietSession[0];
+  }
+
+  return dietSession ?? undefined;
 }
 
 /**
@@ -402,6 +429,10 @@ export async function findPublishedBillsByDietSession(
     .select(
       `
       *,
+      diet_session:diet_sessions (
+        name,
+        slug
+      ),
       bill_contents!inner (
         id,
         bill_id,
@@ -441,6 +472,10 @@ export async function findPreviousSessionBills(
     .select(
       `
       *,
+      diet_session:diet_sessions (
+        name,
+        slug
+      ),
       bill_contents!inner (
         id,
         bill_id,
@@ -533,6 +568,10 @@ export async function findPublishedBillsByTag(
       bill_id,
       bills!inner (
         *,
+        diet_session:diet_sessions (
+          name,
+          slug
+        ),
         bill_contents!inner (
           id,
           bill_id,
@@ -583,6 +622,10 @@ export async function findFeaturedBillsWithContents(
     .select(
       `
       *,
+      diet_session:diet_sessions (
+        name,
+        slug
+      ),
       bill_contents!inner (
         id,
         bill_id,

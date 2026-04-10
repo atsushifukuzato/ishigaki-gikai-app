@@ -8,6 +8,7 @@ import {
   findFeaturedTags,
   findPublishedBillsByTag,
   findBillIdsWithPublicInterview,
+  normalizeDietSession,
 } from "../repositories/bill-repository";
 
 /**
@@ -71,6 +72,7 @@ const _getCachedBillsByFeaturedTags = unstable_cache(
             return {
               ...bill,
               bill_content: billContent,
+              diet_session: normalizeDietSession(bill.diet_session),
               tags,
             };
           })

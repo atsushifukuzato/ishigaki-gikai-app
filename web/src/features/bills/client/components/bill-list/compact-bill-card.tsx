@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Card } from "@/components/ui/card";
 import { formatDateWithDots } from "@/lib/utils/date";
 import type { BillWithContent } from "../../../shared/types";
+import { formatBillDietSessionLabel } from "../../../shared/utils/diet-session-label";
 import { BillStatusBadge } from "./bill-status-badge";
 
 interface CompactBillCardProps {
@@ -16,6 +17,7 @@ interface CompactBillCardProps {
 export function CompactBillCard({ bill, className }: CompactBillCardProps) {
   const displayTitle = bill.bill_content?.title || bill.name;
   const statusLabel = bill.status === "enacted" ? "成立" : "提出";
+  const dietSessionLabel = formatBillDietSessionLabel(bill.diet_session);
 
   return (
     <Card
@@ -27,6 +29,11 @@ export function CompactBillCard({ bill, className }: CompactBillCardProps) {
           <h3 className="font-bold text-[15px] leading-[1.6] line-clamp-2">
             {displayTitle}
           </h3>
+          {dietSessionLabel && (
+            <p className="text-xs font-medium text-primary-accent">
+              {dietSessionLabel}
+            </p>
+          )}
           <div className="flex items-center gap-3">
             <BillStatusBadge status={bill.status} className="w-fit" />
             {bill.published_at && (
