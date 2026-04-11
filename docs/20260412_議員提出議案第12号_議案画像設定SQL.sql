@@ -2,8 +2,8 @@ begin;
 
 update public.bills
 set
-  thumbnail_url = 'https://ishigaki-gikai-app-web.vercel.app/img/bills/ishigaki-r8-3rd-giin12-school-lunch.png',
-  share_thumbnail_url = 'https://ishigaki-gikai-app-web.vercel.app/img/bills/ishigaki-r8-3rd-giin12-school-lunch.png',
+  thumbnail_url = '/img/bills/ishigaki-r8-3rd-giin12-school-lunch.png',
+  share_thumbnail_url = '/img/bills/ishigaki-r8-3rd-giin12-school-lunch.png',
   updated_at = now()
 where id = '9fd86780-cf7d-49b8-8b58-6151662e3b5b';
 
