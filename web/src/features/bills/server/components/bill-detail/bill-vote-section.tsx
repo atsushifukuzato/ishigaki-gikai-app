@@ -1,3 +1,6 @@
+import Link from "next/link";
+import type { Route } from "next";
+import { routes } from "@/lib/routes";
 import {
   BILL_VOTE_TYPE_LABELS,
   type BillMemberVote,
@@ -86,9 +89,12 @@ export function BillVoteSection({ bill }: { bill: BillWithContent }) {
                 >
                   <div className="flex items-center justify-between gap-3">
                     <div>
-                      <div className="font-semibold text-slate-900">
+                      <Link
+                        href={routes.memberDetail(vote.member.id) as Route}
+                        className="font-semibold text-slate-900 underline-offset-2 hover:underline hover:text-slate-700"
+                      >
                         {vote.member.name}
-                      </div>
+                      </Link>
                       <div className="text-sm text-slate-600">
                         {vote.member.party || "政党未登録"}
                       </div>
