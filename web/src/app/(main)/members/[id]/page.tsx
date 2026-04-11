@@ -9,8 +9,32 @@ import { Container } from "@/components/layouts/container";
 import { CompactBillCard } from "@/features/bills/client/components/bill-list/compact-bill-card";
 import { getBillsByProposerMember } from "@/features/bills/server/loaders/get-bills-by-proposer-member";
 import type { BillWithContent } from "@/features/bills/shared/types";
+import { formatBillDietSessionLabel } from "@/features/bills/shared/utils/diet-session-label";
 import { getMemberById } from "@/features/members/server/repositories/member-repository";
 import { routes } from "@/lib/routes";
+
+const SOCIAL_ICON_MAP = {
+  x: {
+    name: "X",
+    iconPath: "/icons/sns/icon_x.png",
+    hasBorder: false,
+  },
+  facebook: {
+    name: "Facebook",
+    iconPath: "/icons/sns/icon_facebook.png",
+    hasBorder: false,
+  },
+  instagram: {
+    name: "Instagram",
+    iconPath: "/icons/sns/icon_instagram.png",
+    hasBorder: true,
+  },
+  threads: {
+    name: "Threads",
+    iconPath: "/icons/sns/icon_threads.png",
+    hasBorder: true,
+  },
+} as const;
 
 interface MemberDetailPageProps {
   params: Promise<{
@@ -56,17 +80,57 @@ function MemberInfoItem({
   );
 }
 
-function SocialLink({ href, label }: { href: string; label: string }) {
+function SocialIconLink({
+  href,
+  name,
+  iconPath,
+  hasBorder,
+}: {
+  href: string;
+  name: string;
+  iconPath: string;
+  hasBorder: boolean;
+}) {
   return (
     <a
       href={href}
       target="_blank"
       rel="noreferrer"
-      className="inline-flex items-center rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition-opacity hover:opacity-70"
+      aria-label={name}
+      className="transition-opacity hover:opacity-70"
     >
-      {label}
+      <Image
+        src={iconPath}
+        alt={name}
+        width={36}
+        height={36}
+        className={
+          hasBorder ? "rounded-full border border-mirai-border-light" : ""
+        }
+      />
     </a>
   );
+}
+
+function groupBillsByDietSession(bills: BillWithContent[]) {
+  const grouped = new Map<
+    string,
+    { label: string; bills: BillWithContent[] }
+  >();
+
+  for (const bill of bills) {
+    const label = formatBillDietSessionLabel(bill.diet_session) || "会期未設定";
+    const existing = grouped.get(label);
+
+    if (existing) {
+      existing.bills.push(bill);
+      continue;
+    }
+
+    grouped.set(label, { label, bills: [bill] });
+  }
+
+  return Array.from(grouped.values());
 }
 
 export async function generateMetadata({
@@ -99,6 +163,16 @@ export default async function MemberDetailPage({
   if (!member) {
     notFound();
   }
+
+  const proposerBillGroups = groupBillsByDietSession(proposerBills);
+  const twitterUrl =
+    typeof member.twitter_url === "string" ? member.twitter_url.trim() : "";
+  const facebookUrl =
+    typeof member.facebook_url === "string" ? member.facebook_url.trim() : "";
+  const instagramUrl =
+    typeof member.instagram_url === "string" ? member.instagram_url.trim() : "";
+  const threadsUrl =
+    typeof member.threads_url === "string" ? member.threads_url.trim() : "";
 
   return (
     <div
@@ -172,51 +246,75 @@ export default async function MemberDetailPage({
             />
           </div>
 
-          {(member.twitter_url ||
-            member.facebook_url ||
-            member.instagram_url ||
-            member.threads_url) && (
+          {(twitterUrl || facebookUrl || instagramUrl || threadsUrl) && (
             <div className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-sm">
               <div className="space-y-4">
                 <h2 className="text-xl font-bold text-slate-900">SNS</h2>
                 <div className="flex flex-wrap gap-3">
-                  {member.twitter_url ? (
-                    <SocialLink href={member.twitter_url} label="X" />
+                  {twitterUrl ? (
+                    <SocialIconLink
+                      href={twitterUrl}
+                      name={SOCIAL_ICON_MAP.x.name}
+                      iconPath={SOCIAL_ICON_MAP.x.iconPath}
+                      hasBorder={SOCIAL_ICON_MAP.x.hasBorder}
+                    />
                   ) : null}
-                  {member.facebook_url ? (
-                    <SocialLink href={member.facebook_url} label="Facebook" />
+                  {facebookUrl ? (
+                    <SocialIconLink
+                      href={facebookUrl}
+                      name={SOCIAL_ICON_MAP.facebook.name}
+                      iconPath={SOCIAL_ICON_MAP.facebook.iconPath}
+                      hasBorder={SOCIAL_ICON_MAP.facebook.hasBorder}
+                    />
                   ) : null}
-                  {member.instagram_url ? (
-                    <SocialLink href={member.instagram_url} label="Instagram" />
+                  {instagramUrl ? (
+                    <SocialIconLink
+                      href={instagramUrl}
+                      name={SOCIAL_ICON_MAP.instagram.name}
+                      iconPath={SOCIAL_ICON_MAP.instagram.iconPath}
+                      hasBorder={SOCIAL_ICON_MAP.instagram.hasBorder}
+                    />
                   ) : null}
-                  {member.threads_url ? (
-                    <SocialLink href={member.threads_url} label="Threads" />
+                  {threadsUrl ? (
+                    <SocialIconLink
+                      href={threadsUrl}
+                      name={SOCIAL_ICON_MAP.threads.name}
+                      iconPath={SOCIAL_ICON_MAP.threads.iconPath}
+                      hasBorder={SOCIAL_ICON_MAP.threads.hasBorder}
+                    />
                   ) : null}
                 </div>
               </div>
             </div>
           )}
 
-          {proposerBills.length > 0 && (
-            <div className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-sm">
-              <div className="space-y-4">
-                <h2 className="text-xl font-bold text-slate-900">
-                  提出した議案
-                </h2>
-                <div className="space-y-3">
-                  {proposerBills.map((bill: BillWithContent) => (
-                    <Link
-                      key={bill.id}
-                      href={routes.billDetail(bill.id) as Route}
-                      className="block rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-                    >
-                      <CompactBillCard bill={bill} />
-                    </Link>
+          <div className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="space-y-4">
+              <h2 className="text-xl font-bold text-slate-900">提出した議案</h2>
+              {proposerBillGroups.length > 0 ? (
+                <div className="space-y-6">
+                  {proposerBillGroups.map((group) => (
+                    <section key={group.label} className="space-y-3">
+                      <h3 className="text-sm font-bold text-primary-accent">
+                        {group.label}
+                      </h3>
+                      <div className="space-y-3">
+                        {group.bills.map((bill: BillWithContent) => (
+                          <Link
+                            key={bill.id}
+                            href={routes.billDetail(bill.id) as Route}
+                            className="block rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                          >
+                            <CompactBillCard bill={bill} />
+                          </Link>
+                        ))}
+                      </div>
+                    </section>
                   ))}
                 </div>
-              </div>
+              ) : null}
             </div>
-          )}
+          </div>
         </div>
       </Container>
     </div>
