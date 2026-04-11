@@ -15,6 +15,7 @@ type MembersDatabase = {
 };
 
 type MemberRow = {
+  id: string;
   name: string;
   name_kana: string | null;
   party: string | null;
@@ -66,7 +67,7 @@ export async function getMembers(): Promise<Member[]> {
     supabase
       .from("members")
       .select(
-        "name, name_kana, party, party_group, election_count, birth_date, address, image_url, twitter_url, facebook_url, instagram_url, threads_url"
+        "id, name, name_kana, party, party_group, election_count, birth_date, address, image_url, twitter_url, facebook_url, instagram_url, threads_url"
       )
       .order("name_kana", { ascending: true, nullsFirst: false })
       .order("name", { ascending: true });
@@ -75,7 +76,7 @@ export async function getMembers(): Promise<Member[]> {
     supabase
       .from("members")
       .select(
-        "name, name_kana, party, party_group, election_count, birth_date, address, image_url"
+        "id, name, name_kana, party, party_group, election_count, birth_date, address, image_url"
       )
       .order("name_kana", { ascending: true, nullsFirst: false })
       .order("name", { ascending: true });
@@ -117,6 +118,7 @@ export async function getMembers(): Promise<Member[]> {
   }
 
   return ((data ?? []) as MemberRow[]).map((member) => ({
+    id: member.id,
     name: member.name,
     name_kana: member.name_kana,
     party: member.party,
@@ -134,4 +136,9 @@ export async function getMembers(): Promise<Member[]> {
     threads_url:
       typeof member.threads_url === "string" ? member.threads_url : null,
   }));
+}
+
+export async function getMemberById(memberId: string): Promise<Member | null> {
+  const members = await getMembers();
+  return members.find((member) => member.id === memberId) ?? null;
 }

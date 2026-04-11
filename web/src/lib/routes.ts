@@ -10,6 +10,7 @@ export const routes = {
   // ── 静的ルート ──────────────────────────────────────
   home: () => "/" as const,
   members: () => "/members" as const,
+  memberDetail: (memberId: string) => `/members/${memberId}` as const,
   donate: () => "/donate" as const,
   faq: () => "/faq" as const,
   terms: () => "/terms" as const,

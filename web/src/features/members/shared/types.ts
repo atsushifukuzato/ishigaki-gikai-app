@@ -1,4 +1,5 @@
 export interface Member {
+  id: string;
   name: string;
   name_kana: string | null;
   party: string | null;

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { Route } from "next";
+import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -7,6 +8,7 @@ import { ArrowLeft, MapPin, Shield, Users } from "lucide-react";
 import { Container } from "@/components/layouts/container";
 import { CompactBillCard } from "@/features/bills/client/components/bill-list/compact-bill-card";
 import { getBillsByProposerMember } from "@/features/bills/server/loaders/get-bills-by-proposer-member";
+import type { BillWithContent } from "@/features/bills/shared/types";
 import { getMemberById } from "@/features/members/server/repositories/member-repository";
 import { routes } from "@/lib/routes";
 
@@ -37,7 +39,7 @@ function MemberInfoItem({
 }: {
   label: string;
   value: string;
-  icon: React.ReactNode;
+  icon: ReactNode;
 }) {
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-4">
@@ -202,7 +204,7 @@ export default async function MemberDetailPage({
                   提出した議案
                 </h2>
                 <div className="space-y-3">
-                  {proposerBills.map((bill) => (
+                  {proposerBills.map((bill: BillWithContent) => (
                     <Link
                       key={bill.id}
                       href={routes.billDetail(bill.id) as Route}
