@@ -11,15 +11,24 @@ export async function getBillsByProposerMember(
 
 const _getCachedBillsByProposerMember = unstable_cache(
   async (memberId: string): Promise<BillWithContent[]> => {
-    const bills = await getBills();
+    try {
+      const bills = await getBills();
 
-    return bills
-      .filter(
-        (bill) =>
-          (bill as { proposer_member_id?: string | null })
-            .proposer_member_id === memberId
-      )
-      .slice(0, 6);
+      return bills
+        .filter(
+          (bill) =>
+            (bill as { proposer_member_id?: string | null })
+              .proposer_member_id === memberId
+        )
+        .slice(0, 6);
+    } catch (error) {
+      console.error(
+        "[members] Failed to load proposer bills for member:",
+        memberId,
+        error
+      );
+      return [];
+    }
   },
   ["bills-by-proposer-member"],
   {
