@@ -459,6 +459,48 @@ export async function findPublishedBillsByDietSession(
 }
 
 /**
+ * 特定議員が提出者の公開済み議案を取得
+ */
+export async function findPublishedBillsByProposerMember(
+  memberId: string,
+  difficultyLevel: DifficultyLevelEnum
+) {
+  const supabase = createAdminClient();
+  const { data, error } = await supabase
+    .from("bills")
+    .select(
+      `
+      *,
+      diet_session:diet_sessions (
+        name,
+        slug
+      ),
+      bill_contents!inner (
+        id,
+        bill_id,
+        title,
+        summary,
+        content,
+        difficulty_level,
+        created_at,
+        updated_at
+      )
+    `
+    )
+    .eq("publish_status", "published")
+    .eq("proposer_member_id", memberId)
+    .eq("bill_contents.difficulty_level", difficultyLevel)
+    .order("published_at", { ascending: false });
+
+  if (error) {
+    console.error("Failed to fetch bills by proposer member:", error);
+    return [];
+  }
+
+  return data ?? [];
+}
+
+/**
  * 前回の議会会期の公開済み議案を取得（成立議案を優先、件数制限あり）
  */
 export async function findPreviousSessionBills(
