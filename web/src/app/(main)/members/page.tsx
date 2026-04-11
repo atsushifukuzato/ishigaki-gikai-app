@@ -27,7 +27,7 @@ export default async function MembersPage() {
                 石垣市議会 議員名簿
               </h1>
               <p className="max-w-2xl text-[15px] leading-7 text-slate-600">
-                石垣市議会の議員情報を一覧で確認できます。所属政党、会派、当選回数などを見やすいカード形式で掲載しています。
+                石垣市議会の議員情報を一覧で確認できます。所属政党、会派、当選回数などを掲載しています。
               </p>
             </div>
           </div>
