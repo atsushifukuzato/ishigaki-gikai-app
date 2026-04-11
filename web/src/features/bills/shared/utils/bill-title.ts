@@ -1,4 +1,5 @@
 const BILL_TITLE_PREFIX_PATTERN = /^(?:議員提出議案第\d+号|議案第\d+号)\s*/;
+const BILL_TITLE_SUFFIX_PATTERN = /\s*（第\d+号）\s*$/;
 
 export function stripBillTitlePrefix(
   title: string | null | undefined
@@ -7,7 +8,11 @@ export function stripBillTitlePrefix(
     return null;
   }
 
-  const normalizedTitle = title.trim().replace(BILL_TITLE_PREFIX_PATTERN, "");
+  const normalizedTitle = title
+    .trim()
+    .replace(BILL_TITLE_PREFIX_PATTERN, "")
+    .replace(BILL_TITLE_SUFFIX_PATTERN, "")
+    .trim();
   return normalizedTitle.length > 0 ? normalizedTitle : title.trim();
 }
 
