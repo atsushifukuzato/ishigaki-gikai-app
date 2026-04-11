@@ -3,6 +3,11 @@ import { MapPin, Shield, Users } from "lucide-react";
 import type { Member } from "@/features/members/shared/types";
 
 const SOCIAL_ICON_MAP = {
+  x: {
+    name: "X",
+    iconPath: "/icons/sns/icon_x.png",
+    hasBorder: false,
+  },
   facebook: {
     name: "Facebook",
     iconPath: "/icons/sns/icon_facebook.png",
@@ -38,6 +43,8 @@ function formatElectionCount(value: number | null) {
 
 export function MemberCard({ member }: { member: Member }) {
   const birthDate = formatBirthDate(member.birth_date);
+  const twitterUrl =
+    typeof member.twitter_url === "string" ? member.twitter_url.trim() : "";
   const facebookUrl =
     typeof member.facebook_url === "string" ? member.facebook_url.trim() : "";
   const instagramUrl =
@@ -101,8 +108,30 @@ export function MemberCard({ member }: { member: Member }) {
           {birthDate || "生年月日未登録"}
         </div>
 
-        {facebookUrl || instagramUrl || threadsUrl ? (
+        {twitterUrl || facebookUrl || instagramUrl || threadsUrl ? (
           <div className="flex flex-wrap items-center gap-3">
+            {twitterUrl ? (
+              <a
+                href={twitterUrl}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={SOCIAL_ICON_MAP.x.name}
+                className="transition-opacity hover:opacity-70"
+              >
+                <Image
+                  src={SOCIAL_ICON_MAP.x.iconPath}
+                  alt={SOCIAL_ICON_MAP.x.name}
+                  width={36}
+                  height={36}
+                  className={
+                    SOCIAL_ICON_MAP.x.hasBorder
+                      ? "rounded-full border border-mirai-border-light"
+                      : ""
+                  }
+                />
+              </a>
+            ) : null}
+
             {facebookUrl ? (
               <a
                 href={facebookUrl}

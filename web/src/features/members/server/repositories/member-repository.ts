@@ -23,6 +23,7 @@ type MemberRow = {
   birth_date: string | null;
   address: string | null;
   image_url: string | null;
+  twitter_url?: string | null;
   facebook_url?: string | null;
   instagram_url?: string | null;
   threads_url?: string | null;
@@ -65,7 +66,7 @@ export async function getMembers(): Promise<Member[]> {
     supabase
       .from("members")
       .select(
-        "name, name_kana, party, party_group, election_count, birth_date, address, image_url, facebook_url, instagram_url, threads_url"
+        "name, name_kana, party, party_group, election_count, birth_date, address, image_url, twitter_url, facebook_url, instagram_url, threads_url"
       )
       .order("name_kana", { ascending: true, nullsFirst: false })
       .order("name", { ascending: true });
@@ -84,8 +85,10 @@ export async function getMembers(): Promise<Member[]> {
   const isMissingSocialLinkColumn =
     error &&
     (error.message.includes("facebook_url") ||
+      error.message.includes("twitter_url") ||
       error.message.includes("instagram_url") ||
       error.message.includes("threads_url") ||
+      error.message.includes("column members.twitter_url does not exist") ||
       error.message.includes("column members.facebook_url does not exist") ||
       error.message.includes("column members.instagram_url does not exist") ||
       error.message.includes("column members.threads_url does not exist"));
@@ -122,6 +125,8 @@ export async function getMembers(): Promise<Member[]> {
     birth_date: member.birth_date,
     address: member.address,
     image_url: member.image_url,
+    twitter_url:
+      typeof member.twitter_url === "string" ? member.twitter_url : null,
     facebook_url:
       typeof member.facebook_url === "string" ? member.facebook_url : null,
     instagram_url:

@@ -7,6 +7,7 @@ export interface Member {
   birth_date: string | null;
   address: string | null;
   image_url: string | null;
+  twitter_url?: string | null;
   facebook_url?: string | null;
   instagram_url?: string | null;
   threads_url?: string | null;
