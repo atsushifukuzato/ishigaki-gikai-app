@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Card } from "@/components/ui/card";
 import { formatDateWithDots } from "@/lib/utils/date";
 import type { BillWithContent } from "../../../shared/types";
+import { getBillDisplayTitle } from "../../../shared/utils/bill-title";
 import { formatBillDietSessionLabel } from "../../../shared/utils/diet-session-label";
 import { BillStatusBadge } from "./bill-status-badge";
 
@@ -15,7 +16,7 @@ interface CompactBillCardProps {
  * 過去議会セクションや過去議会議案一覧ページで使用
  */
 export function CompactBillCard({ bill, className }: CompactBillCardProps) {
-  const displayTitle = bill.bill_content?.title || bill.name;
+  const displayTitle = getBillDisplayTitle(bill);
   const statusLabel = bill.status === "enacted" ? "成立" : "提出";
   const dietSessionLabel = formatBillDietSessionLabel(bill.diet_session);
 
@@ -49,7 +50,7 @@ export function CompactBillCard({ bill, className }: CompactBillCardProps) {
           <div className="relative w-24 h-16 flex-shrink-0 self-center mr-4 rounded-lg overflow-hidden">
             <Image
               src={bill.thumbnail_url}
-              alt={bill.name}
+              alt={displayTitle}
               fill
               className="object-cover"
               sizes="96px"

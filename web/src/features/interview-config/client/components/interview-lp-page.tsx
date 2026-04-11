@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import type { BillWithContent } from "@/features/bills/shared/types";
+import { getBillDisplayTitle } from "@/features/bills/shared/utils/bill-title";
 import { formatEstimatedDuration } from "@/features/interview-config/shared/utils/format-estimated-duration";
 import {
   getBillDetailLink,
@@ -48,12 +49,14 @@ const FEATURES: {
 ];
 
 function _InterviewLPHeader({ bill }: { bill: BillWithContent }) {
+  const billTitle = getBillDisplayTitle(bill);
+
   return (
     <div className="relative w-full h-50 md:h-80">
       {bill.thumbnail_url ? (
         <Image
           src={bill.thumbnail_url}
-          alt={bill.bill_content?.title ?? bill.name}
+          alt={billTitle}
           fill
           className="object-cover"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -78,6 +81,7 @@ function _InterviewLPHero({
   previewToken?: string;
 }) {
   const billLink = getBillDetailLink(billId, previewToken);
+  const billTitle = getBillDisplayTitle(bill);
 
   return (
     <div className="flex flex-col items-center gap-6 px-4">
@@ -93,7 +97,7 @@ function _InterviewLPHero({
         <Link href={billLink as Route}>
           <div className="inline-flex items-center justify-center gap-2.5 px-4 py-2 bg-white rounded-xl hover:bg-gray-50 transition-opacity cursor-pointer">
             <span className="text-[13px] font-medium text-black leading-[1.87]">
-              {bill.bill_content?.title ?? bill.name}
+              {billTitle}
             </span>
           </div>
         </Link>
@@ -311,6 +315,8 @@ export function InterviewLPPage({
   previewToken,
   userReports,
 }: InterviewLPPageProps) {
+  const billTitle = getBillDisplayTitle(bill);
+
   return (
     <div className="flex flex-col gap-8 pb-8 bg-mirai-light-gradient">
       <_InterviewLPHeader bill={bill} />
@@ -331,7 +337,7 @@ export function InterviewLPPage({
         )}
         <_InterviewOverviewSection
           billId={bill.id}
-          billName={bill.bill_content?.title ?? bill.name}
+          billName={billTitle}
           previewToken={previewToken}
         />
         <_InterviewDurationSection

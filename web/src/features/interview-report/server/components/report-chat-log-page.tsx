@@ -5,6 +5,7 @@ import type { Route } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { getBillDisplayTitle } from "@/features/bills/shared/utils/bill-title";
 import {
   getBillDetailLink,
   getInterviewReportCompleteLink,
@@ -41,7 +42,7 @@ export async function ReportChatLogPage({
   }
 
   const { report, messages, bill } = data;
-  const billName = bill.bill_content?.title || bill.name;
+  const billName = getBillDisplayTitle(bill);
   const characterCount = countCharacters(messages);
   const opinions = parseOpinions(report.opinions);
   const [reactionData, origin] = await Promise.all([

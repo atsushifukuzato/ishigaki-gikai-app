@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getBillById } from "@/features/bills/server/loaders/get-bill-by-id";
+import { getBillDisplayTitle } from "@/features/bills/shared/utils/bill-title";
 import { InterviewLPPage } from "@/features/interview-config/client/components/interview-lp-page";
 import { getInterviewConfig } from "@/features/interview-config/server/loaders/get-interview-config";
 import { getUserReportsByInterviewConfig } from "@/features/interview-report/server/loaders/get-user-reports-by-interview-config";
@@ -27,7 +28,7 @@ export async function generateMetadata({
     };
   }
 
-  const billName = bill.bill_content?.title ?? bill.name;
+  const billName = getBillDisplayTitle(bill);
   const description = `議案についてのAIインタビュー - ${billName}`;
   const defaultOgpUrl = new URL("/ogp-ishigaki.png", env.webUrl).toString();
   const shareImageUrl =

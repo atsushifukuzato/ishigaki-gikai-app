@@ -11,6 +11,7 @@ import { FeaturedBillSection } from "@/features/bills/server/components/featured
 import { PreviousSessionSection } from "@/features/bills/server/components/previous-session-section";
 import { loadHomeData } from "@/features/bills/server/loaders/load-home-data";
 import type { BillWithContent } from "@/features/bills/shared/types";
+import { getBillDisplayTitle } from "@/features/bills/shared/utils/bill-title";
 import { HomeChatClient } from "@/features/chat/client/components/home-chat-client";
 import { CurrentDietSession } from "@/features/diet-sessions/client/components/current-diet-session";
 import { getCurrentDietSession } from "@/features/diet-sessions/server/loaders/get-current-diet-session";
@@ -30,7 +31,7 @@ export default async function Home() {
 
   const toBillChatContext = (bill: BillWithContent) => {
     return {
-      name: `${bill.bill_content?.title}（${bill.name}）`,
+      name: getBillDisplayTitle(bill),
       summary: bill.bill_content?.summary,
       tags: bill.tags?.map((tag) => tag.label) || [],
       isFeatured: featuredBills.some((b) => b.id === bill.id),

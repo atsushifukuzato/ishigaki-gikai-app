@@ -3,6 +3,7 @@ import { RubySafeLineClamp } from "@/components/ruby-safe-line-clamp";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatDateWithDots } from "@/lib/utils/date";
 import type { BillWithContent } from "../../../shared/types";
+import { getBillDisplayTitle } from "../../../shared/utils/bill-title";
 import { formatBillDietSessionLabel } from "../../../shared/utils/diet-session-label";
 import { BillStatusBadge } from "./bill-status-badge";
 import { BillTag } from "./bill-tag";
@@ -12,7 +13,7 @@ interface BillCardProps {
 }
 
 export function BillCard({ bill }: BillCardProps) {
-  const displayTitle = bill.bill_content?.title;
+  const displayTitle = getBillDisplayTitle(bill);
   const summary = bill.bill_content?.summary;
   const thumbnailUrl =
     typeof bill.thumbnail_url === "string" ? bill.thumbnail_url.trim() : "";
@@ -36,7 +37,7 @@ export function BillCard({ bill }: BillCardProps) {
           <div className="relative w-full h-52 md:h-65">
             <Image
               src={thumbnailUrl}
-              alt={bill.name}
+              alt={displayTitle}
               fill
               className="object-cover"
               sizes="100vw"

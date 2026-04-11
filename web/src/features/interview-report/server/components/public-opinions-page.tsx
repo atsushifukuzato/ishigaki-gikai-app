@@ -5,6 +5,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/layouts/container";
 import { getBillById } from "@/features/bills/server/loaders/get-bill-by-id";
+import {
+  getBillDisplayTitle,
+  stripBillTitlePrefix,
+} from "@/features/bills/shared/utils/bill-title";
 import { InterviewLandingSection } from "@/features/interview-config/client/components/interview-landing-section";
 import { getInterviewConfig } from "@/features/interview-config/server/loaders/get-interview-config";
 import { getReportReactionsBatch } from "@/features/report-reaction/server/loaders/get-report-reactions";
@@ -28,7 +32,8 @@ export async function PublicOpinionsPage({ billId }: PublicOpinionsPageProps) {
     notFound();
   }
 
-  const billTitle = bill.bill_content?.title || bill.name;
+  const billTitle = getBillDisplayTitle(bill);
+  const billName = stripBillTitlePrefix(bill.name);
 
   const reportIds = initialData.reports.map((r) => r.id);
   const reactionsMap = await getReportReactionsBatch(reportIds);
@@ -65,9 +70,9 @@ export async function PublicOpinionsPage({ billId }: PublicOpinionsPageProps) {
               {billTitle}
             </h1>
           </Link>
-          {bill.name !== billTitle && (
+          {billName && billName !== billTitle && (
             <p className="mt-2 text-xs font-medium leading-[1.67] text-mirai-text-muted">
-              {bill.name}
+              {billName}
             </p>
           )}
         </div>

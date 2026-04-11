@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getDifficultyLevel } from "@/features/bill-difficulty/server/loaders/get-difficulty-level";
 import { getBillById } from "@/features/bills/server/loaders/get-bill-by-id";
 import { BillDetailLayout } from "@/features/bills/server/components/bill-detail/bill-detail-layout";
+import { getBillDisplayTitle } from "@/features/bills/shared/utils/bill-title";
 import { env } from "@/lib/env";
 import { routes } from "@/lib/routes";
 
@@ -26,6 +27,7 @@ export async function generateMetadata({
 
   // bill_contentのsummaryがあればそれを使用、なければデフォルト値を使用
   const description = bill.bill_content?.summary || "議案の詳細情報";
+  const displayTitle = getBillDisplayTitle(bill);
   const defaultOgpUrl = new URL("/ogp-ishigaki.png", env.webUrl).toString();
 
   // シェア用OGP画像（share_thumbnail_url > thumbnail_url > デフォルト）
@@ -34,13 +36,13 @@ export async function generateMetadata({
     bill.share_thumbnail_url || bill.thumbnail_url || defaultOgpUrl;
 
   return {
-    title: bill.name,
+    title: displayTitle,
     description: description,
     alternates: {
       canonical: routes.billDetail(bill.id),
     },
     openGraph: {
-      title: bill.name,
+      title: displayTitle,
       description: description,
       type: "article",
       publishedTime: bill.published_at ?? undefined,
@@ -48,13 +50,13 @@ export async function generateMetadata({
       images: [
         {
           url: shareImageUrl,
-          alt: `${bill.name} のOGPイメージ`,
+          alt: `${displayTitle} のOGPイメージ`,
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: bill.name,
+      title: displayTitle,
       description: description,
       images: [shareImageUrl],
     },

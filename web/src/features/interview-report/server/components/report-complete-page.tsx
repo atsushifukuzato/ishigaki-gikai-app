@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getBillById } from "@/features/bills/server/loaders/get-bill-by-id";
+import { getBillDisplayTitle } from "@/features/bills/shared/utils/bill-title";
 import { getBillDetailLink } from "@/features/interview-config/shared/utils/interview-links";
 import { PublicStatusSection } from "@/features/interview-report/client/components/public-status-section";
 import { getInterviewReportById } from "@/features/interview-report/server/loaders/get-interview-report-by-id";
@@ -52,7 +53,7 @@ export async function ReportCompletePage({
 
   const opinions = parseOpinions(report.opinions);
   const characterCount = countCharacters(messages);
-  const billName = bill.bill_content?.title || bill.name;
+  const billName = getBillDisplayTitle(bill);
 
   return (
     <div className="min-h-dvh bg-mirai-surface">

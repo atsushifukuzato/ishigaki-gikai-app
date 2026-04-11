@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 import { getBillByIdAdmin } from "@/features/bills/server/loaders/get-bill-by-id-admin";
+import { getBillDisplayTitle } from "@/features/bills/shared/utils/bill-title";
 import { validatePreviewToken } from "@/features/bills/server/loaders/validate-preview-token";
 import { getInterviewConfigAdmin } from "@/features/interview-config/server/loaders/get-interview-config-admin";
 import { getInterviewQuestions } from "@/features/interview-config/server/loaders/get-interview-questions";
@@ -85,7 +86,7 @@ export default async function InterviewPreviewChatPage({
         <PreviewBanner />
         <InterviewChatClient
           billId={billId}
-          billTitle={bill.bill_content?.title ?? bill.name}
+          billTitle={getBillDisplayTitle(bill)}
           sessionId={session.id}
           initialMessages={messages}
           mode={interviewConfig.mode}

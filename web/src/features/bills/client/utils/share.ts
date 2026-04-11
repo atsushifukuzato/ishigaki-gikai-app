@@ -2,6 +2,7 @@ import { getDifficultyLevel } from "@/features/bill-difficulty/server/loaders/ge
 import type { DifficultyLevelEnum } from "@/features/bill-difficulty/shared/types";
 import { getOrigin } from "@/lib/utils/url";
 import type { BillWithContent } from "../../shared/types";
+import { getBillDisplayTitle } from "../../shared/utils/bill-title";
 
 /**
  * シェアURLを生成
@@ -18,7 +19,7 @@ export function createBillShareUrl(
  * シェアメッセージを生成
  */
 export function createShareMessage(bill: BillWithContent): string {
-  const displayTitle = bill.bill_content?.title ?? bill.name;
+  const displayTitle = getBillDisplayTitle(bill);
   return `${displayTitle} #みらい議会`;
 }
 

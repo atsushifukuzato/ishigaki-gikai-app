@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 export const dynamic = "force-dynamic";
 
 import { getBillById } from "@/features/bills/server/loaders/get-bill-by-id";
+import { getBillDisplayTitle } from "@/features/bills/shared/utils/bill-title";
 import { getInterviewConfig } from "@/features/interview-config/server/loaders/get-interview-config";
 import { getInterviewQuestions } from "@/features/interview-config/server/loaders/get-interview-questions";
 import { InterviewChatClient } from "@/features/interview-session/client/components/interview-chat-client";
@@ -46,7 +47,7 @@ export default async function InterviewChatPage({
     return (
       <InterviewChatClient
         billId={billId}
-        billTitle={bill.bill_content?.title ?? bill.name}
+        billTitle={getBillDisplayTitle(bill)}
         sessionId={session.id}
         initialMessages={messages}
         mode={interviewConfig.mode}
