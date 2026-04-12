@@ -11,30 +11,11 @@ import { getBillsByProposerMember } from "@/features/bills/server/loaders/get-bi
 import type { BillWithContent } from "@/features/bills/shared/types";
 import { formatBillDietSessionLabel } from "@/features/bills/shared/utils/diet-session-label";
 import { getMemberById } from "@/features/members/server/repositories/member-repository";
+import {
+  getMemberLinkPresentation,
+  getMemberLinks,
+} from "@/features/members/shared/utils/member-link";
 import { routes } from "@/lib/routes";
-
-const SOCIAL_ICON_MAP = {
-  x: {
-    name: "X",
-    iconPath: "/icons/sns/icon_x.png",
-    hasBorder: false,
-  },
-  facebook: {
-    name: "Facebook",
-    iconPath: "/icons/sns/icon_facebook.png",
-    hasBorder: false,
-  },
-  instagram: {
-    name: "Instagram",
-    iconPath: "/icons/sns/icon_instagram.png",
-    hasBorder: true,
-  },
-  threads: {
-    name: "Threads",
-    iconPath: "/icons/sns/icon_threads.png",
-    hasBorder: true,
-  },
-} as const;
 
 interface MemberDetailPageProps {
   params: Promise<{
@@ -165,14 +146,7 @@ export default async function MemberDetailPage({
   }
 
   const proposerBillGroups = groupBillsByDietSession(proposerBills);
-  const twitterUrl =
-    typeof member.twitter_url === "string" ? member.twitter_url.trim() : "";
-  const facebookUrl =
-    typeof member.facebook_url === "string" ? member.facebook_url.trim() : "";
-  const instagramUrl =
-    typeof member.instagram_url === "string" ? member.instagram_url.trim() : "";
-  const threadsUrl =
-    typeof member.threads_url === "string" ? member.threads_url.trim() : "";
+  const memberLinks = getMemberLinks(member);
 
   return (
     <div
@@ -246,43 +220,24 @@ export default async function MemberDetailPage({
             />
           </div>
 
-          {(twitterUrl || facebookUrl || instagramUrl || threadsUrl) && (
+          {memberLinks.length > 0 && (
             <div className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-sm">
               <div className="space-y-4">
                 <h2 className="text-xl font-bold text-slate-900">SNS</h2>
                 <div className="flex flex-wrap gap-3">
-                  {twitterUrl ? (
-                    <SocialIconLink
-                      href={twitterUrl}
-                      name={SOCIAL_ICON_MAP.x.name}
-                      iconPath={SOCIAL_ICON_MAP.x.iconPath}
-                      hasBorder={SOCIAL_ICON_MAP.x.hasBorder}
-                    />
-                  ) : null}
-                  {facebookUrl ? (
-                    <SocialIconLink
-                      href={facebookUrl}
-                      name={SOCIAL_ICON_MAP.facebook.name}
-                      iconPath={SOCIAL_ICON_MAP.facebook.iconPath}
-                      hasBorder={SOCIAL_ICON_MAP.facebook.hasBorder}
-                    />
-                  ) : null}
-                  {instagramUrl ? (
-                    <SocialIconLink
-                      href={instagramUrl}
-                      name={SOCIAL_ICON_MAP.instagram.name}
-                      iconPath={SOCIAL_ICON_MAP.instagram.iconPath}
-                      hasBorder={SOCIAL_ICON_MAP.instagram.hasBorder}
-                    />
-                  ) : null}
-                  {threadsUrl ? (
-                    <SocialIconLink
-                      href={threadsUrl}
-                      name={SOCIAL_ICON_MAP.threads.name}
-                      iconPath={SOCIAL_ICON_MAP.threads.iconPath}
-                      hasBorder={SOCIAL_ICON_MAP.threads.hasBorder}
-                    />
-                  ) : null}
+                  {memberLinks.map((link) => {
+                    const icon = getMemberLinkPresentation(link.service);
+
+                    return (
+                      <SocialIconLink
+                        key={link.id}
+                        href={link.url}
+                        name={link.label || icon.name}
+                        iconPath={icon.iconPath}
+                        hasBorder={icon.hasBorder}
+                      />
+                    );
+                  })}
                 </div>
               </div>
             </div>

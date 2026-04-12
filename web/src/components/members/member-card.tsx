@@ -3,30 +3,11 @@ import type { Route } from "next";
 import { MapPin, Shield, Users } from "lucide-react";
 import Link from "next/link";
 import type { Member } from "@/features/members/shared/types";
+import {
+  getMemberLinkPresentation,
+  getMemberLinks,
+} from "@/features/members/shared/utils/member-link";
 import { routes } from "@/lib/routes";
-
-const SOCIAL_ICON_MAP = {
-  x: {
-    name: "X",
-    iconPath: "/icons/sns/icon_x.png",
-    hasBorder: false,
-  },
-  facebook: {
-    name: "Facebook",
-    iconPath: "/icons/sns/icon_facebook.png",
-    hasBorder: false,
-  },
-  instagram: {
-    name: "Instagram",
-    iconPath: "/icons/sns/icon_instagram.png",
-    hasBorder: true,
-  },
-  threads: {
-    name: "Threads",
-    iconPath: "/icons/sns/icon_threads.png",
-    hasBorder: true,
-  },
-} as const;
 
 function formatBirthDate(value: string | null) {
   if (!value) return null;
@@ -46,14 +27,7 @@ function formatElectionCount(value: number | null) {
 
 export function MemberCard({ member }: { member: Member }) {
   const birthDate = formatBirthDate(member.birth_date);
-  const twitterUrl =
-    typeof member.twitter_url === "string" ? member.twitter_url.trim() : "";
-  const facebookUrl =
-    typeof member.facebook_url === "string" ? member.facebook_url.trim() : "";
-  const instagramUrl =
-    typeof member.instagram_url === "string" ? member.instagram_url.trim() : "";
-  const threadsUrl =
-    typeof member.threads_url === "string" ? member.threads_url.trim() : "";
+  const memberLinks = getMemberLinks(member);
 
   return (
     <Link
@@ -115,95 +89,34 @@ export function MemberCard({ member }: { member: Member }) {
             {birthDate || "生年月日未登録"}
           </div>
 
-          {twitterUrl || facebookUrl || instagramUrl || threadsUrl ? (
+          {memberLinks.length > 0 ? (
             <div className="flex flex-wrap items-center gap-3">
-              {twitterUrl ? (
-                <a
-                  href={twitterUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={SOCIAL_ICON_MAP.x.name}
-                  className="transition-opacity hover:opacity-70"
-                >
-                  <Image
-                    src={SOCIAL_ICON_MAP.x.iconPath}
-                    alt={SOCIAL_ICON_MAP.x.name}
-                    width={36}
-                    height={36}
-                    className={
-                      SOCIAL_ICON_MAP.x.hasBorder
-                        ? "rounded-full border border-mirai-border-light"
-                        : ""
-                    }
-                  />
-                </a>
-              ) : null}
+              {memberLinks.map((link) => {
+                const icon = getMemberLinkPresentation(link.service);
 
-              {facebookUrl ? (
-                <a
-                  href={facebookUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={SOCIAL_ICON_MAP.facebook.name}
-                  className="transition-opacity hover:opacity-70"
-                >
-                  <Image
-                    src={SOCIAL_ICON_MAP.facebook.iconPath}
-                    alt={SOCIAL_ICON_MAP.facebook.name}
-                    width={36}
-                    height={36}
-                    className={
-                      SOCIAL_ICON_MAP.facebook.hasBorder
-                        ? "rounded-full border border-mirai-border-light"
-                        : ""
-                    }
-                  />
-                </a>
-              ) : null}
-
-              {instagramUrl ? (
-                <a
-                  href={instagramUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={SOCIAL_ICON_MAP.instagram.name}
-                  className="transition-opacity hover:opacity-70"
-                >
-                  <Image
-                    src={SOCIAL_ICON_MAP.instagram.iconPath}
-                    alt={SOCIAL_ICON_MAP.instagram.name}
-                    width={36}
-                    height={36}
-                    className={
-                      SOCIAL_ICON_MAP.instagram.hasBorder
-                        ? "rounded-full border border-mirai-border-light"
-                        : ""
-                    }
-                  />
-                </a>
-              ) : null}
-
-              {threadsUrl ? (
-                <a
-                  href={threadsUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={SOCIAL_ICON_MAP.threads.name}
-                  className="transition-opacity hover:opacity-70"
-                >
-                  <Image
-                    src={SOCIAL_ICON_MAP.threads.iconPath}
-                    alt={SOCIAL_ICON_MAP.threads.name}
-                    width={36}
-                    height={36}
-                    className={
-                      SOCIAL_ICON_MAP.threads.hasBorder
-                        ? "rounded-full border border-mirai-border-light"
-                        : ""
-                    }
-                  />
-                </a>
-              ) : null}
+                return (
+                  <a
+                    key={link.id}
+                    href={link.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={link.label || icon.name}
+                    className="transition-opacity hover:opacity-70"
+                  >
+                    <Image
+                      src={icon.iconPath}
+                      alt={link.label || icon.name}
+                      width={36}
+                      height={36}
+                      className={
+                        icon.hasBorder
+                          ? "rounded-full border border-mirai-border-light"
+                          : ""
+                      }
+                    />
+                  </a>
+                );
+              })}
             </div>
           ) : null}
         </div>
