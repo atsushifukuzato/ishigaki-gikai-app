@@ -40,8 +40,7 @@ set
   instagram_url = 'https://www.instagram.com/shirohanatani',
   threads_url = 'https://www.threads.com/@shirohanatani',
   youtube_url = null,
-  line_url = null,
-  updated_at = now()
+  line_url = null
 where id = 'a30c4e98-585a-43bc-b8f7-1dddbe7426bf';
 
 update public.members
@@ -52,8 +51,7 @@ set
   instagram_url = 'https://www.instagram.com/natsuyo4388',
   threads_url = 'https://www.threads.com/@natsuyo4388',
   youtube_url = null,
-  line_url = null,
-  updated_at = now()
+  line_url = null
 where id = 'b4251917-a7f3-477f-be4d-abbca211cde7';
 
 update public.members
@@ -64,8 +62,7 @@ set
   instagram_url = 'https://www.instagram.com/takara_munenori/',
   threads_url = 'https://www.threads.com/@takara_munenori',
   youtube_url = null,
-  line_url = null,
-  updated_at = now()
+  line_url = null
 where id = '7fe932ed-df1e-44aa-b5cc-f0a2cc6f713b';
 
 update public.members
@@ -76,8 +73,7 @@ set
   instagram_url = 'https://www.instagram.com/konomi4649/',
   threads_url = null,
   youtube_url = null,
-  line_url = null,
-  updated_at = now()
+  line_url = null
 where id = '71dfb79c-1092-47ef-8bce-37c9a8ee3b06';
 
 update public.members
@@ -88,8 +84,7 @@ set
   instagram_url = 'https://www.instagram.com/yuki_shinzato_ishigakijima/',
   threads_url = null,
   youtube_url = null,
-  line_url = null,
-  updated_at = now()
+  line_url = null
 where id = '70fa0ad2-210f-40fa-9f34-0640839a40ff';
 
 update public.members
@@ -100,8 +95,7 @@ set
   instagram_url = 'https://www.instagram.com/nakaminetadashi/',
   threads_url = 'https://www.threads.com/@nakaminetadashi',
   youtube_url = null,
-  line_url = null,
-  updated_at = now()
+  line_url = null
 where id = 'c3cc242e-d8a7-4a1a-8740-1ff522ea43a2';
 
 update public.members
@@ -112,8 +106,7 @@ set
   instagram_url = 'https://www.instagram.com/tatsuyaishigakicity/',
   threads_url = 'https://www.threads.com/@tatsuyaishigakicity',
   youtube_url = null,
-  line_url = null,
-  updated_at = now()
+  line_url = null
 where id = '0374f5bb-bde4-4fc6-9cb0-598d4b58d37a';
 
 update public.members
@@ -124,8 +117,7 @@ set
   instagram_url = 'https://www.instagram.com/ieyasu_isg/',
   threads_url = 'https://www.threads.com/@ieyasu_isg',
   youtube_url = null,
-  line_url = 'https://line.me/R/ti/p/@415pwhlw',
-  updated_at = now()
+  line_url = 'https://line.me/R/ti/p/@415pwhlw'
 where id = 'fafc35f8-8a5b-457f-b63d-a4cc1421de53';
 
 update public.members
@@ -136,8 +128,7 @@ set
   instagram_url = 'https://www.instagram.com/yuusaku_isk911/',
   threads_url = null,
   youtube_url = null,
-  line_url = null,
-  updated_at = now()
+  line_url = null
 where id = '936cd874-ec02-4b48-b1aa-c6b50dad6bc5';
 
 update public.members
@@ -148,8 +139,7 @@ set
   instagram_url = 'https://www.instagram.com/yugafu_kaiha/',
   threads_url = null,
   youtube_url = null,
-  line_url = null,
-  updated_at = now()
+  line_url = null
 where id = 'dddcef9f-e32a-4ccc-a2bf-8c80e7080aa2';
 
 update public.members
@@ -160,8 +150,7 @@ set
   instagram_url = 'https://www.instagram.com/minosoko_yoichi/',
   threads_url = 'https://www.threads.com/@minosoko_yoichi',
   youtube_url = null,
-  line_url = null,
-  updated_at = now()
+  line_url = null
 where id = '1672bf78-0505-4041-b301-75a22616edc4';
 
 update public.members
@@ -172,8 +161,7 @@ set
   instagram_url = null,
   threads_url = null,
   youtube_url = null,
-  line_url = null,
-  updated_at = now()
+  line_url = null
 where id = '33422421-3897-4b09-81c2-8fb91bfdebfa';
 
 update public.members
@@ -184,8 +172,7 @@ set
   instagram_url = 'https://www.instagram.com/gakiya__ryuji/',
   threads_url = 'https://www.threads.com/@gakiya__ryuji',
   youtube_url = null,
-  line_url = null,
-  updated_at = now()
+  line_url = null
 where id = '2986e72e-ab8a-465f-b826-6118687ab673';
 
 update public.members
@@ -196,8 +183,7 @@ set
   instagram_url = 'https://www.instagram.com/eizotomoyose/',
   threads_url = null,
   youtube_url = null,
-  line_url = null,
-  updated_at = now()
+  line_url = null
 where id = '141916de-d2b8-406d-9457-ad7057332ff1';
 
 update public.members
@@ -208,8 +194,7 @@ set
   instagram_url = 'https://www.instagram.com/chiisana.kyojin_isg',
   threads_url = null,
   youtube_url = null,
-  line_url = null,
-  updated_at = now()
+  line_url = null
 where id = '2538eb08-aa41-41f0-8ec1-713ef7e26697';
 
 update public.members
@@ -220,8 +205,7 @@ set
   instagram_url = 'https://www.instagram.com/tairanet/',
   threads_url = 'https://www.threads.com/@tairanet',
   youtube_url = null,
-  line_url = null,
-  updated_at = now()
+  line_url = null
 where id = 'dfd899e1-26bf-4d16-b353-28a96a067a7b';
 
 update public.members
@@ -232,8 +216,7 @@ set
   instagram_url = 'https://www.instagram.com/nakama_hitoshi/',
   threads_url = null,
   youtube_url = 'https://www.youtube.com/@hitoshinakama7842',
-  line_url = null,
-  updated_at = now()
+  line_url = null
 where id = 'dec9dc59-70e9-4372-96bd-9b26150d0646';
 
 update public.members
@@ -244,8 +227,7 @@ set
   instagram_url = null,
   threads_url = null,
   youtube_url = null,
-  line_url = null,
-  updated_at = now()
+  line_url = null
 where id = '9f6ee646-5814-482d-8f91-57293a905602';
 
 delete from public.member_links
