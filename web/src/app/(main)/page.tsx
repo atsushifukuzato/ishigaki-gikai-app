@@ -48,6 +48,14 @@ export default async function Home() {
       {/* 本日の議会セクション */}
       <CurrentDietSession session={currentSession} />
 
+      {topics.length > 0 && (
+        <div className="bg-mirai-topics-section py-10">
+          <Container>
+            <TopicsSection topics={topics} />
+          </Container>
+        </div>
+      )}
+
       {/* 議案一覧セクション */}
       <Container className="">
         <div className="py-10">
@@ -63,14 +71,6 @@ export default async function Home() {
           </main>
         </div>
       </Container>
-
-      {topics.length > 0 && (
-        <div className="bg-mirai-topics-section py-10">
-          <Container>
-            <TopicsSection topics={topics} />
-          </Container>
-        </div>
-      )}
 
       {/* 前回の議会セクション（Archive） */}
       {previousSessionData && (
