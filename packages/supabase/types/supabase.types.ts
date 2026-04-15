@@ -75,6 +75,54 @@ export type Database = {
           },
         ]
       }
+      bill_member_votes: {
+        Row: {
+          bill_id: string
+          created_at: string
+          member_id: string
+          seat_number: number
+          source_label: string | null
+          source_url: string | null
+          updated_at: string
+          vote_type: Database["public"]["Enums"]["bill_vote_type_enum"]
+        }
+        Insert: {
+          bill_id: string
+          created_at?: string
+          member_id: string
+          seat_number: number
+          source_label?: string | null
+          source_url?: string | null
+          updated_at?: string
+          vote_type: Database["public"]["Enums"]["bill_vote_type_enum"]
+        }
+        Update: {
+          bill_id?: string
+          created_at?: string
+          member_id?: string
+          seat_number?: number
+          source_label?: string | null
+          source_url?: string | null
+          updated_at?: string
+          vote_type?: Database["public"]["Enums"]["bill_vote_type_enum"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bill_member_votes_bill_id_fkey"
+            columns: ["bill_id"]
+            isOneToOne: false
+            referencedRelation: "bills"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "bill_member_votes_member_id_fkey"
+            columns: ["member_id"]
+            isOneToOne: false
+            referencedRelation: "members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       bills: {
         Row: {
           created_at: string
@@ -84,6 +132,7 @@ export type Database = {
           is_featured: boolean
           name: string
           originating_house: Database["public"]["Enums"]["house_enum"]
+          proposer_member_id: string | null
           publish_status: Database["public"]["Enums"]["bill_publish_status"]
           publish_status_order: number | null
           published_at: string | null
@@ -103,6 +152,7 @@ export type Database = {
           is_featured?: boolean
           name: string
           originating_house: Database["public"]["Enums"]["house_enum"]
+          proposer_member_id?: string | null
           publish_status?: Database["public"]["Enums"]["bill_publish_status"]
           publish_status_order?: number | null
           published_at?: string | null
@@ -122,6 +172,7 @@ export type Database = {
           is_featured?: boolean
           name?: string
           originating_house?: Database["public"]["Enums"]["house_enum"]
+          proposer_member_id?: string | null
           publish_status?: Database["public"]["Enums"]["bill_publish_status"]
           publish_status_order?: number | null
           published_at?: string | null
@@ -139,6 +190,13 @@ export type Database = {
             columns: ["diet_session_id"]
             isOneToOne: false
             referencedRelation: "diet_sessions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "bills_proposer_member_id_fkey"
+            columns: ["proposer_member_id"]
+            isOneToOne: false
+            referencedRelation: "members"
             referencedColumns: ["id"]
           },
         ]
@@ -602,6 +660,107 @@ export type Database = {
           },
         ]
       }
+      member_links: {
+        Row: {
+          created_at: string
+          id: string
+          label: string | null
+          member_id: string
+          service: string
+          sort_order: number
+          updated_at: string
+          url: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          label?: string | null
+          member_id: string
+          service: string
+          sort_order?: number
+          updated_at?: string
+          url: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          label?: string | null
+          member_id?: string
+          service?: string
+          sort_order?: number
+          updated_at?: string
+          url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "member_links_member_id_fkey"
+            columns: ["member_id"]
+            isOneToOne: false
+            referencedRelation: "members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      members: {
+        Row: {
+          address: string | null
+          birth_date: string | null
+          created_at: string
+          election_count: number | null
+          facebook_url: string | null
+          id: string
+          image_url: string | null
+          instagram_url: string | null
+          line_url: string | null
+          name: string
+          name_kana: string | null
+          party: string | null
+          party_group: string | null
+          threads_url: string | null
+          twitter_url: string | null
+          website_url: string | null
+          youtube_url: string | null
+        }
+        Insert: {
+          address?: string | null
+          birth_date?: string | null
+          created_at?: string
+          election_count?: number | null
+          facebook_url?: string | null
+          id: string
+          image_url?: string | null
+          instagram_url?: string | null
+          line_url?: string | null
+          name: string
+          name_kana?: string | null
+          party?: string | null
+          party_group?: string | null
+          threads_url?: string | null
+          twitter_url?: string | null
+          website_url?: string | null
+          youtube_url?: string | null
+        }
+        Update: {
+          address?: string | null
+          birth_date?: string | null
+          created_at?: string
+          election_count?: number | null
+          facebook_url?: string | null
+          id?: string
+          image_url?: string | null
+          instagram_url?: string | null
+          line_url?: string | null
+          name?: string
+          name_kana?: string | null
+          party?: string | null
+          party_group?: string | null
+          threads_url?: string | null
+          twitter_url?: string | null
+          website_url?: string | null
+          youtube_url?: string | null
+        }
+        Relationships: []
+      }
       mirai_stances: {
         Row: {
           bill_id: string
@@ -871,6 +1030,137 @@ export type Database = {
           },
         ]
       }
+      topic_bills: {
+        Row: {
+          bill_id: string
+          created_at: string
+          id: string
+          topic_id: string
+        }
+        Insert: {
+          bill_id: string
+          created_at?: string
+          id?: string
+          topic_id: string
+        }
+        Update: {
+          bill_id?: string
+          created_at?: string
+          id?: string
+          topic_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "topic_bills_bill_id_fkey"
+            columns: ["bill_id"]
+            isOneToOne: false
+            referencedRelation: "bills"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "topic_bills_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "topics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      topic_updates: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          kind: string
+          published_at: string
+          source_label: string | null
+          source_url: string | null
+          status_label: string | null
+          summary: string
+          title: string
+          topic_id: string
+          updated_at: string
+        }
+        Insert: {
+          content?: string
+          created_at?: string
+          id?: string
+          kind: string
+          published_at?: string
+          source_label?: string | null
+          source_url?: string | null
+          status_label?: string | null
+          summary: string
+          title: string
+          topic_id: string
+          updated_at?: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          kind?: string
+          published_at?: string
+          source_label?: string | null
+          source_url?: string | null
+          status_label?: string | null
+          summary?: string
+          title?: string
+          topic_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "topic_updates_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "topics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      topics: {
+        Row: {
+          content: string
+          created_at: string
+          current_status_label: string | null
+          current_status_note: string | null
+          current_status_updated_at: string | null
+          description: string
+          id: string
+          slug: string
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          content?: string
+          created_at?: string
+          current_status_label?: string | null
+          current_status_note?: string | null
+          current_status_updated_at?: string | null
+          description: string
+          id?: string
+          slug: string
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          current_status_label?: string | null
+          current_status_note?: string | null
+          current_status_updated_at?: string | null
+          description?: string
+          id?: string
+          slug?: string
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -1053,6 +1343,7 @@ export type Database = {
         | "enacted"
         | "rejected"
         | "preparing"
+      bill_vote_type_enum: "for" | "not_for" | "absent" | "left" | "chair"
       chat_role_enum: "user" | "system" | "assistant"
       difficulty_level_enum: "normal" | "hard"
       document_type_enum: "bill" | "speech" | "report" | "consent" | "approval"
@@ -1219,6 +1510,7 @@ export const Constants = {
         "rejected",
         "preparing",
       ],
+      bill_vote_type_enum: ["for", "not_for", "absent", "left", "chair"],
       chat_role_enum: ["user", "system", "assistant"],
       difficulty_level_enum: ["normal", "hard"],
       document_type_enum: ["bill", "speech", "report", "consent", "approval"],
