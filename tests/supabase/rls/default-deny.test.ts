@@ -7,19 +7,19 @@ import {
 } from "../utils";
 
 /**
- * 全テーブルは RLS 有効 + ポリシーなし（default deny）。
- * anon / authenticated どちらからも SELECT・INSERT できないことを確認する。
+ * RLS 有効 + ポリシーなし（default deny）のテーブルを検証する。
+ * anon / authenticated どちらからも SELECT できないことを確認する。
+ *
+ * 注意: bills / bill_contents / diet_sessions は公開読み取りポリシーあり（default deny 対象外）。
+ * 詳細: supabase/migrations/20260409103000_enable_rls_on_public_bill_tables.sql
  */
 
 const tables = [
-  "bills",
-  "bill_contents",
   "mirai_stances",
   "chats",
   "tags",
   "bills_tags",
   "preview_tokens",
-  "diet_sessions",
   "interview_configs",
   "interview_questions",
   "interview_sessions",

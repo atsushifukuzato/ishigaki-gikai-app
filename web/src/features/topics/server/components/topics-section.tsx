@@ -12,17 +12,17 @@ interface TopicsSectionProps {
 export function TopicsSection({ topics }: TopicsSectionProps) {
   return (
     <section className="flex flex-col gap-6">
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-1">
         <p className="text-sm font-bold tracking-[0.08em] text-primary-accent">
           TOPICS
         </p>
         <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <div className="space-y-2">
             <h2 className="text-[30px] font-extrabold tracking-[0.02em] text-slate-900">
-              テーマごとに議会の情報を見る
+              テーマごとに話題の情報を見る
             </h2>
             <p className="max-w-2xl text-[15px] leading-7 text-slate-600">
-              議案単位とは別に、政策テーマごとに関連する議案や背景情報を整理して確認できます。
+              政策テーマごとに関連する議案や背景情報を整理して確認できます。
             </p>
           </div>
           <Button
@@ -35,7 +35,7 @@ export function TopicsSection({ topics }: TopicsSectionProps) {
         </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="flex flex-col gap-3">
         {topics.map((topic) => (
           <TopicCard key={topic.id} topic={topic} />
         ))}
