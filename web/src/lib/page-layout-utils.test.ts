@@ -28,6 +28,22 @@ describe("isMainPage", () => {
     expect(isMainPage("/bills")).toBe(false);
     expect(isMainPage("/bills/")).toBe(false);
   });
+
+  it("returns true for a topics detail page", () => {
+    expect(isMainPage("/topics/some-slug")).toBe(true);
+  });
+
+  it("returns false for a topics sub-page", () => {
+    expect(isMainPage("/topics/some-slug/sub")).toBe(false);
+  });
+
+  it("returns false for the topics list page", () => {
+    expect(isMainPage("/topics")).toBe(false);
+  });
+
+  it("returns true for the members page", () => {
+    expect(isMainPage("/members")).toBe(true);
+  });
 });
 
 describe("isInterviewPage", () => {
