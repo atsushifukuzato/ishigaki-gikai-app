@@ -72,15 +72,20 @@ export default async function Home() {
         </div>
       </Container>
 
-      {/* 前回の議会セクション（Archive） */}
-      {previousSessionData && (
+      {/* 過去の議会セクション（Archive） */}
+      {previousSessionData.length > 0 && (
         <div className="bg-mirai-surface-muted py-10">
           <Container>
-            <PreviousSessionSection
-              session={previousSessionData.session}
-              bills={previousSessionData.bills}
-              totalBillCount={previousSessionData.totalBillCount}
-            />
+            <div className="flex flex-col gap-16">
+              {previousSessionData.map((data) => (
+                <PreviousSessionSection
+                  key={data.session.id}
+                  session={data.session}
+                  bills={data.bills}
+                  totalBillCount={data.totalBillCount}
+                />
+              ))}
+            </div>
           </Container>
         </div>
       )}
