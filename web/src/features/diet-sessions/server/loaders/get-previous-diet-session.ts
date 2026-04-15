@@ -1,7 +1,10 @@
 import { unstable_cache } from "next/cache";
 import { CACHE_TAGS } from "@/lib/cache-tags";
 import type { DietSession } from "../../shared/types";
-import { findPreviousDietSession } from "../repositories/diet-session-repository";
+import {
+  findAllPreviousDietSessions,
+  findPreviousDietSession,
+} from "../repositories/diet-session-repository";
 import { getActiveDietSession } from "./get-active-diet-session";
 
 /**
@@ -27,6 +30,29 @@ const _getCachedPreviousDietSession = unstable_cache(
   ["previous-diet-session"],
   {
     revalidate: 3600, // 1時間
+    tags: [CACHE_TAGS.DIET_SESSIONS],
+  }
+);
+
+/**
+ * アクティブな会期より古い全会期を取得（新しい順）
+ * アクティブなセッションがない場合は空配列を返す
+ */
+export async function getAllPreviousDietSessions(): Promise<DietSession[]> {
+  const activeSession = await getActiveDietSession();
+  if (!activeSession) {
+    return [];
+  }
+  return _getCachedAllPreviousDietSessions(activeSession.start_date);
+}
+
+const _getCachedAllPreviousDietSessions = unstable_cache(
+  async (activeStartDate: string): Promise<DietSession[]> => {
+    return findAllPreviousDietSessions(activeStartDate);
+  },
+  ["all-previous-diet-sessions"],
+  {
+    revalidate: 3600,
     tags: [CACHE_TAGS.DIET_SESSIONS],
   }
 );

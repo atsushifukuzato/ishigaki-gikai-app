@@ -26,7 +26,7 @@ export function CompactBillCard({ bill, className }: CompactBillCardProps) {
     >
       <div className="flex">
         {/* コンテンツエリア */}
-        <div className="flex-1 p-4 flex flex-col gap-2">
+        <div className="flex-1 p-5 flex flex-col gap-2">
           <h3 className="font-bold text-[15px] leading-[1.6] line-clamp-2">
             {displayTitle}
           </h3>

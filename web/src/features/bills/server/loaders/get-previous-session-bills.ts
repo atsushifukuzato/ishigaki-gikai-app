@@ -1,7 +1,7 @@
 import { unstable_cache } from "next/cache";
 import { getDifficultyLevel } from "@/features/bill-difficulty/server/loaders/get-difficulty-level";
 import type { DifficultyLevelEnum } from "@/features/bill-difficulty/shared/types";
-import { getPreviousDietSession } from "@/features/diet-sessions/server/loaders/get-previous-diet-session";
+import { getAllPreviousDietSessions } from "@/features/diet-sessions/server/loaders/get-previous-diet-session";
 import type { DietSession } from "@/features/diet-sessions/shared/types";
 import { CACHE_TAGS } from "@/lib/cache-tags";
 import type { BillWithContent } from "../../shared/types";
@@ -19,29 +19,34 @@ export type PreviousSessionBillsResult = {
   session: DietSession;
   bills: BillWithContent[];
   totalBillCount: number;
-} | null;
+};
 
 /**
- * 前回の議会会期とその議案を取得（プレビュー用、最大5件）
- * 前回の会期がない場合はnullを返す
+ * アクティブな会期より古い全会期とその議案を取得（各会期プレビュー最大5件）
+ * 過去会期がない場合は空配列を返す
  */
-export async function getPreviousSessionBills(): Promise<PreviousSessionBillsResult> {
-  const previousSession = await getPreviousDietSession();
-  if (!previousSession) {
-    return null;
+export async function getPreviousSessionBills(): Promise<
+  PreviousSessionBillsResult[]
+> {
+  const previousSessions = await getAllPreviousDietSessions();
+  if (previousSessions.length === 0) {
+    return [];
   }
 
   const difficultyLevel = await getDifficultyLevel();
-  const [bills, totalBillCount] = await Promise.all([
-    _getCachedPreviousSessionBills(previousSession.id, difficultyLevel),
-    _getCachedPreviousSessionBillCount(previousSession.id, difficultyLevel),
-  ]);
 
-  return {
-    session: previousSession,
-    bills,
-    totalBillCount,
-  };
+  const results = await Promise.all(
+    previousSessions.map(async (session) => {
+      const [bills, totalBillCount] = await Promise.all([
+        _getCachedPreviousSessionBills(session.id, difficultyLevel),
+        _getCachedPreviousSessionBillCount(session.id, difficultyLevel),
+      ]);
+      return { session, bills, totalBillCount };
+    })
+  );
+
+  // 議案が0件の会期は表示しない
+  return results.filter((r) => r.totalBillCount > 0);
 }
 
 const _getCachedPreviousSessionBills = unstable_cache(

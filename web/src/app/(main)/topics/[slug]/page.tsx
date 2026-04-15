@@ -160,7 +160,7 @@ export default async function TopicDetailPage({
               </p>
 
               {topic.relatedBills.length > 0 ? (
-                <div className="space-y-3">
+                <div className="space-y-4">
                   {topic.relatedBills.map((bill) => (
                     <Link
                       key={bill.id}

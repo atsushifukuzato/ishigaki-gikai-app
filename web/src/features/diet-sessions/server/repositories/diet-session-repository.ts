@@ -92,3 +92,25 @@ export async function findPreviousDietSession(
 
   return data;
 }
+
+/**
+ * 指定日より前の全議会会期を取得（新しい順）
+ */
+export async function findAllPreviousDietSessions(
+  beforeStartDate: string
+): Promise<DietSession[]> {
+  const supabase = createAdminClient();
+
+  const { data, error } = await supabase
+    .from("diet_sessions")
+    .select("*")
+    .lt("start_date", beforeStartDate)
+    .order("start_date", { ascending: false });
+
+  if (error) {
+    console.error("Failed to fetch all previous diet sessions:", error);
+    return [];
+  }
+
+  return data ?? [];
+}
