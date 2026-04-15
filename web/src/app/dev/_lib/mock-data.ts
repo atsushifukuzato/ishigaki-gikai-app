@@ -28,6 +28,7 @@ const baseBill: BillWithContent = {
   status_order: 3,
   publish_status_order: 2,
   diet_session_id: "mock-session",
+  proposer_member_id: null,
   created_at: "2026-02-15T00:00:00Z",
   updated_at: "2026-02-15T00:00:00Z",
   bill_content: {

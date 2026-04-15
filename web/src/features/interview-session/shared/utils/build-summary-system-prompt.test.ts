@@ -25,6 +25,7 @@ const makeBill = (
   thumbnail_url: null,
   created_at: new Date().toISOString(),
   updated_at: new Date().toISOString(),
+  proposer_member_id: null,
   bill_content: {
     id: "bc-1",
     bill_id: "bill-1",

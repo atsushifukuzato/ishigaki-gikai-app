@@ -1,5 +1,7 @@
 import { Container } from "@/components/layouts/container";
 import { MemberCard } from "@/components/members/member-card";
+import { getDifficultyLevel } from "@/features/bill-difficulty/server/loaders/get-difficulty-level";
+import { PageChatClient } from "@/features/chat/client/components/page-chat-client";
 import { getMembers } from "@/features/members/server/repositories/member-repository";
 
 export const metadata = {
@@ -7,13 +9,17 @@ export const metadata = {
 };
 
 export default async function MembersPage() {
-  const members = await getMembers();
+  const [members, currentDifficulty] = await Promise.all([
+    getMembers(),
+    getDifficultyLevel(),
+  ]);
 
   return (
     <div
-      className="py-10"
+      className="pb-32 pt-10 md:pb-10"
       style={{
-        backgroundImage: "linear-gradient(#e2f6f3, #eef6e2)",
+        backgroundImage:
+          "linear-gradient(var(--color-stance-for-badge-start), var(--color-stance-for-badge-end))",
       }}
     >
       <Container>
@@ -48,6 +54,22 @@ export default async function MembersPage() {
           )}
         </div>
       </Container>
+      <PageChatClient
+        currentDifficulty={currentDifficulty}
+        items={members.map((member) => ({
+          name: member.name,
+          summary: [
+            member.party || "政党未登録",
+            member.party_group || "会派未登録",
+            member.election_count != null
+              ? `当選${member.election_count}回`
+              : "",
+          ]
+            .filter(Boolean)
+            .join(" / "),
+          tags: ["議員名簿"],
+        }))}
+      />
     </div>
   );
 }

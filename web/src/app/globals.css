@@ -107,6 +107,13 @@
   /* Gradient endpoints */
   --color-mirai-gradient-start: #64d8c6;
   --color-mirai-gradient-end: #bcecd3;
+
+  /* Topics page background gradient */
+  --color-mirai-topics-bg-start: #f7f5ef;
+  --color-mirai-topics-bg-end: #e8f3ef;
+
+  /* Home topics section background */
+  --color-mirai-topics-section: #f5f4ef;
 }
 
 :root {

@@ -24,6 +24,7 @@ const baseBill: Bill = {
   status_order: BILL_STATUS_ORDER.introduced,
   publish_status_order: 2,
   thumbnail_url: null,
+  proposer_member_id: null,
 };
 
 describe("prepareBillForDuplication", () => {

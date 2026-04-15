@@ -12,6 +12,10 @@ export function isMainPage(pathname: string): boolean {
   if (pathname === "/") return true;
   // 議案詳細ページ（/bills/[id]）- サブパスは除外
   if (/\/bills\/[^/]+$/.test(pathname)) return true;
+  // Topics詳細ページ（/topics/[slug]）
+  if (/\/topics\/[^/]+$/.test(pathname)) return true;
+  // 議員名簿ページ
+  if (pathname === "/members") return true;
   return false;
 }
 
