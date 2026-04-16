@@ -23,7 +23,7 @@ export function TopicRelatedBills({ bills }: TopicRelatedBillsProps) {
       </p>
 
       {bills.length > 0 ? (
-        <div className="space-y-3">
+        <div className="space-y-4">
           {bills.map((bill) => (
             <Link key={bill.id} href={routes.billDetail(bill.id) as Route}>
               <CompactBillCard bill={bill} />
