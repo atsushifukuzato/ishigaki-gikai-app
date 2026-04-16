@@ -95,16 +95,13 @@ export default async function TopicDetailPage({
           {/* ③ 決定事項 */}
           <TopicDecisions updates={topic.updates} />
 
-          {/* ④ 関連議案一覧（決定事項の直後に置き、根拠として読める位置へ） */}
-          <TopicRelatedBills bills={topic.relatedBills} />
-
-          {/* ⑤ 議会での主な論点 */}
+          {/* ④ 議会での主な論点 */}
           <TopicDiscussionPoints updates={topic.updates} />
 
-          {/* ⑥ これまでの流れ */}
+          {/* ⑤ これまでの流れ */}
           <TopicTimeline updates={topic.updates} />
 
-          {/* ⑦ 現時点の整理 */}
+          {/* ⑥ 現時点の整理 */}
           {topic.content ? (
             <section className="space-y-4">
               <h2 className="text-[22px] font-bold text-slate-900">
@@ -113,6 +110,9 @@ export default async function TopicDetailPage({
               <TopicContent content={topic.content} />
             </section>
           ) : null}
+
+          {/* ⑦ 関連議案一覧 */}
+          <TopicRelatedBills bills={topic.relatedBills} />
 
           {/* ⑧ 関連情報・資料 */}
           <TopicRelatedLinks updates={topic.updates} />
