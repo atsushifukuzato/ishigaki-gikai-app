@@ -77,12 +77,13 @@ export default async function Home() {
         <div className="bg-mirai-surface-muted py-10">
           <Container>
             <div className="flex flex-col gap-16">
-              {previousSessionData.map((data) => (
+              {previousSessionData.map((data, index) => (
                 <PreviousSessionSection
                   key={data.session.id}
                   session={data.session}
                   bills={data.bills}
                   totalBillCount={data.totalBillCount}
+                  showArchiveHeader={index === 0}
                 />
               ))}
             </div>
