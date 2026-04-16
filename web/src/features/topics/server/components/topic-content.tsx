@@ -1,5 +1,5 @@
 import "server-only";
-import { parseMarkdown } from "@/lib/markdown";
+import { parseTopicMarkdown } from "@/lib/markdown";
 
 interface TopicContentProps {
   content: string;
@@ -11,7 +11,7 @@ export async function TopicContent({ content }: TopicContentProps) {
   }
 
   try {
-    const markdown = await parseMarkdown(content);
+    const markdown = await parseTopicMarkdown(content);
 
     return (
       <div
