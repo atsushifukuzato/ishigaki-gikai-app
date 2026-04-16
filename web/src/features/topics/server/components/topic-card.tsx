@@ -27,7 +27,7 @@ export function TopicCard({ topic }: TopicCardProps) {
                 </span>
               ) : null}
             </div>
-            <h3 className="font-bold text-[15px] leading-[1.6] line-clamp-2 text-slate-900">
+            <h3 className="text-2xl/8 font-semibold tracking-normal line-clamp-2 text-slate-900">
               {topic.title}
             </h3>
             <p className="line-clamp-2 text-xs leading-6 text-slate-500">
