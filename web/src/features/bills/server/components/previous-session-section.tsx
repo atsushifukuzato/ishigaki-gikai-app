@@ -12,6 +12,7 @@ interface PreviousSessionSectionProps {
   session: DietSession;
   bills: BillWithContent[];
   totalBillCount: number;
+  showArchiveHeader?: boolean;
 }
 
 const VISIBLE_BILLS = 5;
@@ -20,6 +21,7 @@ export function PreviousSessionSection({
   session,
   bills,
   totalBillCount,
+  showArchiveHeader = true,
 }: PreviousSessionSectionProps) {
   const visibleBills = bills.slice(0, VISIBLE_BILLS);
   const showMoreButton = totalBillCount > visibleBills.length;
@@ -36,21 +38,23 @@ export function PreviousSessionSection({
 
   return (
     <section className="flex flex-col gap-6">
-      {/* Archiveヘッダー */}
-      <div className="flex flex-col gap-1">
-        <h2>
-          <Image
-            src="/icons/archive-typography.svg"
-            alt="Archive"
-            width={156}
-            height={36}
-            priority
-          />
-        </h2>
-        <p className="text-sm font-bold text-primary-accent">
-          過去の議会に提出された議案
-        </p>
-      </div>
+      {/* Archiveヘッダー（最初の会期のみ表示） */}
+      {showArchiveHeader && (
+        <div className="flex flex-col gap-1">
+          <h2>
+            <Image
+              src="/icons/archive-typography.svg"
+              alt="Archive"
+              width={156}
+              height={36}
+              priority
+            />
+          </h2>
+          <p className="text-sm font-bold text-primary-accent">
+            過去の議会に提出された議案
+          </p>
+        </div>
+      )}
 
       {/* セクションヘッダー（リンク付き） */}
       <div className="flex flex-col gap-1.5">
