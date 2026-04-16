@@ -4,12 +4,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/layouts/container";
 import { getDifficultyLevel } from "@/features/bill-difficulty/server/loaders/get-difficulty-level";
-import { CompactBillCard } from "@/features/bills/client/components/bill-list/compact-bill-card";
 import { PageChatClient } from "@/features/chat/client/components/page-chat-client";
 import { TopicContent } from "@/features/topics/server/components/topic-content";
+import { TopicDecisions } from "@/features/topics/server/components/topic-decisions";
+import { TopicDiscussionPoints } from "@/features/topics/server/components/topic-discussion-points";
+import { TopicRelatedBills } from "@/features/topics/server/components/topic-related-bills";
 import { TopicRelatedLinks } from "@/features/topics/server/components/topic-related-links";
 import { TopicStatusCard } from "@/features/topics/server/components/topic-status-card";
-import { TopicUpdatesList } from "@/features/topics/server/components/topic-updates-list";
+import { TopicTimeline } from "@/features/topics/server/components/topic-timeline";
 import { getTopicBySlug } from "@/features/topics/server/loaders/get-topic-by-slug";
 import { routes } from "@/lib/routes";
 
@@ -50,13 +52,10 @@ export default async function TopicDetailPage({
     notFound();
   }
 
-  const statusUpdatedAtLabel = topic.current_status_updated_at
-    ? new Date(topic.current_status_updated_at).toLocaleDateString("ja-JP")
-    : null;
-
   return (
     <div className="container mx-auto max-w-4xl pb-32 md:pb-8">
-      <div className="mb-8 bg-white rounded-b-4xl">
+      {/* ① ヘッダー（概要） */}
+      <div className="mb-8 rounded-b-4xl bg-white">
         <Container>
           <div className="space-y-4 px-4 pb-8 pt-4">
             <Link
@@ -86,100 +85,41 @@ export default async function TopicDetailPage({
 
       <Container>
         <div className="flex flex-col gap-8">
+          {/* ② 現在の状況 */}
           <TopicStatusCard
             label={topic.current_status_label}
             note={topic.current_status_note}
             updatedAt={topic.current_status_updated_at}
           />
 
-          <section className="grid gap-4 md:grid-cols-3">
-            <div className="rounded-2xl bg-white p-5">
-              <p className="text-xs font-bold tracking-[0.08em] text-slate-400">
-                UPDATES
-              </p>
-              <p className="mt-2 text-3xl font-extrabold text-slate-900">
-                {topic.updates.length}
-              </p>
-              <p className="mt-1 text-sm text-slate-500">これまでの更新件数</p>
-            </div>
-            <div className="rounded-2xl bg-white p-5">
-              <p className="text-xs font-bold tracking-[0.08em] text-slate-400">
-                RELATED BILLS
-              </p>
-              <p className="mt-2 text-3xl font-extrabold text-slate-900">
-                {topic.relatedBills.length}
-              </p>
-              <p className="mt-1 text-sm text-slate-500">公開済みの関連議案</p>
-            </div>
-            <div className="rounded-2xl bg-white p-5">
-              <p className="text-xs font-bold tracking-[0.08em] text-slate-400">
-                STATUS
-              </p>
-              <p className="mt-2 text-lg font-bold text-slate-900">
-                {topic.current_status_label ?? "未設定"}
-              </p>
-              <p className="mt-1 text-sm text-slate-500">
-                {statusUpdatedAtLabel
-                  ? `${statusUpdatedAtLabel} 時点の現在地`
-                  : "現在地を整理中"}
-              </p>
-            </div>
-          </section>
+          {/* ③ 決定事項 */}
+          <TopicDecisions updates={topic.updates} />
 
-          <TopicUpdatesList updates={topic.updates} />
+          {/* ④ 関連議案一覧（決定事項の直後に置き、根拠として読める位置へ） */}
+          <TopicRelatedBills bills={topic.relatedBills} />
 
-          <TopicRelatedLinks updates={topic.updates} />
+          {/* ⑤ 議会での主な論点 */}
+          <TopicDiscussionPoints updates={topic.updates} />
 
+          {/* ⑥ これまでの流れ */}
+          <TopicTimeline updates={topic.updates} />
+
+          {/* ⑦ 現時点の整理 */}
           {topic.content ? (
             <section className="space-y-4">
               <h2 className="text-[22px] font-bold text-slate-900">
-                テーマの整理
+                現時点の整理
               </h2>
-              <div>
-                <TopicContent content={topic.content} />
-              </div>
+              <TopicContent content={topic.content} />
             </section>
           ) : null}
 
-          <section className="space-y-4">
-            <div className="space-y-4">
-              <div className="flex items-end justify-between gap-4">
-                <div className="space-y-1">
-                  <h2 className="text-[22px] font-bold text-slate-900">
-                    関連議案一覧
-                  </h2>
-                  <p className="text-sm text-slate-500">
-                    {topic.relatedBills.length}件の公開済み議案
-                  </p>
-                </div>
-              </div>
-
-              <p className="text-sm leading-7 text-slate-500">
-                議案そのものの内容に加えて、提出状況や会期もあわせて確認すると、
-                このテーマが議会の中でどう進んでいるか追いやすくなります。
-              </p>
-
-              {topic.relatedBills.length > 0 ? (
-                <div className="space-y-4">
-                  {topic.relatedBills.map((bill) => (
-                    <Link
-                      key={bill.id}
-                      href={routes.billDetail(bill.id) as Route}
-                    >
-                      <CompactBillCard bill={bill} />
-                    </Link>
-                  ))}
-                </div>
-              ) : (
-                <div className="rounded-2xl border border-dashed border-slate-300 px-5 py-8 text-center text-slate-500">
-                  現在、このトピックに紐づく公開済み議案はありません。
-                </div>
-              )}
-            </div>
-          </section>
+          {/* ⑧ 関連情報・資料 */}
+          <TopicRelatedLinks updates={topic.updates} />
         </div>
       </Container>
 
+      {/* ⑨ チャット */}
       <PageChatClient
         currentDifficulty={currentDifficulty}
         items={[
