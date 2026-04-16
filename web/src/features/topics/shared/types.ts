@@ -5,7 +5,12 @@ export type Topic = Database["public"]["Tables"]["topics"]["Row"];
 export type TopicBill = Database["public"]["Tables"]["topic_bills"]["Row"];
 export type TopicUpdate = Database["public"]["Tables"]["topic_updates"]["Row"];
 
-export type TopicUpdateKind = "news" | "council" | "progress" | "decision";
+export type TopicUpdateKind =
+  | "news"
+  | "council"
+  | "progress"
+  | "decision"
+  | "question";
 
 export type TopicListItem = Pick<
   Topic,
