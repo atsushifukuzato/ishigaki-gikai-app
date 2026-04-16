@@ -30,10 +30,9 @@ const sanitizeSchema = {
 };
 
 /**
- * MarkdownテキストをReact Elementに変換
- * @param markdown - Markdown形式のテキスト
- * @param options - オプション（currentLevel等）
- * @returns React Element（部分水和対応）
+ * MarkdownテキストをReact Elementに変換（Bills用）
+ * DifficultyInfoCard・LongPressSection を自動注入する。
+ * Topics など bills 以外のコンテンツには parseTopicMarkdown() を使用してください。
  */
 export async function parseMarkdown(markdown: string): Promise<ReactElement> {
   // Markdown → mdast（remarkBreaksでソフト改行をbreak nodeに変換）
@@ -72,4 +71,26 @@ export async function parseMarkdown(markdown: string): Promise<ReactElement> {
       DifficultyInfoCard, // Client Componentとして水和
     },
   });
+}
+
+/**
+ * MarkdownテキストをReact Elementに変換（Topics用）
+ * bills 向けの DifficultyInfoCard・LongPressSection は注入しない。
+ */
+export async function parseTopicMarkdown(
+  markdown: string
+): Promise<ReactElement> {
+  const remarkProcessor = unified().use(remarkParse).use(remarkBreaks);
+  const parsed = remarkProcessor.parse(markdown);
+  const mdast = (await remarkProcessor.run(parsed)) as typeof parsed;
+
+  const hast = await unified()
+    .use(remarkRehype)
+    .use(rehypeWrapSections)
+    .use(rehypeSanitize, sanitizeSchema)
+    .use(rehypeExternalLinks)
+    .use(rehypeEmbedYouTube)
+    .run(mdast);
+
+  return toJsxRuntime(hast, { Fragment, jsx, jsxs });
 }
