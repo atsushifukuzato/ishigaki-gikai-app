@@ -6,17 +6,25 @@ import { CACHE_TAGS } from "@/lib/cache-tags";
 import type { ComingSoonBill } from "../../shared/types";
 import { findComingSoonBills } from "../repositories/bill-repository";
 
+type ComingSoonBillsOptions = {
+  difficultyLevel?: DifficultyLevelEnum;
+  activeDietSessionId?: string | null;
+};
+
 /**
  * Coming Soon議案を取得する
  * publish_status = 'coming_soon' でアクティブな議会会期の議案を取得
  * アクティブな議会会期がない場合は全件取得
  */
-export async function getComingSoonBills(): Promise<ComingSoonBill[]> {
-  // キャッシュ外でcookiesにアクセス
-  const difficultyLevel = await getDifficultyLevel();
-  const activeSession = await getActiveDietSession();
+export async function getComingSoonBills(
+  options: ComingSoonBillsOptions = {}
+): Promise<ComingSoonBill[]> {
+  const difficultyLevel =
+    options.difficultyLevel ?? (await getDifficultyLevel());
+  const activeDietSessionId =
+    options.activeDietSessionId ?? (await getActiveDietSession())?.id ?? null;
 
-  return _getCachedComingSoonBills(difficultyLevel, activeSession?.id ?? null);
+  return _getCachedComingSoonBills(difficultyLevel, activeDietSessionId);
 }
 
 const _getCachedComingSoonBills = unstable_cache(

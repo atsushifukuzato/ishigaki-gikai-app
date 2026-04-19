@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { unstable_cache } from "next/cache";
 import { CACHE_TAGS } from "@/lib/cache-tags";
 import type { DietSession } from "../../shared/types";
@@ -12,16 +13,18 @@ import { getActiveDietSession } from "./get-active-diet-session";
  * アクティブなセッションより古いセッションを返す
  * アクティブなセッションがない場合、または古いセッションがない場合はnullを返す
  */
-export async function getPreviousDietSession(): Promise<DietSession | null> {
-  const activeSession = await getActiveDietSession();
+export const getPreviousDietSession = cache(
+  async (): Promise<DietSession | null> => {
+    const activeSession = await getActiveDietSession();
 
-  // アクティブなセッションがない場合はnullを返す
-  if (!activeSession) {
-    return null;
+    // アクティブなセッションがない場合はnullを返す
+    if (!activeSession) {
+      return null;
+    }
+
+    return _getCachedPreviousDietSession(activeSession.start_date);
   }
-
-  return _getCachedPreviousDietSession(activeSession.start_date);
-}
+);
 
 const _getCachedPreviousDietSession = unstable_cache(
   async (activeStartDate: string): Promise<DietSession | null> => {
