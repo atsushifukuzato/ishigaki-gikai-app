@@ -11,20 +11,25 @@ import {
   normalizeDietSession,
 } from "../repositories/bill-repository";
 
+type BillsByFeaturedTagsOptions = {
+  difficultyLevel?: DifficultyLevelEnum;
+  activeDietSessionId?: string | null;
+};
+
 /**
  * Featured表示用の議案をタグごとにグループ化して取得
  * featured_priorityが設定されているタグを持つアクティブな議会会期の議案を優先度順に取得
  * アクティブな議会会期がない場合は全件取得
  */
-export async function getBillsByFeaturedTags(): Promise<BillsByTag[]> {
-  // キャッシュ外でcookiesにアクセス
-  const difficultyLevel = await getDifficultyLevel();
-  const activeSession = await getActiveDietSession();
+export async function getBillsByFeaturedTags(
+  options: BillsByFeaturedTagsOptions = {}
+): Promise<BillsByTag[]> {
+  const difficultyLevel =
+    options.difficultyLevel ?? (await getDifficultyLevel());
+  const activeDietSessionId =
+    options.activeDietSessionId ?? (await getActiveDietSession())?.id ?? null;
 
-  return _getCachedBillsByFeaturedTags(
-    difficultyLevel,
-    activeSession?.id ?? null
-  );
+  return _getCachedBillsByFeaturedTags(difficultyLevel, activeDietSessionId);
 }
 
 const _getCachedBillsByFeaturedTags = unstable_cache(

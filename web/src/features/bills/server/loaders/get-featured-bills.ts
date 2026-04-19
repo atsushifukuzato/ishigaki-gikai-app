@@ -11,17 +11,25 @@ import {
   normalizeDietSession,
 } from "../repositories/bill-repository";
 
+type FeaturedBillsOptions = {
+  difficultyLevel?: DifficultyLevelEnum;
+  activeDietSessionId?: string | null;
+};
+
 /**
  * 注目の議案を取得する
  * is_featured = true でアクティブな議会会期の公開済み議案を最新順に取得
  * アクティブな議会会期がない場合は全件取得
  */
-export async function getFeaturedBills(): Promise<BillWithContent[]> {
-  // キャッシュ外でcookiesにアクセス
-  const difficultyLevel = await getDifficultyLevel();
-  const activeSession = await getActiveDietSession();
+export async function getFeaturedBills(
+  options: FeaturedBillsOptions = {}
+): Promise<BillWithContent[]> {
+  const difficultyLevel =
+    options.difficultyLevel ?? (await getDifficultyLevel());
+  const activeDietSessionId =
+    options.activeDietSessionId ?? (await getActiveDietSession())?.id ?? null;
 
-  return _getCachedFeaturedBills(difficultyLevel, activeSession?.id ?? null);
+  return _getCachedFeaturedBills(difficultyLevel, activeDietSessionId);
 }
 
 const _getCachedFeaturedBills = unstable_cache(

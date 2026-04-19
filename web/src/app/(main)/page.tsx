@@ -1,6 +1,6 @@
 import { Container } from "@/components/layouts/container";
-import { About } from "@/components/top/about";
 import { AFTTT } from "@/components/top/afttt";
+import { About } from "@/components/top/about";
 import { ComingSoonSection } from "@/components/top/coming-soon-section";
 import { Hero } from "@/components/top/hero";
 import { TeamMirai } from "@/components/top/team-mirai";
@@ -14,23 +14,33 @@ import type { BillWithContent } from "@/features/bills/shared/types";
 import { getBillDisplayTitle } from "@/features/bills/shared/utils/bill-title";
 import { HomeChatClient } from "@/features/chat/client/components/home-chat-client";
 import { CurrentDietSession } from "@/features/diet-sessions/client/components/current-diet-session";
+import { getActiveDietSession } from "@/features/diet-sessions/server/loaders/get-active-diet-session";
 import { getCurrentDietSession } from "@/features/diet-sessions/server/loaders/get-current-diet-session";
+import { getAllPreviousDietSessions } from "@/features/diet-sessions/server/loaders/get-previous-diet-session";
 import { TopicsSection } from "@/features/topics/server/components/topics-section";
 import { getTopics } from "@/features/topics/server/loaders/get-topics";
 import { getJapanTime } from "@/lib/utils/date";
 
-export const dynamic = "force-dynamic";
-
 export default async function Home() {
-  const { billsByTag, featuredBills, comingSoonBills, previousSessionData } =
-    await loadHomeData();
-
-  // ゆくゆくタグ機能がマージされたらBFFに統合する
-  const [currentSession, currentDifficulty] = await Promise.all([
-    getCurrentDietSession(getJapanTime()),
+  const [
+    difficultyLevel,
+    activeSession,
+    previousSessions,
+    currentSession,
+    topics,
+  ] = await Promise.all([
     getDifficultyLevel(),
+    getActiveDietSession(),
+    getAllPreviousDietSessions(),
+    getCurrentDietSession(getJapanTime()),
+    getTopics(),
   ]);
-  const topics = await getTopics();
+  const { billsByTag, featuredBills, comingSoonBills, previousSessionData } =
+    await loadHomeData({
+      difficultyLevel,
+      activeDietSessionId: activeSession?.id ?? null,
+      previousSessions,
+    });
 
   const toBillChatContext = (bill: BillWithContent) => {
     return {
@@ -107,7 +117,7 @@ export default async function Home() {
 
       {/* チャット機能 */}
       <HomeChatClient
-        currentDifficulty={currentDifficulty}
+        currentDifficulty={difficultyLevel}
         bills={billsByTag
           .flatMap((x) => x.bills)
           .concat(featuredBills)

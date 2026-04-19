@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { cookies } from "next/headers";
 import {
   DIFFICULTY_COOKIE_NAME,
@@ -13,8 +14,10 @@ import { parseDifficultyLevel } from "../../shared/utils/parse-difficulty-level"
  * Middlewareで自動的にCookieにセットされるため、
  * この関数は常にCookieから取得するだけでOK
  */
-export async function getDifficultyLevel(): Promise<DifficultyLevelEnum> {
-  const cookieStore = await cookies();
-  const difficulty = cookieStore.get(DIFFICULTY_COOKIE_NAME);
-  return parseDifficultyLevel(difficulty?.value);
-}
+export const getDifficultyLevel = cache(
+  async (): Promise<DifficultyLevelEnum> => {
+    const cookieStore = await cookies();
+    const difficulty = cookieStore.get(DIFFICULTY_COOKIE_NAME);
+    return parseDifficultyLevel(difficulty?.value);
+  }
+);
