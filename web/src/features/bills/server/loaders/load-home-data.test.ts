@@ -56,7 +56,9 @@ describe("loadHomeData", () => {
     vi.mocked(getFeaturedBills).mockResolvedValue(featuredBills as never);
     vi.mocked(getBillsByFeaturedTags).mockResolvedValue(billsByTag as never);
     vi.mocked(getComingSoonBills).mockResolvedValue(comingSoonBills as never);
-    vi.mocked(getPreviousSessionBills).mockResolvedValue([previousSessionData] as never);
+    vi.mocked(getPreviousSessionBills).mockResolvedValue([
+      previousSessionData,
+    ] as never);
 
     const result = await loadHomeData(options);
 
