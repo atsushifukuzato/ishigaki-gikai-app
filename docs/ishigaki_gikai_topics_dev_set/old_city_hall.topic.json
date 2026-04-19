@@ -1,0 +1,215 @@
+{
+  "topic_slug": "ishigaki-old-city-hall",
+  "topic_title": "石垣市庁舎跡地活用",
+  "topic_title_kana": "いしがきしちょうしゃあとちかつよう",
+  "topic_status": "active",
+  "topic_category": "再開発",
+  "source_policy": "石垣市議会の議案一覧・予算議案・関連する市の公表情報を優先し、旧市役所庁舎等跡地利活用事業が明示される予算議案を中心に関連付ける。",
+  "description": "旧市役所跡地の再開発計画。商業施設やホテル、水族館などを含む複合施設として整備が検討されています。",
+  "content": "## 概要\n\n旧市役所跡地の再開発計画。商業施設やホテル、水族館などを含む複合施設として整備が検討されています。\n\n## このトピックで扱うこと\n\n議会で扱われた関連議案や、計画の整理された情報を中立的に確認するためのトピックです。",
+  "current_status": {
+    "label": "協議継続・着工時期は未確定",
+    "note": "優先交渉権者の決定後も、予算計上と繰越明許費の計上が続き、議会では基本協定、SPC、事業者構成、着工時期について一般質問が重ねられています。事業は継続している一方、実施スケジュールや進め方にはなお確認すべき点が残っています。",
+    "updated_at": "2026-04-15T11:30:00+09:00"
+  },
+  "related_bills_summary_normal": "このテーマでは、まず YAEYAMA GATE が優先交渉権者として公表され、その後も旧市役所跡地活用のための予算が複数年度にわたって計上され続けています。つまり、話が一度決まって終わったのではなく、事業化に向けた調整や確認が長く続いていることが分かります。\n\n関連議案を見ると、令和5年度補正予算から令和7年度補正予算まで、跡地活用事業が毎年のように予算上に現れています。一方で、一般質問では着工の遅れ、基本協定、SPC、事業者構成の変化などが繰り返し問われており、事業は進んでいるが見通しはまだ固まっていないというのが実態に近そうです。\n\nそのため、この Topic の関連議案は「賛成・反対」だけを見るより、事業がどこまで具体化しているか、どこで足踏みしているのかを追うための手がかりとして読むのが適しています。",
+  "related_bills_summary_hard": "事実として確認できるのは、旧市役所庁舎等跡地利活用事業が、優先交渉権者の決定後も、令和5年度補正予算、令和6年度当初予算、令和7年度当初予算、令和7年度補正予算第12号に継続して現れていることです。2024年3月には事業費計上と一部繰越が確認され、2026年3月には繰越明許費として再び計上されています。したがって、このテーマは単発議案ではなく、複数年度の予算執行と事業進捗を横断して追うべき案件です。\n\n論点としては、優先交渉権者の決定後に基本協定がどこまで進んだのか、SPC の組成が実際にどうなっているのか、事業者構成に変更があるのか、着工時期がなぜ明確でないのか、という点が議会で繰り返し問われています。公共性、透明性、市民説明の十分性を評価するうえでも、予算議案だけでなく一般質問や市の公表資料を併せて読む必要があります。\n\nしたがって関連議案の位置づけは、事業を前進させる正式手続の確認であると同時に、継続計上や繰越を通じて、計画の遅延や説明不足の有無を読み解く基礎資料でもあります。",
+  "topic_updates": [
+    {
+      "published_at": "2024-01-01T00:00:00+09:00",
+      "kind": "decision",
+      "title": "YAEYAMA GATE が旧市役所跡地活用の優先交渉権者として決定・公表された",
+      "summary": "石垣市は旧市役所跡地の複合施設整備事業において、YAEYAMA GATE（企業グループ）を優先交渉権者として選定し、公表しました。",
+      "content": null,
+      "status_label": null,
+      "source_url": "https://www.city.ishigaki.okinawa.jp/soshiki/toshi_kensetsu/1_1/8062.html",
+      "source_label": "石垣市庁舎跡地活用事業に関する住民説明会の開催について"
+    },
+    {
+      "published_at": "2024-03-04T00:00:00+09:00",
+      "kind": "progress",
+      "title": "令和5年度補正予算で跡地利活用事業費が計上・可決された（一部繰越）",
+      "summary": "令和5年度一般会計補正予算（第9号）に「旧市役所庁舎等跡地利活用事業」として約1,017万円が計上され可決。SPCの設立に時間を要したため、一部経費は翌年度へ繰り越されました。",
+      "content": null,
+      "status_label": null,
+      "source_url": "https://www.city.ishigaki.okinawa.jp/soshiki/gikai/teireikairinnjikai/teisyutugianntokekka/reiwa6nen2024nen/9374.html",
+      "source_label": "令和6年第3回定例会（2024年3月4日可決）"
+    },
+    {
+      "published_at": "2024-03-18T00:00:00+09:00",
+      "kind": "progress",
+      "title": "令和6年度一般会計予算が可決され、跡地利活用事業費が継続計上された",
+      "summary": "令和6年度一般会計予算に「旧市役所庁舎等跡地利活用事業」として約1,284万円（主に調査委託料）が計上され可決。前年度から継続して予算が確保されました。",
+      "content": null,
+      "status_label": null,
+      "source_url": "https://www.city.ishigaki.okinawa.jp/soshiki/gikai/teireikairinnjikai/teisyutugianntokekka/reiwa6nen2024nen/9374.html",
+      "source_label": "令和6年第3回定例会（2024年3月18日可決）"
+    },
+    {
+      "published_at": "2025-03-17T00:00:00+09:00",
+      "kind": "progress",
+      "title": "令和7年度一般会計予算が可決され、跡地利活用事業費が3年連続で計上された",
+      "summary": "令和7年度一般会計予算に「旧市役所庁舎等跡地利活用事業」として約1,144万円（調査委託）が計上され可決。令和5・6年度に続き3年連続の計上となりました。",
+      "content": null,
+      "status_label": null,
+      "source_url": "https://www.city.ishigaki.okinawa.jp/soshiki/gikai/teireikairinnjikai/teisyutugianntokekka/reiwa7nen2025nen/10775.html",
+      "source_label": "令和7年第2回定例会（2025年3月17日可決）"
+    },
+    {
+      "published_at": "2025-12-12T00:00:00+09:00",
+      "kind": "news",
+      "title": "令和7年12月定例会で着工遅延と計画見直しについて一般質問が行われた",
+      "summary": "解体完了後も着工に向けた動きが見えないことへの問いや、計画見直しの必要性について、議員から一般質問が提起されました。詳細は「議会での主な論点」セクションを参照してください。",
+      "content": null,
+      "status_label": null,
+      "source_url": "https://www.city.ishigaki.okinawa.jp/material/files/group/33/R7_dai7_ippanshitumon.pdf",
+      "source_label": "令和7年12月定例会 一般質問"
+    },
+    {
+      "published_at": "2025-12-12T10:00:00+09:00",
+      "kind": "question",
+      "title": "開発着工が遅れている理由は何か",
+      "summary": "石垣達也議員が一般質問で問いを提起。旧市役所の解体完了後も複合施設の着工に向けた具体的な動きが見えないことへの問いです。",
+      "content": "## 問いの趣旨\n\n- 解体完了後も着工が進まない具体的な理由\n- 今後の着工スケジュールの見通し\n- 市として事業者に何を確認・要請しているか",
+      "status_label": null,
+      "source_url": "https://www.city.ishigaki.okinawa.jp/material/files/group/33/R7_dai7_ippanshitumon.pdf",
+      "source_label": "令和7年12月定例会 一般質問・石垣達也議員"
+    },
+    {
+      "published_at": "2025-12-13T10:00:00+09:00",
+      "kind": "question",
+      "title": "計画の見直しが必要ではないか",
+      "summary": "計画策定から時間が経過し、社会情勢や市の財政状況が変化する中、事業計画の見直しの必要性について議会から問いかけがあります。",
+      "content": "## 問いの趣旨\n\n- 現在の計画の有効性の確認\n- 計画変更・見直しの検討状況\n- 市としての立場・方針",
+      "status_label": null,
+      "source_url": "https://www.city.ishigaki.okinawa.jp/material/files/group/33/R7_dai7_ippanshitumon.pdf",
+      "source_label": "令和7年12月定例会 一般質問"
+    },
+    {
+      "published_at": "2026-03-09T00:00:00+09:00",
+      "kind": "progress",
+      "title": "令和7年度補正予算で跡地利活用事業費が繰越明許費として計上・可決された",
+      "summary": "令和7年度一般会計補正予算（第12号）に「旧市役所庁舎等跡地利活用事業」として約1,045万円が繰越明許費として計上され可決。事業が年度内に完了せず、令和8年度への引き継ぎが確認されました。",
+      "content": null,
+      "status_label": null,
+      "source_url": "https://www.city.ishigaki.okinawa.jp/soshiki/gikai/teireikairinnjikai/teisyutugianntokekka/reiwa8nen2026nen/11780.html",
+      "source_label": "令和8年第3回定例会（2026年3月9日可決）"
+    },
+    {
+      "published_at": "2026-03-14T00:00:00+09:00",
+      "kind": "news",
+      "title": "令和8年第1回定例会で基本協定・SPC・事業者構成・着工時期について一般質問が集中した",
+      "summary": "令和8年3月の定例会において、基本協定の締結時期、SPCの組成状況、事業者構成の変更の有無、着工が始まらない理由など、複数の議員から一般質問が相次ぎました。詳細は「議会での主な論点」セクションを参照してください。",
+      "content": null,
+      "status_label": null,
+      "source_url": "https://www.city.ishigaki.okinawa.jp/soshiki/gikai/ippanshitumon/446.html",
+      "source_label": "令和8年3月定例会 一般質問"
+    },
+    {
+      "published_at": "2026-03-14T13:00:00+09:00",
+      "kind": "question",
+      "title": "基本協定の締結時期はいつになるのか",
+      "summary": "友寄永三議員が一般質問で問いを提起。優先交渉権者が選定されたにもかかわらず、基本協定の締結時期が示されていないことへの問いです。",
+      "content": "## 問いの趣旨\n\n- 優先交渉権者の選定後、基本協定締結の具体的な見通しはいつか\n- 締結が遅れている場合、その理由は何か",
+      "status_label": null,
+      "source_url": "https://www.city.ishigaki.okinawa.jp/soshiki/gikai/ippanshitumon/446.html",
+      "source_label": "令和8年3月定例会 一般質問・友寄永三議員"
+    },
+    {
+      "published_at": "2026-03-14T14:00:00+09:00",
+      "kind": "question",
+      "title": "特別目的会社（SPC）は組成されているのか",
+      "summary": "大道夏代議員が一般質問で問いを提起。事業主体となるSPCの組成状況と構成について、市に説明を求めました。",
+      "content": "## 問いの趣旨\n\n- SPCの設立・組成の事実確認\n- 出資構成や参加事業者の内訳",
+      "status_label": null,
+      "source_url": "https://www.city.ishigaki.okinawa.jp/soshiki/gikai/ippanshitumon/446.html",
+      "source_label": "令和8年3月定例会 一般質問・大道夏代議員"
+    },
+    {
+      "published_at": "2026-03-15T10:00:00+09:00",
+      "kind": "question",
+      "title": "事業者の構成に変更はあるのか",
+      "summary": "優先交渉権者の選定後、事業グループの構成に変更が生じていないかを確認する問いが出ています。",
+      "content": "## 問いの趣旨\n\n- 公表時点と現在の事業者構成の同一性\n- 変更があった場合の市への報告・公表の有無",
+      "status_label": null,
+      "source_url": "https://www.city.ishigaki.okinawa.jp/soshiki/gikai/ippanshitumon/446.html",
+      "source_label": "令和8年3月定例会 一般質問"
+    },
+    {
+      "published_at": "2026-04-01T00:00:00+09:00",
+      "kind": "council",
+      "title": "複数の定例会で市から進捗状況の説明が行われている",
+      "summary": "令和5年度以降、各定例会において担当部局から旧市役所跡地活用の進捗が報告されており、議会として継続的に確認が行われています。",
+      "content": "## 議会として確認されている事実\n\n- 市は旧市役所跡地の活用を引き続き推進する方針を維持\n- 優先交渉権者（YAEYAMA GATE）との協議・交渉が継続中であることが報告されている\n- 具体的な着工スケジュールは現時点で議会に示されていない",
+      "status_label": null,
+      "source_url": "https://www.city.ishigaki.okinawa.jp/soshiki/gikai/ippanshitumon/446.html",
+      "source_label": "一般質問（令和元年～）"
+    }
+  ],
+  "topic_bill_candidates": [
+    {
+      "bill_name": "議案第4号 令和5年度石垣市一般会計補正予算（第9号）",
+      "bill_number": "議案第4号",
+      "session_label": "令和6年第3回定例会",
+      "bill_type": "予算",
+      "related_level": "high",
+      "adoption_status": "adopt",
+      "reason_normal": "旧市役所庁舎等跡地利活用事業として約1,017万円が計上され、事業が具体化した最初の予算議案だからです。",
+      "reason_hard": "議案本文・関連資料で「旧市役所庁舎等跡地利活用事業」が明示され、SPC設立の遅れに伴う一部繰越も確認できるため、トピックの起点となる高関連議案です。",
+      "source_url": "https://www.city.ishigaki.okinawa.jp/soshiki/gikai/teireikairinnjikai/teisyutugianntokekka/reiwa6nen2024nen/9374.html",
+      "source_type": "公式議会資料",
+      "is_primary": false,
+      "display_order": 1,
+      "matching_confidence": 1,
+      "notes": "2024-03-04可決。令和5年度補正予算（第9号）。"
+    },
+    {
+      "bill_name": "議案第11号 令和6年度石垣市一般会計予算",
+      "bill_number": "議案第11号",
+      "session_label": "令和6年第3回定例会",
+      "bill_type": "予算",
+      "related_level": "high",
+      "adoption_status": "adopt",
+      "reason_normal": "旧市役所庁舎等跡地利活用事業として約1,284万円が継続計上されているため、このテーマの継続性が分かります。",
+      "reason_hard": "令和5年度補正予算で始まった跡地利活用事業が、令和6年度当初予算でも調査委託料として明示されており、単年度の一過性ではないことを示す高関連議案です。",
+      "source_url": "https://www.city.ishigaki.okinawa.jp/soshiki/gikai/teireikairinnjikai/teisyutugianntokekka/reiwa6nen2024nen/9374.html",
+      "source_type": "公式議会資料",
+      "is_primary": false,
+      "display_order": 2,
+      "matching_confidence": 1,
+      "notes": "2024-03-18可決。令和6年度当初予算。"
+    },
+    {
+      "bill_name": "議案第12号 令和7年度石垣市一般会計予算",
+      "bill_number": "議案第12号",
+      "session_label": "令和7年第2回定例会",
+      "bill_type": "予算",
+      "related_level": "high",
+      "adoption_status": "adopt",
+      "reason_normal": "跡地利活用事業の予算が次年度も計上されていて、検討と事業化が継続中だと分かるためです。",
+      "reason_hard": "「旧市役所庁舎等跡地利活用事業」として約1,144万円が明示され、前年度に続く3年目の予算計上としてテーマの継続追跡に不可欠な高関連議案です。",
+      "source_url": "https://www.city.ishigaki.okinawa.jp/soshiki/gikai/teireikairinnjikai/teisyutugianntokekka/reiwa7nen2025nen/10775.html",
+      "source_type": "公式議会資料",
+      "is_primary": false,
+      "display_order": 3,
+      "matching_confidence": 1,
+      "notes": "2025-03-17可決。令和7年度当初予算。"
+    },
+    {
+      "bill_name": "議案第5号 令和7年度石垣市一般会計補正予算（第12号）",
+      "bill_number": "議案第5号",
+      "session_label": "令和8年第3回定例会",
+      "bill_type": "予算",
+      "related_level": "high",
+      "adoption_status": "adopt",
+      "reason_normal": "旧市役所庁舎等跡地利活用事業の経費が繰越明許費として計上され、事業がまだ継続中だと確認できるからです。",
+      "reason_hard": "約1,045万円の繰越明許費として跡地利活用事業が明示されており、計画の遅延や年度またぎの継続状況を示す現時点で最も新しい高関連議案です。",
+      "source_url": "https://www.city.ishigaki.okinawa.jp/soshiki/gikai/teireikairinnjikai/teisyutugianntokekka/reiwa8nen2026nen/11780.html",
+      "source_type": "公式議会資料",
+      "is_primary": true,
+      "display_order": 4,
+      "matching_confidence": 1,
+      "notes": "2026-03-09可決。令和7年度補正予算（第12号）、繰越明許費。"
+    }
+  ]
+}
