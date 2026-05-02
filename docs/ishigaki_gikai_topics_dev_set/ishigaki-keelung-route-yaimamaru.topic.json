@@ -1,0 +1,147 @@
+{
+  "topic_slug": "ishigaki-keelung-route-yaimamaru",
+  "topic_title": "石垣－基隆航路とやいま丸",
+  "topic_title_kana": "いしがきーきーるんこうろとやいままる",
+  "topic_status": "active",
+  "topic_category": "交通・観光",
+  "source_policy": "石垣市議会の一般質問・議案・会議録、市の公表資料、公式サイト、港湾・CIQ関連の公式情報、報道保存資料を優先し、石垣－基隆航路計画、やいま丸、公費負担、港湾整備、有事利用が明示されるものだけを採用する。",
+  "description": "石垣市と台湾・基隆を結ぶ定期航路計画と就航船「やいま丸」をめぐり、石垣市は検討委員会設置、準備課新設、候補船選定、新法人支援、港湾・CIQ調整、損失補償を含む支援を進めてきました。一方で、就航時期、採算性、港湾利用、公費負担、有事・住民避難との関係などが議会や報道で継続的に論点化しています。",
+  "content": "## 概要\n\n石垣市と台湾・基隆港を結ぶ定期貨客船航路計画と、その就航船「やいま丸」をめぐる行政執行と議会論点を整理する Topic です。石垣市は検討委員会の設置、準備課の新設、候補船の選定、新法人「株式会社商船やいま」の支援、港湾・CIQ体制の調整を進めてきました。\n\n## 行政執行の流れ\n\n石垣市資料では、2023年6月の検討委員会立ち上げ、2023年12月の報告書提出と準備課設置、2024年5月の最終候補船記者発表、2024年8月の新法人発表、2024年9月の船舶購入補助交付決定、2024年11月の船舶購入契約締結が確認できます。2025年9月と12月の市議会会議録では、やいま丸の引渡し後、台湾ドックでの点検・検査、船籍・船級取得、CIQや荷役体制の調整、日本側許可手続の準備が続いていると説明されています。\n\n## 主な論点\n\n主な論点は、港湾・CIQ整備、就航時期の遅れ、公費負担と損失補償、採算性、運賃未公表の扱いです。2025年12月時点の会議録では、就航スケジュールは未確定で、運賃もまだ公表されていないと説明されています。同月には、商船やいま向け融資に係る損失補償の債務負担行為が議案として提出され、可決されたことが議案資料と報道で確認できます。\n\n## 議会で確認されている論点\n\n一般質問や会議録では、使用岸壁、CIQ体制、荷役事業者との調整、運営法人との関係、損失補償の条件、就航時期、運賃、有事や住民避難との関係が継続して問われています。有事利用については、2025年12月の会議録で、法の規制緩和等があれば本島避難に利用できる可能性があると説明されていますが、制度上の正式位置づけが確定したものとしては確認していません。",
+  "current_status": {
+    "label": "就航準備継続・就航時期未確定",
+    "note": "2025年9月および12月の石垣市議会会議録では、やいま丸は台湾ドックでの点検・検査、船籍・船級取得、CIQや荷役体制の調整、日本側許可手続の準備が続いていると説明されています。2025年12月時点でも就航スケジュールと運賃は未確定で、同月には商船やいま向け融資に係る損失補償の債務負担行為が可決されました。",
+    "updated_at": "2026-02-07T00:00:00+09:00"
+  },
+  "related_bills_summary_normal": "この Topic は一般質問・行政執行・報道ベースが中心ですが、2025年12月提出の議案第86号は、商船やいま向け融資に係る損失補償を含み、航路計画とやいま丸の公費負担論点に直接関係します。\n\nそのため、関連議案は単に賛否を見るためではなく、航路開設準備に対して市がどこまで信用補完を行ったかを確認する補助線として読むのが適切です。",
+  "related_bills_summary_hard": "議案第86号は、株式会社商船やいまに対する金融機関融資の損失補償を債務負担行為として計上したもので、航路開設準備の資金支援を具体的に示す議案として位置づけられます。会議録では、融資額4億9,500万円、年利3%、令和7年から令和13年まで、元金据置1年、債務負担行為5億4,716万2,000円との説明も確認できます。\n\nただし、この Topic 全体は単独議案追跡ではなく、検討委員会、準備課、港湾・CIQ調整、就航延期、有事利用までを含む広いテーマです。したがって、議案第86号は中心論点の一つではあるものの、Topic 全体を代表する唯一の軸とはせず、一般質問・会議録・市資料と併読するのが適切です。",
+  "topic_updates": [
+    {
+      "published_at": "2024-05-21T00:00:00+09:00",
+      "kind": "progress",
+      "title": "石垣市が最終候補船を記者発表",
+      "summary": "石垣市資料では、2024年5月に石垣－基隆定期航路の最終候補船を記者発表したと整理されています。",
+      "content": null,
+      "status_label": null,
+      "source_url": "https://www.city.ishigaki.okinawa.jp/material/files/group/59/shiryo0212.pdf",
+      "source_label": "石垣市資料「台湾基隆港との定期航路開設に向けて」"
+    },
+    {
+      "published_at": "2024-08-27T00:00:00+09:00",
+      "kind": "progress",
+      "title": "新法人「株式会社商船やいま」を記者発表",
+      "summary": "石垣市資料では、2024年8月に新法人「株式会社商船やいま」の発表があったと整理されています。",
+      "content": null,
+      "status_label": null,
+      "source_url": "https://www.city.ishigaki.okinawa.jp/material/files/group/59/shiryo0212.pdf",
+      "source_label": "石垣市資料「台湾基隆港との定期航路開設に向けて」"
+    },
+    {
+      "published_at": "2024-09-01T00:00:00+09:00",
+      "kind": "progress",
+      "title": "船舶購入補助の交付決定を確認",
+      "summary": "石垣市資料では、2024年9月に内閣府から船舶購入補助の交付決定があったと整理されています。",
+      "content": null,
+      "status_label": null,
+      "source_url": "https://www.city.ishigaki.okinawa.jp/material/files/group/59/shiryo0212.pdf",
+      "source_label": "石垣市資料「台湾基隆港との定期航路開設に向けて」"
+    },
+    {
+      "published_at": "2024-11-24T00:00:00+09:00",
+      "kind": "decision",
+      "title": "商船やいまとパンスター社の船舶購入契約締結を確認",
+      "summary": "石垣市資料では、2024年11月にパンスター社と商船やいまで船舶購入契約が締結されたと整理されています。",
+      "content": null,
+      "status_label": null,
+      "source_url": "https://www.city.ishigaki.okinawa.jp/material/files/group/59/shiryo0212.pdf",
+      "source_label": "石垣市資料「台湾基隆港との定期航路開設に向けて」"
+    },
+    {
+      "published_at": "2025-06-15T00:00:00+09:00",
+      "kind": "news",
+      "title": "クルーズ岸壁使用とCIQ運用開始時期の見通しが報じられる",
+      "summary": "八重山毎日新聞は、石垣－基隆定期フェリーが2026年2月以降にクルーズ岸壁を使用し、CIQ運用開始に合わせる方針だと報じました。",
+      "content": null,
+      "status_label": null,
+      "source_url": "https://www.y-mainichi.co.jp/news/41638/",
+      "source_label": "八重山毎日新聞"
+    },
+    {
+      "published_at": "2025-09-01T00:00:00+09:00",
+      "kind": "council",
+      "title": "市議会で台湾ドック検査やCIQ調整の進捗が説明される",
+      "summary": "2025年9月定例会の会議録では、やいま丸の引渡し後、台湾ドックでの点検・検査、船籍・船級取得、CIQ体制構築、荷役・代理店契約調整が続いていると説明されています。",
+      "content": null,
+      "status_label": null,
+      "source_url": "https://ssp.kaigiroku.net/tenant/ishigaki/SpMinuteView.html?council_id=249&schedule_id=4&minute_id=18&is_search=true",
+      "source_label": "石垣市議会会議録"
+    },
+    {
+      "published_at": "2025-12-01T00:00:00+09:00",
+      "kind": "decision",
+      "title": "議案第86号で損失補償の債務負担行為を提案",
+      "summary": "議案第86号では、金融機関が株式会社商船やいまに行う設備資金等の融資に係る損失補償が債務負担行為として計上されています。",
+      "content": null,
+      "status_label": null,
+      "source_url": "https://www.city.ishigaki.okinawa.jp/soshiki/gikai/teireikairinnjikai/teisyutugianntokekka/reiwa7nen2025nen/11624.html",
+      "source_label": "令和7年第7回定例会 提出議案とその結果"
+    },
+    {
+      "published_at": "2025-12-08T00:00:00+09:00",
+      "kind": "council",
+      "title": "市議会で就航時期未確定、運賃未公表、損失補償条件が説明される",
+      "summary": "2025年12月定例会の会議録では、就航スケジュールは未確定で、運賃はまだ公表されていないこと、さらに損失補償の融資条件が説明されています。",
+      "content": null,
+      "status_label": null,
+      "source_url": "https://ssp.kaigiroku.net/tenant/ishigaki/SpMinuteView.html?council_id=252&schedule_id=4&minute_id=6&is_search=true",
+      "source_label": "石垣市議会会議録"
+    },
+    {
+      "published_at": "2025-12-07T00:00:00+09:00",
+      "kind": "news",
+      "title": "石垣市が損失補償方針を示したと報じられる",
+      "summary": "八重山毎日新聞は、石垣市が商船やいまの借入に対し5億4716万円の損失補償方針を取ると報じました。",
+      "content": null,
+      "status_label": null,
+      "source_url": "https://www.y-mainichi.co.jp/news/42096/",
+      "source_label": "八重山毎日新聞"
+    },
+    {
+      "published_at": "2025-12-16T00:00:00+09:00",
+      "kind": "decision",
+      "title": "損失補償を含む補正予算が可決と報じられる",
+      "summary": "八重山毎日新聞は、損失補償を含む一般会計補正予算が賛成多数で可決されたと報じました。",
+      "content": null,
+      "status_label": null,
+      "source_url": "https://www.y-mainichi.co.jp/news/42116/",
+      "source_label": "八重山毎日新聞"
+    },
+    {
+      "published_at": "2026-02-07T00:00:00+09:00",
+      "kind": "news",
+      "title": "やいま丸が住民避難候補船として扱われたと報じられる",
+      "summary": "八重山毎日新聞は、国民保護共同図上訓練で、やいま丸が住民避難候補船の一つとして扱われたと報じました。",
+      "content": null,
+      "status_label": null,
+      "source_url": "https://www.y-mainichi.co.jp/news/42245/",
+      "source_label": "八重山毎日新聞"
+    }
+  ],
+  "topic_bill_candidates": [
+    {
+      "bill_name": "議案第86号 令和７年度石垣市一般会計補正予算（第７号）",
+      "bill_number": "議案第86号",
+      "session_label": "令和7年第7回定例会",
+      "bill_type": "予算",
+      "related_level": "high",
+      "adoption_status": "hold",
+      "reason_normal": "商船やいま向け融資に係る損失補償が債務負担行為として計上されており、航路計画とやいま丸の公費負担論点に直接関係するためです。",
+      "reason_hard": "議案本文で、金融機関が株式会社商船やいまに行う設備資金等の融資に係る損失補償が明示されており、2025年12月の会議録でも融資額や返済期間等の説明が確認できます。ただし、この Topic 全体は単独議案追跡ではなく、議案を補助線として扱うのが適切なため、現時点では hold とします。",
+      "source_url": "https://www.city.ishigaki.okinawa.jp/soshiki/gikai/teireikairinnjikai/teisyutugianntokekka/reiwa7nen2025nen/11624.html",
+      "source_type": "公式議案PDF",
+      "is_primary": true,
+      "display_order": 1,
+      "matching_confidence": 1,
+      "notes": "bill_name は公式議案PDFに基づく。Phase 2 で import 前に DB 側 bills.name との完全一致を再確認する。"
+    }
+  ]
+}
