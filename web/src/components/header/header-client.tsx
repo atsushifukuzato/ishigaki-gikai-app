@@ -1,5 +1,6 @@
 "use client";
 
+import type { Route } from "next";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { DifficultySelector } from "@/features/bill-difficulty/client/components/difficulty-selector";
@@ -43,6 +44,12 @@ export function HeaderClient({ difficultyLevel }: HeaderClientProps) {
               className="hidden text-sm font-bold text-black transition-colors hover:text-black md:inline-flex"
             >
               議員名簿
+            </Link>
+            <Link
+              href={routes.topics() as Route}
+              className="hidden text-sm font-bold text-black transition-colors hover:text-black md:inline-flex"
+            >
+              Topics
             </Link>
             {showDifficultySelector && (
               <DifficultySelector currentLevel={difficultyLevel} />

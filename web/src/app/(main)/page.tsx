@@ -1,6 +1,6 @@
 import { Container } from "@/components/layouts/container";
-import { AFTTT } from "@/components/top/afttt";
 import { About } from "@/components/top/about";
+import { AFTTT } from "@/components/top/afttt";
 import { ComingSoonSection } from "@/components/top/coming-soon-section";
 import { Hero } from "@/components/top/hero";
 import { TeamMirai } from "@/components/top/team-mirai";
@@ -15,6 +15,8 @@ import { getBillDisplayTitle } from "@/features/bills/shared/utils/bill-title";
 import { HomeChatClient } from "@/features/chat/client/components/home-chat-client";
 import { CurrentDietSession } from "@/features/diet-sessions/client/components/current-diet-session";
 import { getCurrentDietSession } from "@/features/diet-sessions/server/loaders/get-current-diet-session";
+import { TopicsSection } from "@/features/topics/server/components/topics-section";
+import { getTopics } from "@/features/topics/server/loaders/get-topics";
 import { getJapanTime } from "@/lib/utils/date";
 
 export const dynamic = "force-dynamic";
@@ -28,6 +30,7 @@ export default async function Home() {
     getCurrentDietSession(getJapanTime()),
     getDifficultyLevel(),
   ]);
+  const topics = await getTopics();
 
   const toBillChatContext = (bill: BillWithContent) => {
     return {
@@ -60,6 +63,14 @@ export default async function Home() {
           </main>
         </div>
       </Container>
+
+      {topics.length > 0 && (
+        <div className="bg-[#f5f4ef] py-10">
+          <Container>
+            <TopicsSection topics={topics} />
+          </Container>
+        </div>
+      )}
 
       {/* 前回の議会セクション（Archive） */}
       {previousSessionData && (

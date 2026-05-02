@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useRef, useState } from "react";
 import { toast } from "sonner";
 import { Card, CardContent } from "@/components/ui/card";
+import { AI_MODELS } from "@/lib/ai/models";
 import { routes } from "@/lib/routes";
 import { saveInterviewQuestions } from "../../server/actions/save-interview-questions";
 import {
@@ -23,12 +24,14 @@ interface InterviewConfigEditClientProps {
   billId: string;
   config: InterviewConfig | null;
   questions: InterviewQuestion[];
+  aiConfigured: boolean;
 }
 
 export function InterviewConfigEditClient({
   billId,
   config: initialConfig,
   questions,
+  aiConfigured,
 }: InterviewConfigEditClientProps) {
   const router = useRouter();
   const [configId, setConfigId] = useState<string | undefined>(
@@ -73,7 +76,7 @@ export function InterviewConfigEditClient({
           mode: (formValues?.mode as "loop" | "bulk") || "loop",
           themes,
           knowledge_source: formValues?.knowledge_source || "",
-          chat_model: formValues?.chat_model || null,
+          chat_model: formValues?.chat_model || AI_MODELS.gpt4o_mini,
           estimated_duration: formValues?.estimated_duration ?? null,
         });
         if (result.success) {
@@ -140,6 +143,15 @@ export function InterviewConfigEditClient({
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       {/* 左カラム: フォーム */}
       <div className="space-y-6">
+        {!aiConfigured && (
+          <Card className="border-amber-300 bg-amber-50">
+            <CardContent className="py-4 text-sm text-amber-900">
+              AI生成はまだ利用できません。`OPENAI_API_KEY` または
+              `AI_GATEWAY_API_KEY`
+              を設定すると、テーマ生成・質問生成・各種評価を使えます。設定前でも手入力でインタビュー設定を作成・公開できます。
+            </CardContent>
+          </Card>
+        )}
         <InterviewConfigForm
           billId={billId}
           config={initialConfig}
@@ -165,6 +177,7 @@ export function InterviewConfigEditClient({
       {/* 右カラム: AIチャット */}
       <div>
         <ConfigGenerationChat
+          aiConfigured={aiConfigured}
           billId={billId}
           configId={configId}
           existingThemes={initialConfig?.themes ?? undefined}

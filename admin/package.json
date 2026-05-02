@@ -3,14 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack --port 3001",
-    "build": "next build --turbopack",
-    "start": "next start",
+    "dev": "dotenv -e ../.env -- next dev --turbopack --port 3001",
+    "build": "dotenv -e ../.env -- next build --turbopack",
+    "start": "dotenv -e ../.env -- next start",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest"
   },
   "dependencies": {
+    "@ai-sdk/openai": "^3.0.1",
     "@ai-sdk/react": "^3.0.3",
     "@hookform/resolvers": "^5.2.1",
     "@mirai-gikai/shared": "workspace:*",

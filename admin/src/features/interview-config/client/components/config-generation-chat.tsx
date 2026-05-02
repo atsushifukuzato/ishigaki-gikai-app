@@ -10,6 +10,7 @@ import type { InterviewQuestionInput } from "../../shared/types";
 import { useConfigGenerationChat } from "../hooks/use-config-generation-chat";
 
 interface ConfigGenerationChatProps {
+  aiConfigured: boolean;
   billId: string;
   configId?: string;
   existingThemes?: string[];
@@ -20,6 +21,7 @@ interface ConfigGenerationChatProps {
 }
 
 export function ConfigGenerationChat({
+  aiConfigured,
   billId,
   configId,
   existingThemes,
@@ -58,11 +60,11 @@ export function ConfigGenerationChat({
 
   // マウント時にAI生成を自動実行
   useEffect(() => {
-    if (!hasStartedRef.current) {
+    if (!hasStartedRef.current && aiConfigured) {
       hasStartedRef.current = true;
       startGeneration();
     }
-  }, [startGeneration]);
+  }, [aiConfigured, startGeneration]);
 
   // 新しいメッセージでチャットコンテナ内のみ自動スクロール
   // biome-ignore lint/correctness/useExhaustiveDependencies: messagesとobjectの変化でスクロールをトリガーする
@@ -88,6 +90,11 @@ export function ConfigGenerationChat({
         <p className="text-sm text-muted-foreground">
           議案内容に基づいてテーマと質問を提案します
         </p>
+        {!aiConfigured && (
+          <div className="rounded-md border border-amber-300 bg-amber-50 px-3 py-2 text-sm text-amber-900">
+            AIキーが未設定のため、この環境では自動生成を利用できません。フォームから手入力で設定してください。
+          </div>
+        )}
         {/* ステージ表示（クリックで切替可能） */}
         <div className="flex gap-2 pt-1">
           <StageBadge
@@ -204,7 +211,7 @@ export function ConfigGenerationChat({
       )}
 
       {/* テキスト入力 */}
-      {stage !== "question_confirmed" && (
+      {stage !== "question_confirmed" && aiConfigured && (
         <form
           onSubmit={handleFormSubmit}
           className="px-6 pb-4 pt-2 border-t flex gap-2"

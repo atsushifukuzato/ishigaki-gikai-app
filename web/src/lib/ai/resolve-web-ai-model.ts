@@ -1,9 +1,10 @@
 import "server-only";
 
-import { openai } from "@ai-sdk/openai";
+import { createOpenAI } from "@ai-sdk/openai";
 import type { LanguageModel } from "ai";
 
 const FALLBACK_MODEL_ID = "gpt-4o-mini";
+const DEFAULT_AI_GATEWAY_BASE_URL = "https://ai-gateway.vercel.sh/v1/ai";
 
 function normalizeOpenAiModelId(modelId: string): string {
   if (modelId.startsWith("openai/")) {
@@ -21,6 +22,26 @@ function normalizeOpenAiModelId(modelId: string): string {
   return FALLBACK_MODEL_ID;
 }
 
+function getOpenAiProvider() {
+  const openAiApiKey = process.env.OPENAI_API_KEY;
+  if (openAiApiKey) {
+    return createOpenAI({ apiKey: openAiApiKey });
+  }
+
+  const gatewayApiKey = process.env.AI_GATEWAY_API_KEY;
+  if (gatewayApiKey) {
+    return createOpenAI({
+      apiKey: gatewayApiKey,
+      baseURL: process.env.AI_GATEWAY_BASE_URL || DEFAULT_AI_GATEWAY_BASE_URL,
+      name: "vercel-ai-gateway",
+    });
+  }
+
+  throw new Error(
+    "AI model could not be initialized. Set OPENAI_API_KEY or AI_GATEWAY_API_KEY."
+  );
+}
+
 export function resolveWebAiModel(
   model: LanguageModel | string
 ): LanguageModel {
@@ -28,5 +49,5 @@ export function resolveWebAiModel(
     return model;
   }
 
-  return openai(normalizeOpenAiModelId(model));
+  return getOpenAiProvider()(normalizeOpenAiModelId(model));
 }

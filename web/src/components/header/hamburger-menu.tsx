@@ -1,6 +1,7 @@
 "use client";
 
 import { Menu } from "lucide-react";
+import type { Route } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
@@ -31,6 +32,12 @@ export function HamburgerMenu() {
             className="text-sm font-bold text-slate-700 transition-colors hover:text-black"
           >
             議員名簿
+          </Link>
+          <Link
+            href={routes.topics() as Route}
+            className="text-sm font-bold text-slate-700 transition-colors hover:text-black"
+          >
+            Topics
           </Link>
           <RubyToggle />
         </div>

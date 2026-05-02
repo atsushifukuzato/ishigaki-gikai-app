@@ -29,6 +29,7 @@ interface ChatWindowProps {
   billContext?: BillWithContent;
   hasInterviewConfig?: boolean;
   difficultyLevel: string;
+  desktopBehavior?: "persistent" | "modal";
   chatState: ReturnType<typeof import("@ai-sdk/react").useChat>;
   isOpen: boolean;
   onClose: () => void;
@@ -156,6 +157,7 @@ export function ChatWindow({
   billContext,
   hasInterviewConfig,
   difficultyLevel,
+  desktopBehavior = "persistent",
   chatState,
   isOpen,
   onClose,
@@ -169,6 +171,9 @@ export function ChatWindow({
   const isDesktop = useIsDesktop();
   const viewportHeight = useViewportHeight();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const isPersistentDesktop = isDesktop && desktopBehavior === "persistent";
+  const shouldShowWindow = isOpen || isPersistentDesktop;
+  const shouldShowOverlay = isOpen && !isPersistentDesktop;
 
   const isResponding = status === "streaming" || status === "submitted";
 
@@ -220,10 +225,10 @@ export function ChatWindow({
   const chatContent = (
     <>
       {/* オーバーレイ（1400px未満でのみ表示） */}
-      {isOpen && (
+      {shouldShowOverlay && (
         <button
           type="button"
-          className="fixed inset-0 z-40 bg-black/50 transition-opacity cursor-default pc:hidden"
+          className="fixed inset-0 z-40 cursor-default bg-black/50 transition-opacity"
           onClick={onClose}
           aria-label="モーダルを閉じる"
         />
@@ -235,10 +240,10 @@ export function ChatWindow({
         className={`fixed inset-x-0 bottom-0 z-50
           bg-white shadow-md rounded-t-2xl flex flex-col
           md:bottom-4 md:right-4 md:left-auto md:w-[450px] md:rounded-2xl
-					pc:visible pc:opacity-100 h-[80vh] pc:h-[70vh]
+						pc:visible pc:opacity-100 h-[80vh] pc:h-[70vh]
           xl:right-[calc(calc(100%-1180px)/2)]
-					${isOpen ? "visible opacity-100" : "invisible opacity-0 pc:visible pc:opacity-100"}
-				`}
+						${shouldShowWindow ? "visible opacity-100" : "invisible opacity-0"}
+					`}
         style={
           viewportHeight && !isDesktop
             ? { maxHeight: `${viewportHeight}px` }
@@ -247,7 +252,7 @@ export function ChatWindow({
       >
         <button
           type="button"
-          className="pc:hidden self-end p-2 m-2 hover:bg-gray-100 rounded-full"
+          className={`${isPersistentDesktop ? "pc:hidden" : ""} self-end m-2 rounded-full p-2 hover:bg-gray-100`}
           onClick={onClose}
           aria-label="モーダルを閉じる"
         >

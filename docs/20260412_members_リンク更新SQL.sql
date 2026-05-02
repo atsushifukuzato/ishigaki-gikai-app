@@ -318,7 +318,7 @@ values
 
   ('dfd899e1-26bf-4d16-b353-28a96a067a7b', 'x', '個人X', 'https://x.com/taira1970', 10),
   ('dfd899e1-26bf-4d16-b353-28a96a067a7b', 'instagram', '個人Instagram', 'https://www.instagram.com/tairanet/', 20),
-  ('dfd899e1-26bf-4d16-b353-28a96a067a7b', 'threads', '個人Threads', 'https://www.threads.com/@tairanet?', 30),
+  ('dfd899e1-26bf-4d16-b353-28a96a067a7b', 'threads', '個人Threads', 'https://www.threads.com/@tairanet', 30),
   ('dfd899e1-26bf-4d16-b353-28a96a067a7b', 'website', '公式サイト', 'https://www.komei.or.jp/km/ishigaki-taira-hideyuki/', 40),
 
   ('dec9dc59-70e9-4372-96bd-9b26150d0646', 'x', '個人X', 'https://x.com/nakamahitoshi', 10),

@@ -1,5 +1,7 @@
 import "server-only";
 
+import type { BillWithDietSession } from "@/features/bills/shared/types";
+import { getBills } from "@/features/bills/server/loaders/get-bills";
 import {
   findAllInterviewConfigs,
   type InterviewConfigWithBill,
@@ -26,5 +28,32 @@ export async function getAllSessionCounts(): Promise<Record<
   } catch (error) {
     console.error("Failed to fetch session counts:", error);
     return null;
+  }
+}
+
+export function filterBillsWithoutInterviewConfigs(
+  bills: BillWithDietSession[],
+  configs: InterviewConfigWithBill[]
+): BillWithDietSession[] {
+  const configuredBillIds = new Set(configs.map((config) => config.bill_id));
+
+  return bills.filter(
+    (bill) => bill.document_type === "bill" && !configuredBillIds.has(bill.id)
+  );
+}
+
+export async function getBillsWithoutInterviewConfigs(): Promise<
+  BillWithDietSession[]
+> {
+  try {
+    const [bills, configs] = await Promise.all([
+      getBills(),
+      findAllInterviewConfigs(),
+    ]);
+
+    return filterBillsWithoutInterviewConfigs(bills, configs);
+  } catch (error) {
+    console.error("Failed to fetch bills without interview configs:", error);
+    return [];
   }
 }

@@ -4,7 +4,9 @@ import { AllInterviewConfigList } from "@/features/interviews/server/components/
 import {
   getAllInterviewConfigs,
   getAllSessionCounts,
+  getBillsWithoutInterviewConfigs,
 } from "@/features/interviews/server/loaders/get-all-interview-configs";
+import { MissingInterviewBillList } from "@/features/interviews/server/components/missing-interview-bill-list";
 import { routes } from "@/lib/routes";
 
 export default async function InterviewsPage() {
@@ -14,16 +16,23 @@ export default async function InterviewsPage() {
     redirect(routes.login());
   }
 
-  const [configs, sessionCounts] = await Promise.all([
+  const [configs, sessionCounts, billsWithoutConfigs] = await Promise.all([
     getAllInterviewConfigs(),
     getAllSessionCounts(),
+    getBillsWithoutInterviewConfigs(),
   ]);
 
   return (
     <div className="container mx-auto py-8">
       <h1 className="text-2xl font-bold mb-8">インタビュー管理</h1>
 
+      <section className="rounded-lg border bg-white p-6 mb-6">
+        <h2 className="mb-4 text-lg font-semibold">未設定の議案</h2>
+        <MissingInterviewBillList bills={billsWithoutConfigs} />
+      </section>
+
       <section className="rounded-lg border bg-white p-6">
+        <h2 className="mb-4 text-lg font-semibold">既存のインタビュー設定</h2>
         <AllInterviewConfigList
           configs={configs}
           sessionCounts={sessionCounts}

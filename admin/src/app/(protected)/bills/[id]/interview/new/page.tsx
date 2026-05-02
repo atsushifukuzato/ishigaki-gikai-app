@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { getBillById } from "@/features/bills-edit/server/loaders/get-bill-by-id";
+import { hasAiProviderCredentials } from "@/lib/ai/ai-provider-status";
 import { routes } from "@/lib/routes";
 import { InterviewConfigEditClient } from "@/features/interview-config/client/components/interview-config-edit-client";
 
@@ -22,6 +23,8 @@ export default async function InterviewNewPage({
   if (!bill) {
     notFound();
   }
+
+  const aiConfigured = hasAiProviderCredentials();
 
   return (
     <div>
@@ -48,6 +51,7 @@ export default async function InterviewNewPage({
         billId={bill.id}
         config={null}
         questions={[]}
+        aiConfigured={aiConfigured}
       />
     </div>
   );

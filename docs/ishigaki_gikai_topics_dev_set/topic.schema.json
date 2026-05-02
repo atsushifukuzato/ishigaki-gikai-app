@@ -1,0 +1,293 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://afttt.jp/schemas/ishigaki-gikai-topic.schema.json",
+  "title": "Ishigaki Gikai Topic",
+  "description": "Topics data schema for みらい議会 石垣市議会版",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "topic_slug",
+    "topic_title",
+    "topic_title_kana",
+    "topic_status",
+    "description",
+    "content",
+    "current_status",
+    "topic_updates",
+    "related_bills_summary_normal",
+    "related_bills_summary_hard",
+    "topic_bill_candidates"
+  ],
+  "properties": {
+    "topic_slug": {
+      "type": "string",
+      "description": "Stable slug used by app and DB",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "topic_title": {
+      "type": "string",
+      "description": "Japanese topic title"
+    },
+    "topic_title_kana": {
+      "type": "string",
+      "description": "Optional kana-style reading or normalized title"
+    },
+    "topic_status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "archived"
+      ]
+    },
+    "topic_category": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Optional category such as 再開発, 教育, 観光"
+    },
+    "source_policy": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Editorial memo about source priority"
+    },
+    "description": {
+      "type": "string",
+      "description": "Topic description shown near the page title",
+      "minLength": 1
+    },
+    "content": {
+      "type": "string",
+      "description": "Markdown body stored in topics.content"
+    },
+    "current_status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "note",
+        "updated_at"
+      ],
+      "properties": {
+        "label": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "note": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "updated_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time",
+          "pattern": "^(?:[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?\\+09:00)?$"
+        }
+      }
+    },
+    "related_bills_summary_normal": {
+      "type": "string",
+      "description": "Short and accessible summary for future normal mode",
+      "minLength": 1
+    },
+    "related_bills_summary_hard": {
+      "type": "string",
+      "description": "Detailed summary for future hard mode",
+      "minLength": 1
+    },
+    "topic_updates": {
+      "type": "array",
+      "description": "Timeline / updates reflected into topic_updates table",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "published_at",
+          "kind",
+          "title",
+          "summary"
+        ],
+        "properties": {
+          "published_at": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?\\+09:00$"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "news",
+              "council",
+              "progress",
+              "decision",
+              "question"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "summary": {
+            "type": "string",
+            "minLength": 1
+          },
+          "content": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "status_label": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "source_url": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri"
+          },
+          "source_label": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "topic_bill_candidates": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "bill_name",
+          "related_level",
+          "adoption_status",
+          "reason_normal",
+          "reason_hard",
+          "source_url"
+        ],
+        "properties": {
+          "bill_name": {
+            "type": "string",
+            "description": "Bill title for matching existing bills table"
+          },
+          "bill_number": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "議案番号 if available"
+          },
+          "session_label": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "会期 label such as 令和7年 第2回定例会"
+          },
+          "bill_type": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "予算",
+              "契約",
+              "条例",
+              "請願",
+              "陳情",
+              "意見書",
+              "その他",
+              null
+            ]
+          },
+          "related_level": {
+            "type": "string",
+            "enum": [
+              "high",
+              "medium",
+              "low"
+            ]
+          },
+          "adoption_status": {
+            "type": "string",
+            "enum": [
+              "adopt",
+              "hold",
+              "skip"
+            ],
+            "description": "Whether to link now, keep for review, or skip"
+          },
+          "reason_normal": {
+            "type": "string"
+          },
+          "reason_hard": {
+            "type": "string"
+          },
+          "source_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "source_type": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "公式議会資料",
+              "市資料",
+              "報道",
+              "その他",
+              null
+            ]
+          },
+          "is_primary": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "Primary bill for future display logic"
+          },
+          "display_order": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1,
+            "description": "Suggested display order in JSON/import layer"
+          },
+          "matching_confidence": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Optional app-side bill matching confidence"
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

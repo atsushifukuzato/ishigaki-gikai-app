@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
-    "start": "next start",
+    "dev": "dotenv -e ../.env -- next dev --turbopack",
+    "build": "dotenv -e ../.env -- next build --turbopack",
+    "start": "dotenv -e ../.env -- next start",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",

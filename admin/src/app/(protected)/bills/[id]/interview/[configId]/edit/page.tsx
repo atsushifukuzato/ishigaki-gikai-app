@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 
 import { getBillById } from "@/features/bills-edit/server/loaders/get-bill-by-id";
 import { routes } from "@/lib/routes";
+import { hasAiProviderCredentials } from "@/lib/ai/ai-provider-status";
 import { InterviewConfigEditClient } from "@/features/interview-config/client/components/interview-config-edit-client";
 import { getInterviewConfigById } from "@/features/interview-config/server/loaders/get-interview-config";
 import { getInterviewQuestions } from "@/features/interview-config/server/loaders/get-interview-questions";
@@ -30,6 +31,7 @@ export default async function InterviewEditPage({
   }
 
   const questions = await getInterviewQuestions(config.id);
+  const aiConfigured = hasAiProviderCredentials();
 
   return (
     <div>
@@ -57,6 +59,7 @@ export default async function InterviewEditPage({
         billId={bill.id}
         config={config}
         questions={questions}
+        aiConfigured={aiConfigured}
       />
     </div>
   );

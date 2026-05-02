@@ -2,6 +2,7 @@ import "server-only";
 
 import { generateObject } from "ai";
 import { DEFAULT_INTERVIEW_CHAT_MODEL } from "@/lib/ai/models";
+import { resolveAdminAiModel } from "@/lib/ai/resolve-admin-ai-model";
 import { contentRichnessResultSchema } from "@mirai-gikai/shared/content-richness/schemas";
 import { buildContentRichnessPrompt } from "@mirai-gikai/shared/content-richness/build-prompt";
 import { parseOpinions } from "../../shared/utils/parse-opinions";
@@ -35,7 +36,7 @@ export async function runSingleContentRichnessScoring(
   });
 
   const { object } = await generateObject({
-    model: DEFAULT_INTERVIEW_CHAT_MODEL,
+    model: resolveAdminAiModel(DEFAULT_INTERVIEW_CHAT_MODEL),
     schema: contentRichnessResultSchema,
     prompt,
   });

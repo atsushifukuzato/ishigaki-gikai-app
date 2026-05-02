@@ -96,7 +96,7 @@ export async function handleChatRequest({
     promptProvider
   );
   // Model configuration
-  const selectedModel = deps?.model ?? AI_MODELS.gpt4o;
+  const selectedModel = deps?.model ?? AI_MODELS.gpt4o_mini;
   const model = resolveWebAiModel(selectedModel);
   const modelName =
     typeof selectedModel === "string"

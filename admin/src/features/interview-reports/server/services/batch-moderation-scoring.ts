@@ -2,6 +2,7 @@ import "server-only";
 
 import { generateObject } from "ai";
 import { DEFAULT_INTERVIEW_CHAT_MODEL } from "@/lib/ai/models";
+import { resolveAdminAiModel } from "@/lib/ai/resolve-admin-ai-model";
 import { moderationResultSchema } from "@mirai-gikai/shared/moderation/schemas";
 import { buildModerationPrompt } from "@mirai-gikai/shared/moderation/build-prompt";
 import { parseOpinions } from "../../shared/utils/parse-opinions";
@@ -46,7 +47,7 @@ export async function runSingleModerationScoring(
   });
 
   const { object } = await generateObject({
-    model: DEFAULT_INTERVIEW_CHAT_MODEL,
+    model: resolveAdminAiModel(DEFAULT_INTERVIEW_CHAT_MODEL),
     schema: moderationResultSchema,
     prompt,
   });

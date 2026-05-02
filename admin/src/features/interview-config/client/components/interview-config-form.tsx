@@ -49,6 +49,7 @@ import {
   DEFAULT_MODEL_LABEL,
 } from "../../shared/utils/chat-model-options";
 import { generateDefaultConfigName } from "../../shared/utils/default-config-name";
+import { AI_MODELS } from "@/lib/ai/models";
 
 interface InterviewConfigFormProps {
   billId: string;
@@ -89,7 +90,7 @@ export function InterviewConfigForm({
       mode: config?.mode || "loop",
       themes: config?.themes || [],
       knowledge_source: config?.knowledge_source || "",
-      chat_model: config?.chat_model || null,
+      chat_model: config?.chat_model || AI_MODELS.gpt4o_mini,
       estimated_duration: isNew ? 10 : (config?.estimated_duration ?? null),
     },
   });
